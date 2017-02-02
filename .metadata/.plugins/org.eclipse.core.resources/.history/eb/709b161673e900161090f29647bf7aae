@@ -1,9 +1,0 @@
-import java.util.List;
-
-public class MessageGenerator {
-	private List<Mode> modes = new List<Mode>;
-}
-
-class Mode{
-	
-}

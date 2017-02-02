@@ -1,9 +1,0 @@
-import java.util.LinkedList;
-
-public class MessageGenerator {
-	private LinkedList<Mode> modes = new List<Mode>;
-}
-
-class Mode{
-	
-}
