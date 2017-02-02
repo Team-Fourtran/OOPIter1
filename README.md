@@ -1,4 +1,4 @@
-#aObject-Oriented Programming Term Project - Iteration 1#
+#Object-Oriented Programming Term Project - Iteration 1#
 
 ##A Turn-Based Strategy Game ##
 
@@ -10,7 +10,7 @@
 ####Taehyun Kim####
 ####Clayton Schnars####
 
-##License##:
+##License:
 ### GNU GENERAL PUBLIC LICENSE
 
 Version 3, 29 June 2007
