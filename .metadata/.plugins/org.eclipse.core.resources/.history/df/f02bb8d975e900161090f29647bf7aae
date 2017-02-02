@@ -1,0 +1,8 @@
+
+public class Controller {
+	MessageGenerator msgGen;
+	
+	public Controller(){
+		
+	}
+}

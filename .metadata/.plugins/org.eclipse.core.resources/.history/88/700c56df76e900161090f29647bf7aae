@@ -1,0 +1,75 @@
+import java.util.ArrayList;
+import java.util.ListIterator;
+
+public class MessageGenerator {
+	private ArrayList<Mode> modes = new ArrayList<Mode>();
+	private ListIterator<Mode> modeIterator;
+	
+	private Mode currentMode;
+	private Controller receiver; 
+	
+	public MessageGenerator(Controller receiver){
+		initializeModes();
+		this.receiver = receiver;
+	}
+	
+	private void initializeModes(){
+		//Fill this.modes with the 4 modes
+		this.modes.add((Mode) new UnitMode());
+		this.modes.add((Mode) new StructureMode());
+		this.modes.add((Mode) new RallyPointMode());
+		this.modes.add((Mode) new ArmyMode());
+		
+		this.modeIterator = this.modes.listIterator(0);
+	}
+	
+	private void nextMode(){
+		this.currentMode = this.modes.get(modes.indexOf(this.currentMode) + 1);
+	}
+	
+	private void previousMode(){
+		this.currentMode = this.modes.get(modes.indexOf(this.currentMode) - 1);
+	}
+}
+
+interface Mode{
+	void generateMessage();
+	
+	void leftKey();
+	void rightKey();
+	void upKey();
+	void downKey();
+	
+	void controlLeft();
+	void controlRight();
+}
+
+class UnitMode implements Mode{
+	
+}
+
+class StructureMode implements Mode{
+	
+}
+
+class RallyPointMode implements Mode{
+	
+}
+
+class ArmyMode implements Mode{
+	private LinkedList<Mode> subModes = new LinkedList<Mode>();
+	private Mode currentSubMode;
+	
+}
+
+class EntireArmyMode implements Mode{
+
+}
+
+class BattleGroupMode implements Mode{
+	
+}
+
+class ReinforcementMode implements Mode{
+	
+}
