@@ -1,0 +1,43 @@
+import java.util.LinkedList;
+
+public class MessageGenerator {
+	private LinkedList<Mode> modes = new LinkedList<Mode>();
+	private Mode currentMode;
+	
+	
+	private void initializeModes(){
+		modes.add(new UnitMode());
+	}
+}
+
+interface Mode{
+	
+}
+
+class UnitMode{
+	
+}
+
+class StructureMode{
+	
+}
+
+class RallyPointMode{
+	
+}
+
+abstract class ArmyMode{
+	
+}
+
+class EntireArmyMode extends ArmyMode{
+	
+}
+
+class BattleGroupMode extends ArmyMode{
+	
+}
+
+class ReinforcementMode extends ArmyMode{
+	
+}
