@@ -1,6 +1,6 @@
-package application.models.game;
+package application.models.tileState;
 
-import application.models.tileState.TileState;
+import application.models.playerAssets.*;
 
 public class Map {
     private java.util.Map<String, TileState> tiles;
@@ -14,5 +14,15 @@ public class Map {
 
     public void printOut(){
         tiles.values().forEach(TileState::printState);
+    }
+
+    public void add(String tileID, Unit _unit){
+
+    }
+    public void add(String tileID, Structure _struct){
+
+    }
+    public void add(String tileID, Army _army){
+
     }
 }
