@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-public class Map extends JPanel{
+public class View extends JPanel{
 
 	public static final Color NORMAL = new Color(102,153,0);
 	public static final Color SLOWING = new Color(222,184,135);
@@ -11,10 +11,10 @@ public class Map extends JPanel{
 	public static final Color SWAMP = new Color(0,102,0);
 	public static final Color WATER = new Color(0,0,153);
 
-	public static final int ROW = 30;
-	public static final int COL = 30;
+	public static final int ROW = 15;
+	public static final int COL = 15;
 
-	public static final int PIXELS = 15;
+	public static final int PIXELS = 45;
 
 	public static final Color[] TERRAIN = {
 		NORMAL,
@@ -27,7 +27,7 @@ public class Map extends JPanel{
 
 	private final Color[][] Grid;
 
-	public Map(){
+	public View(){
 		this.Grid = new Color[ROW][COL];
 		Random r = new Random();
 
@@ -66,25 +66,52 @@ public class Map extends JPanel{
 	public static void main(String[] args){
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run() {
-				JFrame mapView = new JFrame("Fourtran Game");
-				mapView.setSize(500, 500);
-				JFrame unitOverView = new JFrame("Unit Overview");
-				JFrame structureOverView = new JFrame("Structure Overview");
+
+				//Initializing JFrame and View
+				JFrame mainScreen = new JFrame("Fourtran Game");
+				View map = new View();
+				JPanel areaViewPort = new JPanel();
+				areaViewPort.add(map);
+				mainScreen.add(areaViewPort, BorderLayout.CENTER);
+
+				//Adding menu bar
 				JMenuBar menuBar = new JMenuBar();
 				JMenu optionMenu = new JMenu("Options");
-				//optionMenu.setMnemonic(KeyEvent.VK_F);
 				menuBar.add(optionMenu);
-				Map map = new Map();
-				mapView.add(map);
-				mapView.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				mapView.pack();
-				mapView.setVisible(true);
+				mainScreen.setJMenuBar(menuBar);
+
+				//Adding panel for buttons
+				JPanel statusViewPort = new JPanel(new BorderLayout());
+				JPanel buttonPanel = new JPanel();
 				JButton unitOVButton = new JButton("Unit Overview");
 				JButton structureOVButton = new JButton("Structure Overview");
-				unitOVButton.setBounds(20, 20, 10, 10);
-				structureOVButton.setBounds(24, 20, 10, 10);
-				mapView.add(unitOVButton);
-				mapView.add(structureOVButton);
+				buttonPanel.add(unitOVButton);
+				buttonPanel.add(structureOVButton);
+				//mainScreen.add(buttonPanel, BorderLayout.EAST);
+
+				//Making JTable
+				String[] unitColumnStats = {"Player Resource", "Offensive Damage", 
+											"Defensive Damage", "Armor", "Movement", 
+											"Health", "Upkeep"};
+				String[] structureColumnStats = {"Player Resource", "Offensive Damage", 
+												 "Defensive Damage", "Armor", "Production Rate", 
+												 "Health", "Upkeep"};
+				Object[][] unitData = {{new Integer(2000), new Integer(25), new Integer(25),
+									   new Integer(10), new Integer(2), new Integer(50),
+									   new Integer(50)}};
+				JTable statusTable = new JTable(unitData, unitColumnStats);
+				JPanel statusTablePanel = new JPanel();
+				statusTablePanel.add(statusTable, BorderLayout.CENTER);
+				statusViewPort.add(buttonPanel, BorderLayout.NORTH);
+				statusViewPort.add(statusTablePanel);
+				mainScreen.add(statusViewPort, BorderLayout.EAST);
+
+				//Setting JFrame properties
+				mainScreen.setSize(500, 500);
+				mainScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				mainScreen.pack();
+				mainScreen.setVisible(true);
+				
 			}
 		});
 	}
