@@ -1,8 +1,11 @@
 import javax.swing.*;
+import javax.swing.table.*;
 import java.awt.*;
 import java.util.Random;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
-public class View extends JPanel{
+public class View extends JPanel implements ActionListener {
 
 	public static final Color NORMAL = new Color(102,153,0);
 	public static final Color SLOWING = new Color(222,184,135);
@@ -63,6 +66,35 @@ public class View extends JPanel{
 		}
 	}
 
+	@Override
+	public void actionPerformed(ActionEvent e){
+		if("openUnitOV".equals(e.getActionCommand())){
+			SwingUtilities.invokeLater(new Runnable(){
+				public void run(){
+					JFrame unitOVFrame = new JFrame();
+					unitOVFrame.setSize(500, 500);
+					unitOVFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+					unitOVFrame.pack();
+					unitOVFrame.setVisible(true);
+
+					String[] unitColumnStats = {"Player Resource", "Offensive Damage", 
+							"Defensive Damage", "Armor", "Movement", 
+							"Health", "Upkeep"};
+				}
+			});
+		} else if("openStructOV".equals(e.getActionCommand())){
+			SwingUtilities.invokeLater(new Runnable(){
+				public void run(){
+					JFrame structOVFrame = new JFrame();
+					structOVFrame.setSize(500, 500);
+					structOVFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+					structOVFrame.pack();
+					structOVFrame.setVisible(true);
+				}
+			});
+		}
+	}
+
 	public static void main(String[] args){
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run() {
@@ -83,8 +115,15 @@ public class View extends JPanel{
 				//Adding panel for buttons
 				JPanel statusViewPort = new JPanel(new BorderLayout());
 				JPanel buttonPanel = new JPanel();
+
+				//Button Stuff
 				JButton unitOVButton = new JButton("Unit Overview");
 				JButton structureOVButton = new JButton("Structure Overview");
+				unitOVButton.setActionCommand("openUnitOV");
+				structureOVButton.setActionCommand("openStructOV");
+				unitOVButton.addActionListener(new View());
+				structureOVButton.addActionListener(new View());
+
 				buttonPanel.add(unitOVButton);
 				buttonPanel.add(structureOVButton);
 				//mainScreen.add(buttonPanel, BorderLayout.EAST);
@@ -93,15 +132,16 @@ public class View extends JPanel{
 				String[] unitColumnStats = {"Player Resource", "Offensive Damage", 
 											"Defensive Damage", "Armor", "Movement", 
 											"Health", "Upkeep"};
-				String[] structureColumnStats = {"Player Resource", "Offensive Damage", 
+				/*String[] structureColumnStats = {"Player Resource", "Offensive Damage", 
 												 "Defensive Damage", "Armor", "Production Rate", 
-												 "Health", "Upkeep"};
+												 "Health", "Upkeep"};*/
 				Object[][] unitData = {{new Integer(2000), new Integer(25), new Integer(25),
 									   new Integer(10), new Integer(2), new Integer(50),
 									   new Integer(50)}};
-				JTable statusTable = new JTable(unitData, unitColumnStats);
+				StatusViewPortTable table = new StatusViewPortTable(unitData, unitColumnStats);
+				JTable statusTable = new JTable(table);
 				JPanel statusTablePanel = new JPanel();
-				statusTablePanel.add(statusTable, BorderLayout.CENTER);
+				statusTablePanel.add(new JScrollPane(statusTable), BorderLayout.CENTER);
 				statusViewPort.add(buttonPanel, BorderLayout.NORTH);
 				statusViewPort.add(statusTablePanel);
 				mainScreen.add(statusViewPort, BorderLayout.EAST);
@@ -114,5 +154,14 @@ public class View extends JPanel{
 				
 			}
 		});
+	}
+}
+
+class StatusViewPortTable extends DefaultTableModel{
+	public StatusViewPortTable(Object[][] tableData, Object[] colNames){
+		super(tableData, colNames);
+	}
+	public boolean isCellEditable(int row, int column){
+		return false;
 	}
 }
