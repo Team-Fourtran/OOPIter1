@@ -3,16 +3,16 @@ package application.models.playerAsset;
 import java.util.ArrayList;
 
 public class ArmyManager {
-    
+
     ArrayList<Army> armyList;
     final int maxArmies = 10;
     ArrayList<String> armyIDs = new ArrayList<>();
     
     public ArmyManager(){
         armyList = new ArrayList<>();
-        for (int i = 0; i < 10; i++)
-            armyIDs.add(i);
-        }
+        for (int i = 0; i < 10; i++){}
+            //armyIDs.add(i);
+    }
     
     //create a new army with given units and add it to the armyList
     public void formArmy(ArrayList<Unit> units){
@@ -36,7 +36,7 @@ public class ArmyManager {
     public ArrayList<Unit> decommision(int ArmyID){
         ArrayList<Unit> units = new ArrayList<>();
         for (Army army: armyList){
-            if (army.getID() == ArmyID){
+            if (Integer.parseInt(army.getID()) == ArmyID){
                 units = army.getUnits();
                 armyIDs.add(army.getID());
                 armyList.remove(army);
@@ -52,6 +52,6 @@ public class ArmyManager {
             System.out.println("Army " + i);
         }
     }
-    
+
    
 }
