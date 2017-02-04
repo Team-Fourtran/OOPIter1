@@ -1,6 +1,7 @@
 package application.models.utility;
 
 import application.models.commands.CommandGenerator;
+import application.models.playerAsset.Player;
 import application.models.tileState.Map;
 
 public class Main {
@@ -9,9 +10,7 @@ public class Main {
         Map m = new Map(T.execute());
         m.printOut();
         Player p = new Player();
-
-        CommandGenerator generator = new CommandGenerator();
-        generator.generateCommand("CS_U001");
-
+        CommandGenerator cGen = new CommandGenerator(p, m);
+        cGen.generateCommand("NS_U5").execute();
     }
 }

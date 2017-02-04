@@ -1,8 +1,5 @@
 package application.models.tileState;
 
-
-import application.models.playerAsset.PlayerAsset;
-
 import java.util.HashMap;
 
 public class Map {
@@ -19,8 +16,8 @@ public class Map {
         tiles.values().forEach(TileState::printState);
     }
 
-    public void addAsset(String tileID, PlayerAsset asset){
-
+    public TileState getTileState(String tileID){
+        return tiles.get(tileID);
     }
 
     //View Interface:
