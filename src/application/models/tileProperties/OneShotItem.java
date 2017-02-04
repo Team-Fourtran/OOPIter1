@@ -1,4 +1,4 @@
-package tileProperties;
+package application.models.tileProperties;
 
 public class OneShotItem implements Item {
 	private double itemEffect = -50;

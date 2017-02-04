@@ -1,8 +1,8 @@
-package tileProperties;
+package application.models.tileProperties;
 
 
-public class Slowing implements Terrain {
-	private double movementCost = 50;
+public class Impassable implements Terrain {
+	private double movementCost = Double.POSITIVE_INFINITY;
 	
 	@Override
 	// Returns movement cost for units/armies. Cost is in the interval [0,inf].

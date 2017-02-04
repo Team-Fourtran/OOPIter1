@@ -1,4 +1,4 @@
-package tileProperties;
+package application.models.tileProperties;
 
 public class ObstacleItem implements Item {
 	private double itemEffect = -30;

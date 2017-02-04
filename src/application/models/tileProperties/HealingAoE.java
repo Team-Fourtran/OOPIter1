@@ -1,4 +1,4 @@
-package tileProperties;
+package application.models.tileProperties;
 
 public class HealingAoE implements AoE {
 	private double healingEffect = 20;

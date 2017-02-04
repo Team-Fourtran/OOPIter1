@@ -1,4 +1,4 @@
-package tileProperties;
+package application.models.tileProperties;
 
 /*
  * An encapsulation of resources (food, building materials, research materials), to be kept in a TileInfo object
