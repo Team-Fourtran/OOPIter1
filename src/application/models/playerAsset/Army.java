@@ -1,56 +1,56 @@
 package application.models.playerAsset;
+
 import java.util.ArrayList;
 
-//Responsibilities: Group units, hold rally point,
-public class Army implements PlayerAsset{
+public class Army extends PlayerAsset{
     
     ArrayList<Unit> battleGroup;
     ArrayList<Unit> reinforcements;
-    String RallyPoint;
-    String ID;
-    
-    //placeholder constructor
-    public Army(ArrayList<Unit> units){
-        battleGroup = units;
+    String rallyPoint;
+
+    public Army(ArrayList<Unit> units, String rallyPoint){
+        rallyPoint = rallyPoint;
+        for (Unit u: units){
+            if (u.getLocation() == rallyPoint)
+                battleGroup.add(u);
+            else
+                reinforcements.add(u);
+        }
         
     }
-    
-    public void setID(String id){
-        ID = id;
+
+    //method to set new rally point. If any reinforcements are on that tile
+    //put them in the battle group
+    public void setRallyPoint(String location){
+        rallyPoint = location;
+        for (Unit u: reinforcements)
+            if (u.getLocation() == rallyPoint){
+                battleGroup.add(u);
+                reinforcements.remove(u);
+            }
     }
-    
-    public String getID(){
-        return ID;
-    }
-    
+
     //return all units in the army
     public ArrayList<Unit> getUnits(){
         ArrayList<Unit> newList = battleGroup;
         newList.addAll(reinforcements);
         return newList;
     }
-    
-    public void removeUnit(Unit u){
-        if (battleGroup.contains(u)){
-            battleGroup.remove(u);
-            //decrement unit count
-        }
-        if (reinforcements.contains(u)){
-            reinforcements.remove(u);
-            //decrement unit count
-        }
-    }
-    
-    public void removeColonist(){
-        for (Unit i: battleGroup)
-            if (i instanceof Colonist)
-                battleGroup.remove(i);
-    }
-    
+
+    //method to check if an army has a colonist to make a structure
     public boolean hasColonist(){
         for (Unit i: battleGroup)
             if (i instanceof Colonist)
                 return true;
         return false;
     }
+
+    //after a structure is made, remove the colonist from the army
+    public void removeColonist(){
+        for (Unit i: battleGroup)
+            if (i instanceof Colonist)
+                battleGroup.remove(i);
+    }
+    
+
 }
