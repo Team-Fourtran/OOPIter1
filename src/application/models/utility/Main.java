@@ -1,7 +1,6 @@
 package application.models.utility;
 
 import application.models.commands.CommandGenerator;
-import application.models.playerAssets.Player;
 import application.models.tileState.Map;
 
 public class Main {

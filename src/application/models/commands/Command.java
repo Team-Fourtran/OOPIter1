@@ -1,6 +1,5 @@
 package application.models.commands;
 
-import application.models.playerAssets.Player;
 import application.models.tileState.Map;
 
 public interface Command {
