@@ -5,9 +5,6 @@ import java.util.HashMap;
 public class TileState {
     private String id;
     //private TileInfo tile
-    private ArmyOccupance armyOccupance;
-    private StructureOccupance structureOccupance;
-    private UnitOccupance unitOccupance;
     private HashMap<Directions, TileState> neighbors;
 
     public TileState(String id){
@@ -22,8 +19,8 @@ public class TileState {
         System.out.println(this.id + " -- " + neighbors.keySet().toString() + neighbors.values().toString());
     }
 
-    public void setNeighbor(TileState originator, Directions direction){
-        neighbors.put(direction, originator);
+    public void setNeighbor(TileState neighbor, Directions direction){
+        neighbors.put(direction, neighbor);
     }
 
     public String getId(){

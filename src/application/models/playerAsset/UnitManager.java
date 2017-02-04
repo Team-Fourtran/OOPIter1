@@ -1,3 +1,5 @@
+package application.models.playerAsset;
+
 import java.util.ArrayList;
 
 public class UnitManager {

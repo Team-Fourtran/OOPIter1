@@ -1,5 +1,7 @@
 package application.models.commands;
 
+import application.models.playerAsset.Player;
+import application.models.playerAsset.Structure;
 import application.models.tileState.Map;
 
 public interface Command {
@@ -22,8 +24,9 @@ class newStructureCommand extends concreteCommand{
 
     @Override
     public void execute(Map m, Player p) {
-        if(p.createStructure(unitID)){
-            m.createStructure(tileID, struct);
+        if(p.canCreateStructure(unitID)){
+            Structure s = p.createStructure(unitID);
+            m.addAsset(s.getTileID(), p.createStructure(unitID));
         }
     }
 }

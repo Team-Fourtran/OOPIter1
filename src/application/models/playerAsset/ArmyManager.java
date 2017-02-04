@@ -1,10 +1,12 @@
+package application.models.playerAsset;
+
 import java.util.ArrayList;
 
 public class ArmyManager {
     
     ArrayList<Army> armyList;
     final int maxArmies = 10;
-    ArrayList<Integer> armyIDs = new ArrayList<>();
+    ArrayList<String> armyIDs = new ArrayList<>();
     
     public ArmyManager(){
         armyList = new ArrayList<>();
@@ -22,7 +24,7 @@ public class ArmyManager {
         System.out.println("Army formed");
     }
     
-    public Army findArmy(int armyID){
+    public Army findArmy(String armyID){
         for (Army a: armyList){
             if (a.getID() == armyID)
                 return a;

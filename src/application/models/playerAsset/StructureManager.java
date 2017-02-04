@@ -1,3 +1,5 @@
+package application.models.playerAsset;
+
 import java.util.ArrayList;
 
 public class StructureManager {
@@ -8,8 +10,9 @@ public class StructureManager {
         structureList = new ArrayList<>();
     }
     
-    public void createStructure(){
+    public Structure createStructure(){
         Structure s = new Structure();
         structureList.add(s);
+        return s;
     }
 }

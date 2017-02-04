@@ -1,4 +1,9 @@
+package application.models.playerAsset;
+
 public class Structure implements PlayerAsset{
+
+    private String structureID;
+    private String tileID;
     
     int offDamage;
     int defDamage;
@@ -20,6 +25,10 @@ public class Structure implements PlayerAsset{
     
     public void healUnit(Unit u){
         
+    }
+
+    public String getTileID(){
+        return structureID;
     }
 
 }

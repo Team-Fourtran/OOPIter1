@@ -1,4 +1,4 @@
-
+package application.models.playerAsset;
 import java.util.ArrayList;
 
 //Responsibilities: Group units, hold rally point,
@@ -7,7 +7,7 @@ public class Army implements PlayerAsset{
     ArrayList<Unit> battleGroup;
     ArrayList<Unit> reinforcements;
     String RallyPoint;
-    int ID;
+    String ID;
     
     //placeholder constructor
     public Army(ArrayList<Unit> units){
@@ -15,11 +15,11 @@ public class Army implements PlayerAsset{
         
     }
     
-    public void setID(int id){
+    public void setID(String id){
         ID = id;
     }
     
-    public int getID(){
+    public String getID(){
         return ID;
     }
     

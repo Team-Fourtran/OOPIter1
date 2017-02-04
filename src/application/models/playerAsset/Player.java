@@ -1,3 +1,5 @@
+package application.models.playerAsset;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -23,12 +25,14 @@ public class Player {
         ArrayList<Unit> releasedUnits = armies.decommision(armyID);
         units.addUnits(releasedUnits);
     }
+
+    public boolean canCreateStructure(String armyID){
+        return armies.findArmy(armyID).hasColonist();
+    }
     
-    public void createStructure(int armyID){
-        if(armies.findArmy(armyID).hasColonist()){
-            structures.createStructure();
-            armies.findArmy(armyID).removeColonist();
-        }
+    public Structure createStructure(String armyID){
+        armies.findArmy(armyID).removeColonist();
+        return structures.createStructure();
     }
     
     public void formArmy(ArrayList<Unit> u){
