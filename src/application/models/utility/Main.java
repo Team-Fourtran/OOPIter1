@@ -15,5 +15,6 @@ public class Main {
         CommandGenerator generator = new CommandGenerator();
         generator.generateCommand("CS_U001");
 
+        System.out.println(m.getMap().get("T1").getTileInfo().getTerrainType().getClass().getSimpleName());
     }
 }
