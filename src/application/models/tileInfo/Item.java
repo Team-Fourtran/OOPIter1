@@ -1,4 +1,4 @@
-package application.models.tileProperties;
+package application.models.tileInfo;
 /*
  * This interface is for retrieving the effects of an item in terms of how many health points to gain/remove
  */

@@ -1,4 +1,4 @@
-package application.models.tileProperties;
+package application.models.tileInfo;
 
 public class InstantDeathAoE implements AoE {
 	double deathEffect = Double.NEGATIVE_INFINITY;

@@ -1,4 +1,4 @@
-package application.models.tileProperties;
+package application.models.tileInfo;
 
 /*
  * Defines interface for Terrain. Terrain affects the speed at which armies/units can travel

@@ -1,4 +1,4 @@
-package application.models.tileProperties;
+package application.models.tileInfo;
 
 import java.util.ArrayList;
 import java.util.Iterator;

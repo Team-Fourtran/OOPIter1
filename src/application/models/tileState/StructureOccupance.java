@@ -1,6 +1,6 @@
 package application.models.tileState;
 
-import application.models.playerAssets.Structure;
+import application.models.playerAsset.Structure;
 
 import java.util.List;
 
