@@ -4,7 +4,9 @@ import java.awt.*;
 import java.util.Random;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-
+import java.util.*;
+import javax.swing.event.*;
+//import javax.swing.ListSelectionModel;
 public class View extends JPanel implements ActionListener {
 
 	public static final Color NORMAL = new Color(102,153,0);
@@ -27,6 +29,7 @@ public class View extends JPanel implements ActionListener {
 		SWAMP,
 		WATER
 	};
+
 
 	private final Color[][] Grid;
 
@@ -71,25 +74,94 @@ public class View extends JPanel implements ActionListener {
 		if("openUnitOV".equals(e.getActionCommand())){
 			SwingUtilities.invokeLater(new Runnable(){
 				public void run(){
-					JFrame unitOVFrame = new JFrame();
-					unitOVFrame.setSize(500, 500);
+					JFrame unitOVFrame = new JFrame("Unit Overview");
+
+
+					String[] unitColumnStats = {"Units", "Offensive Damage", 
+							"Defensive Damage", "Armor", "Movement", 
+							"Health", "Upkeep", "Missions"};
+					Object[][] unitData = {{new Integer(2000), new Integer(25), new Integer(25),
+									   new Integer(10), new Integer(2), new Integer(50),
+									   new Integer(50), new String("Move, Gather")}, {new Integer(2000), new Integer(25), new Integer(25),
+									   new Integer(10), new Integer(2), new Integer(50),
+									   new Integer(50)}, {new Integer(2000), new Integer(25), new Integer(25),
+									   new Integer(10), new Integer(2), new Integer(50),
+									   new Integer(50)}, {new Integer(2000), new Integer(25), new Integer(25),
+									   new Integer(10), new Integer(2), new Integer(50),
+									   new Integer(50)}};
+
+					StatusViewPortTable table = new StatusViewPortTable(unitData, unitColumnStats);
+					JTable unitOVTable = new JTable(table);
+
+					JFrame armyList = new JFrame("Army List");
+					JTable armyListTable = new JTable(table);
+
+					
+					ListSelectionModel rowSelectModel;
+					rowSelectModel = unitOVTable.getSelectionModel();
+
+					//Row Selection ActionListener
+					rowSelectModel.addListSelectionListener(new ListSelectionListener(){
+						public void valueChanged(ListSelectionEvent event){
+							System.out.println(unitOVTable.getValueAt(unitOVTable.getSelectedRow(), 0).toString());
+						}
+					});
+					
+					JPanel unitOVTablePanel = new JPanel();
+					JPanel armyCreateButtonPanel = new JPanel();
+					JButton armyAssemble = new JButton("Assemble Selected Units");
+					JButton armyDisband = new JButton("Disband Selected Army");
+
+					unitOVTablePanel.add(new JScrollPane(unitOVTable));
+					armyCreateButtonPanel.add(armyAssemble);
+					armyCreateButtonPanel.add(armyDisband);
+
+					JPanel mainUnitOVPanel = new JPanel(new BorderLayout());
+					mainUnitOVPanel.add(armyCreateButtonPanel, BorderLayout.SOUTH);
+					mainUnitOVPanel.add(unitOVTablePanel, BorderLayout.NORTH);
+					//Initialize Frame
+					unitOVFrame.add(mainUnitOVPanel);
 					unitOVFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 					unitOVFrame.pack();
 					unitOVFrame.setVisible(true);
-
-					String[] unitColumnStats = {"Player Resource", "Offensive Damage", 
-							"Defensive Damage", "Armor", "Movement", 
-							"Health", "Upkeep"};
 				}
 			});
 		} else if("openStructOV".equals(e.getActionCommand())){
 			SwingUtilities.invokeLater(new Runnable(){
 				public void run(){
 					JFrame structOVFrame = new JFrame();
+					String[] unitColumnStats = {"Structures", "Offensive Damage", 
+							"Defensive Damage", "Armor", "Movement", 
+							"Health", "Upkeep", "Missions"};
+					Object[][] unitData = {{new Integer(2000), new Integer(25), new Integer(25),
+									   new Integer(10), new Integer(2), new Integer(50),
+									   new Integer(50), new String("Move, Gather")}, {new Integer(2000), new Integer(25), new Integer(25),
+									   new Integer(10), new Integer(2), new Integer(50),
+									   new Integer(50)}, {new Integer(2000), new Integer(25), new Integer(25),
+									   new Integer(10), new Integer(2), new Integer(50),
+									   new Integer(50)}, {new Integer(2000), new Integer(25), new Integer(25),
+									   new Integer(10), new Integer(2), new Integer(50),
+									   new Integer(50)}};
+
+					StatusViewPortTable table = new StatusViewPortTable(unitData, unitColumnStats);
+					JTable structureOVTable = new JTable(table);
+					
+					ListSelectionModel rowSelectModel;
+					rowSelectModel = structureOVTable.getSelectionModel();
+
+					//Row Selection ActionListener
+					rowSelectModel.addListSelectionListener(new ListSelectionListener(){
+						public void valueChanged(ListSelectionEvent event){
+							System.out.println(structureOVTable.getValueAt(structureOVTable.getSelectedRow(), 0).toString());
+						}
+					});
+
+					structOVFrame.add(new JScrollPane(structureOVTable));
 					structOVFrame.setSize(500, 500);
 					structOVFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
 					structOVFrame.pack();
 					structOVFrame.setVisible(true);
+
 				}
 			});
 		}
