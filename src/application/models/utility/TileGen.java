@@ -1,5 +1,6 @@
 package application.models.utility;
 
+import application.models.tileInfo.*;
 import application.models.tileState.Directions;
 import application.models.tileState.TileState;
 
@@ -17,7 +18,13 @@ public class TileGen {
     TileState[] execute(){
         TileState[] states = new TileState[total];
         for (int i = 0; i < total; i++){
-            states[i] = new TileState("T" + i);
+        	Terrain t;
+        	if (i < total/2) {
+        		t = new Normal();
+        	} else {
+        		t = new Impassable();
+        	}
+            states[i] = new TileState("T" + i, new TileInfo(t));
         }
         for (int i = 0; i < total; i++) {
 

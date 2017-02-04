@@ -6,8 +6,9 @@ import application.models.tileState.Map;
 
 public class Main {
     public static void main(String args[]) {
-        TileGen T = new TileGen(4, 4);
-        Map m = new Map(T.execute());
+    	int length = 4 , width = 4;
+        TileGen T = new TileGen(length, width);
+        Map m = new Map(T.execute(), length, width);
         m.printOut();
         Player p = new Player();
 
