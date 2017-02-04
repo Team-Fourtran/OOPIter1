@@ -1,10 +1,12 @@
 package application.models.tileState;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class TileState {
     private String id;
     //private TileInfo tile
+    private List<Occupance> occupances;
     private HashMap<Directions, TileState> neighbors;
 
     public TileState(String id){
@@ -29,5 +31,22 @@ public class TileState {
 
     public String toString(){
         return this.id;
+    }
+
+    public void addOccupance(Occupance _o){
+        occupances.add(_o);
+    }
+
+    private void removeOccupance(Occupance _o){
+        occupances.remove(_o);
+    }
+
+    public void moveOccupance(String id, Directions direction){
+        for (Occupance _o : occupances){
+            if(id == _o.getAssetID()){
+                neighbors.get(direction).addOccupance(_o);
+                removeOccupance(_o);
+            }
+        }
     }
 }
