@@ -8,6 +8,13 @@ public class ResourcePackage {
 	private int foodCount, buildingMaterialsCount, researchMaterialsCount;
 	
 	// Initialize the count of each resource type
+	
+	public ResourcePackage() {
+		this.foodCount = 0;
+		this.buildingMaterialsCount = 0;
+		this.researchMaterialsCount = 0;
+	}
+	
 	public ResourcePackage(int foodCount, int buildingMaterialsCount, int researchMaterialsCount) {
 		this.foodCount = foodCount;
 		this.buildingMaterialsCount = buildingMaterialsCount;

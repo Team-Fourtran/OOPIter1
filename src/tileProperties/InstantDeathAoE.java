@@ -1,6 +1,6 @@
 package tileProperties;
 
-public class InstaDeathAoE implements AoE {
+public class InstantDeathAoE implements AoE {
 	double deathEffect = Double.NEGATIVE_INFINITY;
 
 	@Override
