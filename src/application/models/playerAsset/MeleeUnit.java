@@ -1,3 +1,5 @@
+package application.models.playerAsset;
+
 //Responsibilities: Weak attacker, uncovers resources on map
 public class MeleeUnit extends Unit{
     

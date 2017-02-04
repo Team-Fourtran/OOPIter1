@@ -1,21 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+package application.models.playerAsset;
 
-/**
- *
- * @author Clay
- */
-public abstract class Unit implements PlayerAsset{
-    
-    protected int offDamage;
-    protected int defDamage;
-    protected int armor;
+public abstract class Unit extends PlayerAsset{
+
     protected int movesPerTurn;
-    protected int health;
-    protected int upkeep;
-   
-  
+
 }

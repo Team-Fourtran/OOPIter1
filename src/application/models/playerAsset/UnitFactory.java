@@ -1,7 +1,23 @@
 package application.models.playerAsset;
 
-/**
- * Created by Clay on 2/4/2017.
- */
 public class UnitFactory {
+
+    //factory method to make any of the four units
+    public Unit makeUnit(String type){
+
+        switch (type){
+            case "explorer":
+                    return new Explorer();
+            case "colonist":
+                return new Colonist();
+            case "melee":
+                return new MeleeUnit();
+            case "ranged":
+                return new RangedUnit();
+
+        }
+
+        return null;
+    }
+
 }

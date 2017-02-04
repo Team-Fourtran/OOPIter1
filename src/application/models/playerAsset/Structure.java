@@ -1,12 +1,9 @@
-public class Structure implements PlayerAsset{
-    
-    int offDamage;
-    int defDamage;
-    int armor;
+package application.models.playerAsset;
+
+public class Structure extends PlayerAsset{
+
     int productionRate;
-    int health;
-    int upkeep;
-    
+
     public Structure(){
         
         offDamage = 10;
@@ -17,9 +14,9 @@ public class Structure implements PlayerAsset{
         upkeep = 25;
         
     }
-    
+
     public void healUnit(Unit u){
-        
+        //take Unit on same tile and restore health over time
     }
 
 }

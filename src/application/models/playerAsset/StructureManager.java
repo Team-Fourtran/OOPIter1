@@ -1,3 +1,5 @@
+package application.models.playerAsset;
+
 import java.util.ArrayList;
 
 public class StructureManager {
@@ -7,9 +9,29 @@ public class StructureManager {
     public StructureManager(){
         structureList = new ArrayList<>();
     }
-    
-    public void createStructure(){
+
+    //intermediate method to find a certain structure's location
+    public String getLocation(String structureID){
+        for (Structure s : structureList)
+            if (s.getID() == structureID)
+                return s.getLocation();
+        return null;
+    }
+
+    //add a new structure to the map on an Army's location
+    public void createStructure(String location){
         Structure s = new Structure();
+        s.setLocation(location);
         structureList.add(s);
     }
+
+    //calculate upkeep from all the Player's structures
+    public int calculateTotalUpkeep(){
+        int totalUpkeep = 0;
+        for (Structure s: structureList){
+            totalUpkeep += s.getUpkeep();
+        }
+        return totalUpkeep;
+    }
+
 }
