@@ -1,4 +1,4 @@
-package aoe;
+package tileProperties;
 
 public class HealingAoE implements AoE {
 	private double healingEffect = 20;

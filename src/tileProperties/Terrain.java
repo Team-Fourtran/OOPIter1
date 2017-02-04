@@ -1,4 +1,4 @@
-package terrain;
+package tileProperties;
 
 /*
  * Defines interface for Terrain. Terrain affects the speed at which armies/units can travel

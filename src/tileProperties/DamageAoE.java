@@ -1,4 +1,4 @@
-package aoe;
+package tileProperties;
 
 public class DamageAoE implements AoE {
 	private double damageEffect = -20;

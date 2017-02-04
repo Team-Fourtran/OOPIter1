@@ -1,4 +1,4 @@
-package aoe;
+package tileProperties;
 
 public class InstaDeathAoE implements AoE {
 	double deathEffect = Double.NEGATIVE_INFINITY;

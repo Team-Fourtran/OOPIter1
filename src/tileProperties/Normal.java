@@ -1,4 +1,4 @@
-package terrain;
+package tileProperties;
 
 
 public class Normal implements Terrain {
