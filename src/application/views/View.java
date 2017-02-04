@@ -44,10 +44,11 @@ public class View extends JPanel implements ActionListener {
 		String terrains2d[][] = new String[15][15];
 		for(int i = 0; i < 15; i++){
 			for(int j = 0; j < 15; j++){
-				terrains2d[i][j] = m.getMap().get("T"+ String.valueOf((j*15) + i)).getTileInfo().getTerrainType().getClass().getSimpleName();
+				System.out.println(m.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties());
+				terrains2d[i][j] = m.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties().get("terrain").get(0);
 			}
 		}
-
+		
 		for(int i = 0; i < ROW; i++){
 			for(int j = 0; j < COL; j++){
 				//int randomTerrainIndex = r.nextInt(TERRAIN.length);
