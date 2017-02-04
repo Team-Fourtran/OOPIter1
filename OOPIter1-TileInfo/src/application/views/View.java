@@ -1,12 +1,15 @@
+package application.views;
+
 import javax.swing.*;
 import javax.swing.table.*;
+import application.models.tileState.Map;
+import application.models.utility.TileGen;
+
 import java.awt.*;
-import java.util.Random;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import java.util.*;
 import javax.swing.event.*;
-//import javax.swing.ListSelectionModel;
+
 public class View extends JPanel implements ActionListener {
 
 	public static final Color NORMAL = new Color(102,153,0);
@@ -20,7 +23,9 @@ public class View extends JPanel implements ActionListener {
 	public static final int COL = 15;
 
 	public static final int PIXELS = 45;
-
+    TileGen T = new TileGen(ROW, COL);
+    Map m = new Map(T.execute(), ROW, COL);
+    
 	public static final Color[] TERRAIN = {
 		NORMAL,
 		SLOWING,
@@ -35,13 +40,29 @@ public class View extends JPanel implements ActionListener {
 
 	public View(){
 		this.Grid = new Color[ROW][COL];
-		Random r = new Random();
+		
+		String terrains2d[][] = new String[15][15];
+		for(int i = 0; i < 15; i++){
+			for(int j = 0; j < 15; j++){
+				terrains2d[i][j] = m.getMap().get("T"+ String.valueOf((j*15) + i)).getTileInfo().getTerrainType().getClass().getSimpleName();
+			}
+		}
 
 		for(int i = 0; i < ROW; i++){
 			for(int j = 0; j < COL; j++){
-				int randomTerrainIndex = r.nextInt(TERRAIN.length);
-				Color randomColor = TERRAIN[randomTerrainIndex];
-				this.Grid[i][j] = randomColor;
+				//int randomTerrainIndex = r.nextInt(TERRAIN.length);
+				//Color randomColor = TERRAIN[randomTerrainIndex];
+				Color color;
+				if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
+					color = TERRAIN[0];
+				} else if(terrains2d[i][j].toUpperCase().equals("IMPASSABLE")){
+					color = TERRAIN[2];
+				} else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
+					color = TERRAIN[1];
+				} else{
+					color = TERRAIN[0];
+				}
+				this.Grid[i][j] = color;
 			}
 		}
 		int prefWidth = COL * PIXELS;
@@ -71,16 +92,12 @@ public class View extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e){
-		if("openUnitOV".equals(e.getActionCommand())){
-			SwingUtilities.invokeLater(new Runnable(){
-				public void run(){
-					JFrame unitOVFrame = new JFrame("Unit Overview");
+		JFrame unitOVFrame = new JFrame("Unit Overview");
 
-
-					String[] unitColumnStats = {"Units", "Offensive Damage", 
+		String[] unitColumnStats = {"Units", "Offensive Damage", 
 							"Defensive Damage", "Armor", "Movement", 
 							"Health", "Upkeep", "Missions"};
-					Object[][] unitData = {{new Integer(2000), new Integer(25), new Integer(25),
+		Object[][] unitData = {{new Integer(2000), new Integer(25), new Integer(25),
 									   new Integer(10), new Integer(2), new Integer(50),
 									   new Integer(50), new String("Move, Gather")}, {new Integer(2000), new Integer(25), new Integer(25),
 									   new Integer(10), new Integer(2), new Integer(50),
@@ -89,40 +106,49 @@ public class View extends JPanel implements ActionListener {
 									   new Integer(50)}, {new Integer(2000), new Integer(25), new Integer(25),
 									   new Integer(10), new Integer(2), new Integer(50),
 									   new Integer(50)}};
+		StatusViewPortTable table = new StatusViewPortTable(unitData, unitColumnStats);
+		JTable unitOVTable = new JTable(table);
 
-					StatusViewPortTable table = new StatusViewPortTable(unitData, unitColumnStats);
-					JTable unitOVTable = new JTable(table);
+		//Creating Panels for Unit OV Table
+		JPanel unitOVTablePanel = new JPanel();
+		JPanel armyButtonPanel = new JPanel();
+		JButton armyAssembleButton = new JButton("Assemble Selected Units");
 
-					JFrame armyList = new JFrame("Army List");
-					JTable armyListTable = new JTable(table);
+		unitOVTablePanel.add(new JScrollPane(unitOVTable));
+		armyButtonPanel.add(armyAssembleButton);
+		//armyButtonPanel.add(armyDisband);
 
+		armyAssembleButton.setActionCommand("assembleArmy");
+		armyAssembleButton.addActionListener(new View());
+
+		JPanel mainUnitOVPanel = new JPanel(new BorderLayout());
+		mainUnitOVPanel.add(armyButtonPanel, BorderLayout.SOUTH);
+		mainUnitOVPanel.add(unitOVTablePanel, BorderLayout.NORTH);
 					
-					ListSelectionModel rowSelectModel;
-					rowSelectModel = unitOVTable.getSelectionModel();
+		//Army List Frame
+		JFrame armyListFrame = new JFrame("Army List");
+		String[] armyColNames = {"Army ID", "Unit ID", "Unit Type"};
+		JTable armyListTable = new JTable(table);
+		armyListFrame.add(new JScrollPane(armyListTable));
 
-					//Row Selection ActionListener
-					rowSelectModel.addListSelectionListener(new ListSelectionListener(){
-						public void valueChanged(ListSelectionEvent event){
-							System.out.println(unitOVTable.getValueAt(unitOVTable.getSelectedRow(), 0).toString());
-						}
-					});
-					
-					JPanel unitOVTablePanel = new JPanel();
-					JPanel armyCreateButtonPanel = new JPanel();
-					JButton armyAssemble = new JButton("Assemble Selected Units");
-					JButton armyDisband = new JButton("Disband Selected Army");
+		//Row Selection ActionListener
+		/*ListSelectionModel rowSelectModel;
+		rowSelectModel = unitOVTable.getSelectionModel();
+		rowSelectModel.addListSelectionListener(new ListSelectionListener(){
+			public void valueChanged(ListSelectionEvent event){
+				System.out.println(unitOVTable.getValueAt(unitOVTable.getSelectedRow(), 0).toString());
+			}
+		});*/
+		//JButton armyDisbandButton = new JButton("Disband Selected Army");
 
-					unitOVTablePanel.add(new JScrollPane(unitOVTable));
-					armyCreateButtonPanel.add(armyAssemble);
-					armyCreateButtonPanel.add(armyDisband);
+		//Initialize Unit OV Frame
+		unitOVFrame.add(mainUnitOVPanel);
+		unitOVFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		unitOVFrame.pack();
 
-					JPanel mainUnitOVPanel = new JPanel(new BorderLayout());
-					mainUnitOVPanel.add(armyCreateButtonPanel, BorderLayout.SOUTH);
-					mainUnitOVPanel.add(unitOVTablePanel, BorderLayout.NORTH);
-					//Initialize Frame
-					unitOVFrame.add(mainUnitOVPanel);
-					unitOVFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-					unitOVFrame.pack();
+		if("openUnitOV".equals(e.getActionCommand())){
+			SwingUtilities.invokeLater(new Runnable(){
+				public void run(){
 					unitOVFrame.setVisible(true);
 				}
 			});
@@ -164,10 +190,22 @@ public class View extends JPanel implements ActionListener {
 
 				}
 			});
+		} else if("assembleArmy".equals(e.getActionCommand())){
+			ListSelectionModel rowSelectModel;
+			rowSelectModel = unitOVTable.getSelectionModel();
+			rowSelectModel.addListSelectionListener(new ListSelectionListener(){
+				public void valueChanged(ListSelectionEvent event){
+					System.out.println(unitOVTable.getSelectedRow());
+					//armyListTable.insertRow(unitOVTable.getSelectedRow());
+					//System.out.println(unitOVTable.getValueAt(unitOVTable.getSelectedRow(), 0).toString());
+					System.out.println(unitOVTable.getValueAt(unitOVTable.getSelectedRow(), 0).toString());
+				}
+			});
 		}
 	}
 
 	public static void main(String[] args){
+		
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run() {
 
