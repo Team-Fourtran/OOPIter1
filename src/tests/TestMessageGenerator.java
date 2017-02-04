@@ -1,4 +1,5 @@
-package application.controllers;
+package tests;
+import application.controllers.*;
 
 
 public class TestMessageGenerator {
