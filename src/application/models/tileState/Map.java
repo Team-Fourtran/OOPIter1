@@ -37,7 +37,8 @@ public class Map {
     	return width;
     }
     
-    public java.util.Map<String, TileState> getMap() {
+    // Get the Map from tile id to TileState
+    public java.util.Map<String, TileState> getTiles() {
     	return tiles;
     }
 

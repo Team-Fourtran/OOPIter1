@@ -1,5 +1,6 @@
 package application.models.tileState;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import application.models.tileInfo.*;
 
@@ -36,5 +37,35 @@ public class TileState {
 
     public String toString(){
         return this.id;
+    }
+    
+    // Returns Map from property type (terrain, item, etc.) to the class names
+    public HashMap<String, ArrayList<String>> getProperties() {
+    	HashMap<String, ArrayList<String>> properties = new HashMap<String, ArrayList<String>>();
+    	
+    	ArrayList<String> terrain = new ArrayList<String>();
+    	ArrayList<String> aoE = new ArrayList<String>();
+    	ArrayList<String> items = new ArrayList<String>();
+    	
+    	terrain.add(tile.getTerrainType().getClass().getSimpleName());
+    	
+    	for (int i = 0; i < tile.getAoEs().size(); i++) {
+    		aoE.add(tile.getAoEs().get(i).getClass().getSimpleName());
+    	}
+    	
+    	for (int i = 0; i < tile.getItems().size(); i++) {
+    		if (tile.getItems().get(i) instanceof Decal) {
+    			Decal d = (Decal) tile.getItems().get(i);
+    			items.add(d.getDecalType());
+    		} else {
+    			items.add(tile.getItems().get(i).getClass().getSimpleName());
+    		}
+    	}
+    	
+    	properties.put("terrain", terrain);
+    	properties.put("items", items);
+    	properties.put("aoE", aoE);
+    	
+    	return properties;
     }
 }

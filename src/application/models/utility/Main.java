@@ -2,7 +2,12 @@ package application.models.utility;
 
 import application.models.commands.CommandGenerator;
 import application.models.playerAsset.Player;
+import application.models.tileInfo.DamageAoE;
+import application.models.tileInfo.Decal;
+import application.models.tileInfo.HealingAoE;
+import application.models.tileInfo.OneShotItem;
 import application.models.tileState.Map;
+import application.models.tileState.TileState;
 
 public class Main {
     public static void main(String args[]) {
@@ -15,6 +20,10 @@ public class Main {
         CommandGenerator generator = new CommandGenerator();
         generator.generateCommand("CS_U001");
 
-        System.out.println(m.getMap().get("T1").getTileInfo().getTerrainType().getClass().getSimpleName());
+        java.util.Map<String, TileState> t = m.getTiles();
+        
+        t.get("T0").getTileInfo().addAoEs(new DamageAoE(), new HealingAoE());
+        t.get("T0").getTileInfo().addItems(new OneShotItem(), new Decal("crossBones"));
+        System.out.println(t.get("T0").getProperties());
     }
 }
