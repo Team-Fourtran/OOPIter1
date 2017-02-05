@@ -63,6 +63,19 @@ public class Player {
         return null;
     }
 
+    public void decommissionStructure(String structureID){
+        structures.decommission(structureID);
+    }
+
+    public void healUnit(String structureID, String unitID){
+        if (units.getPosition(unitID) == structures.getPosition(structureID))
+            structures.heal(structureID, units.getUnit(unitID));
+    }
+
+    public boolean canCreateUnit(String structureID, String type){
+        return (structures.structureExists(structureID) && units.checkIfValid(type));
+    }
+
     //method to place a new unit on the map through an existing structure
     public Unit createUnit(String structureID, String type){
         if (units.checkIfValid(type)) {
@@ -76,6 +89,10 @@ public class Player {
     //create initial unit(s) at beginning of the game
     public Unit createInitialUnit(String tileID, String type){
         return units.addNewUnit(tileID, type);
+    }
+
+    public void decommissionUnit(String unitID){
+        units.decommissionUnit(unitID);
     }
 
     //get current position of a specific PlayerAsset

@@ -44,6 +44,12 @@ public class StructureManager {
         }
     }
 
+    public void heal(String structureID, Unit u){
+        for (Structure s: structureList)
+            if (s.getID() == structureID)
+                s.healUnit(u);
+    }
+
     //calculate upkeep from all the Player's structures
     public int calculateTotalUpkeep(){
         int totalUpkeep = 0;
@@ -58,6 +64,13 @@ public class StructureManager {
             if (s.getID() == assetID)
                 return s.getLocation();
         return null;
+    }
+
+    public boolean structureExists(String structureID){
+        for (Structure s: structureList)
+            if (s.getID() == structureID)
+                return true;
+        return false;
     }
 
     public Iterator makeIterator(){
