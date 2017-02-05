@@ -4,42 +4,48 @@ import javax.swing.*;
 import javax.swing.table.*;
 import application.models.tileState.Map;
 import application.models.utility.TileGen;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.*;
 
 public class View extends JPanel implements ActionListener {
 
-	public static final Color NORMAL = new Color(102,153,0);
+	/*public static final Color NORMAL = new Color(102,153,0);
 	public static final Color SLOWING = new Color(222,184,135);
 	public static final Color IMPASSABLE = new Color(0,0,0);
-	public static final Color FIELD = new Color(255,204,102);
-	public static final Color SWAMP = new Color(0,102,0);
-	public static final Color WATER = new Color(0,0,153);
-
+	*/
 	public static final int ROW = 15;
 	public static final int COL = 15;
 
 	public static final int PIXELS = 45;
-    TileGen T = new TileGen(ROW, COL);
-    Map m = new Map(T.execute(), ROW, COL);
-    
-	public static final Color[] TERRAIN = {
+	private static ArrayList<String> keyList = new ArrayList<String>();
+    public static final ImageIcon NORMAL = new ImageIcon("TileImages/Normal/Normal.png");
+    public static final ImageIcon SLOW = new ImageIcon("TileImages/Slow/Slow.png");
+    public static final ImageIcon IMPASSABLE = new ImageIcon("TileImages/Impassable/Impassable.png");
+    public static final ImageIcon NORMAL_SELECTED = new ImageIcon("TileImages/Normal/Normal-Highlighted.png");
+    public static final ImageIcon[] TERRAIN = {
+    		NORMAL_SELECTED,
+    		SLOW,
+    		IMPASSABLE
+    };
+	/*public static final Color[] TERRAIN = {
 		NORMAL,
 		SLOWING,
 		IMPASSABLE,
-		FIELD,
-		SWAMP,
-		WATER
-	};
+	};*/
 
 
-	private final Color[][] Grid;
-
+	//private final Color[][] Grid;
+	//public final JLabel[][] Grid;
+	/*
 	public View(){
-		this.Grid = new Color[ROW][COL];
+		
+		
+		this.Grid = new JLabel[ROW][COL];
 		
 		String terrains2d[][] = new String[15][15];
 		for(int i = 0; i < 15; i++){
@@ -51,26 +57,25 @@ public class View extends JPanel implements ActionListener {
 		
 		for(int i = 0; i < ROW; i++){
 			for(int j = 0; j < COL; j++){
-				//int randomTerrainIndex = r.nextInt(TERRAIN.length);
-				//Color randomColor = TERRAIN[randomTerrainIndex];
-				Color color;
+				JLabel tileLabel = new JLabel();
 				if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
-					color = TERRAIN[0];
+					tileLabel.setIcon(TERRAIN[0]);
 				} else if(terrains2d[i][j].toUpperCase().equals("IMPASSABLE")){
-					color = TERRAIN[2];
+					tileLabel.setIcon(TERRAIN[2]);
 				} else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
-					color = TERRAIN[1];
+					tileLabel.setIcon(TERRAIN[1]);
 				} else{
-					color = TERRAIN[0];
+					tileLabel.setIcon(TERRAIN[0]);
 				}
-				this.Grid[i][j] = color;
+				this.Grid[i][j] = tileLabel;
 			}
 		}
 		int prefWidth = COL * PIXELS;
 		int prefHeight = ROW * PIXELS;
 		setPreferredSize(new Dimension(prefWidth, prefHeight));
 	}
-
+	*/
+	/*
 	@Override
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
@@ -90,7 +95,7 @@ public class View extends JPanel implements ActionListener {
 			}
 		}
 	}
-
+	*/
 	@Override
 	public void actionPerformed(ActionEvent e){
 		JFrame unitOVFrame = new JFrame("Unit Overview");
@@ -204,18 +209,78 @@ public class View extends JPanel implements ActionListener {
 			});
 		}
 	}
-
+	
+	public ArrayList<String> getKeyPressListener(){
+		return keyList;
+	}
 	public static void main(String[] args){
 		
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run() {
-
+				JLabel[][] Grid = new JLabel[ROW][COL];
+				TileGen T = new TileGen(ROW, COL);
+				Map m = new Map(T.execute(), ROW, COL);
+				String terrains2d[][] = new String[15][15];
+				for(int i = 0; i < 15; i++){
+					for(int j = 0; j < 15; j++){
+						System.out.println(m.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties());
+						terrains2d[i][j] = m.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties().get("terrain").get(0);
+					}
+				}
+				
+				for(int i = 0; i < ROW; i++){
+					for(int j = 0; j < COL; j++){
+						JLabel tileLabel = new JLabel();
+						if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
+							tileLabel.setIcon(TERRAIN[0]);
+						} else if(terrains2d[i][j].toUpperCase().equals("IMPASSABLE")){
+							tileLabel.setIcon(TERRAIN[2]);
+						} else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
+							tileLabel.setIcon(TERRAIN[1]);
+						} else{
+							tileLabel.setIcon(TERRAIN[0]);
+						}
+						Grid[i][j] = tileLabel;
+					}
+				}
+				int prefWidth = COL * PIXELS;
+				int prefHeight = ROW * PIXELS;
+				
 				//Initializing JFrame and View
 				JFrame mainScreen = new JFrame("Fourtran Game");
-				View map = new View();
-				JPanel areaViewPort = new JPanel();
-				areaViewPort.add(map);
-				mainScreen.add(areaViewPort, BorderLayout.CENTER);
+				JPanel areaViewPort = new JPanel(new GridLayout(ROW, COL));
+				areaViewPort.setPreferredSize(new Dimension(prefWidth, prefHeight));
+				for(int i = 0; i < ROW; i++){
+					for(int j = 0; j < COL; j++){
+						areaViewPort.add(Grid[i][j]);
+					}
+				}
+				areaViewPort.addKeyListener(new KeyListener(){
+					@Override
+					public void keyTyped(KeyEvent e){}
+					@Override
+					public void keyReleased(KeyEvent e){}
+					@Override
+					public void keyPressed(KeyEvent e){
+						if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+							keyList.add("RIGHT");
+						} else if(e.getKeyCode() == KeyEvent.VK_LEFT){
+							keyList.add("LEFT");
+						} else if(e.getKeyCode() == KeyEvent.VK_UP){
+							keyList.add("UP");
+						} else if(e.getKeyCode() == KeyEvent.VK_DOWN){
+							keyList.add("DOWN");
+						} else if(e.getKeyCode() == KeyEvent.VK_CONTROL){
+							keyList.add("CONTROL");
+						} else if(e.getKeyCode() == KeyEvent.VK_ENTER){
+							keyList.add("ENTER");
+						}
+					}
+				});
+				areaViewPort.setFocusable(true);
+				areaViewPort.requestFocusInWindow();
+				
+				mainScreen.add(areaViewPort);
 
 				//Adding menu bar
 				JMenuBar menuBar = new JMenuBar();
