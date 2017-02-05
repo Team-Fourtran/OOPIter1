@@ -59,6 +59,17 @@ public class Player {
 
     }
 
+    public String getPosition(String assetID){
+        if (assetID.charAt(0) == 'u')
+            return units.getPosition(assetID);
+        else if (assetID.charAt(0) == 'a')
+             return armies.getPosition(assetID);
+        else if (assetID.charAt(0) == 's')
+            return structures.getPosition(assetID);
+        else
+            return ("No asset with that ID found");
+    }
+
     public Iterator getUnitIterator(){
         return units.makeIterator();
 

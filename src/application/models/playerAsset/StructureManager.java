@@ -34,6 +34,13 @@ public class StructureManager {
         return totalUpkeep;
     }
 
+    public String getPosition(String assetID){
+        for (Structure s: structureList)
+            if (s.getID() == assetID)
+                return s.getLocation();
+        return null;
+    }
+
     public Iterator makeIterator(){
         return structureList.iterator();
     }

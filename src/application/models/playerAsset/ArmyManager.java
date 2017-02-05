@@ -57,6 +57,13 @@ public class ArmyManager {
         return totalUpkeep;
     }
 
+    public String getPosition(String assetID){
+        for (Army a: armyList)
+            if (a.getID() == assetID)
+                return a.getLocation();
+        return null;
+    }
+
     public Iterator makeIterator(){
         return armyList.iterator();
     }

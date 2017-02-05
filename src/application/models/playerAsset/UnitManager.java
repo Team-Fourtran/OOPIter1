@@ -38,7 +38,16 @@ public class UnitManager {
         return totalUpkeep;
     }
 
+    public String getPosition(String assetID){
+        for (Unit u: unitList)
+            if (u.getID() == assetID)
+                return u.getLocation();
+        return null;
+    }
+
     public Iterator makeIterator(){
         return unitList.iterator();
     }
+
+
 }
