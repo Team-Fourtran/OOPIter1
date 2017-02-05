@@ -29,4 +29,9 @@ public class newUnitCommand extends ConcreteCommand{
             map.getTileState(_o.getTileID()).addOccupance(_o).removeOccupance(assetID);
         }
     }
+
+    @Override
+    public double getTurns(){
+        return 2.0;
+    }
 }

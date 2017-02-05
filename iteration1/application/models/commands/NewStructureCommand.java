@@ -27,4 +27,9 @@ public class NewStructureCommand extends ConcreteCommand{
             map.getTileState(_o.getTileID()).addOccupance(_o).removeOccupance(assetID);
         }
     }
+
+    @Override
+    public double getTurns(){
+        return 3.0;
+    }
 }
