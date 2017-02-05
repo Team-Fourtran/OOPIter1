@@ -1,7 +1,8 @@
 package application;
 
-import application.controllers.Controller;
-import application.models.tileState.Map;
+import application.controllers.*;
+import application.models.*;
+import application.views.*;
 
 /* Named as per Dave's specifications */
 public class RunGame {
