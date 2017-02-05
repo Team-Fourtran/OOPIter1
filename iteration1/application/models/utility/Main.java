@@ -2,13 +2,10 @@ package application.models.utility;
 
 import application.models.commands.CommandGenerator;
 import application.models.playerAsset.Player;
-<<<<<<< HEAD:src/application/models/utility/Main.java
 import application.models.tileInfo.DamageAoE;
 import application.models.tileInfo.Decal;
 import application.models.tileInfo.HealingAoE;
 import application.models.tileInfo.OneShotItem;
-=======
->>>>>>> 049d0c3a1f0f9b751f3ca4fad322c56a0bf61900:iteration1/application/models/utility/Main.java
 import application.models.tileState.Map;
 import application.models.tileState.TileState;
 

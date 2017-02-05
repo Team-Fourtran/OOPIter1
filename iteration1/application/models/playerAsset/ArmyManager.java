@@ -35,7 +35,7 @@ public class ArmyManager {
     public ArrayList<Unit> decommission(String ArmyID){
         ArrayList<Unit> units = new ArrayList<>();
         for (Army army: armyList){
-            if (Integer.parseInt(army.getID()) == ArmyID){
+            if (army.getID() == ArmyID){
                 units = army.getUnits();
                 armyIDs.add(army.getID());
                 armyList.remove(army);
