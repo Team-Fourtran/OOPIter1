@@ -1,5 +1,6 @@
 package application.models.utility;
 
+import application.models.commands.Command;
 import application.models.commands.CommandGenerator;
 import application.models.playerAsset.Player;
 import application.models.tileState.Map;
@@ -11,6 +12,8 @@ public class Main {
         m.printOut();
         Player p = new Player();
         CommandGenerator cGen = new CommandGenerator(p, m);
-        cGen.generateCommand("NS_U5").execute();
+        for(Command c : cGen.generateCommand("MV_U5_T5_T10")){
+            c.execute();
+        }
     }
 }

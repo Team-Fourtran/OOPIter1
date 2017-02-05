@@ -33,12 +33,30 @@ public class TileState {
         return this.id;
     }
 
-    public void addOccupance(Occupance _o){
+    public TileState addOccupance(Occupance _o){
         occupances.add(_o);
+        return this;
     }
 
     private void removeOccupance(Occupance _o){
         occupances.remove(_o);
+    }
+
+    public void removeOccupance(String ID){
+        for(Occupance _o : occupances){
+            if (_o.getAssetID().equals(ID)){
+                removeOccupance(_o);
+            }
+        }
+    }
+
+    public Occupance getOccupance(String assetID){
+        for(Occupance _o : occupances){
+            if (_o.getAssetID().equals(assetID)){
+                return _o;
+            }
+        }
+        return null;
     }
 
     public void moveOccupance(String id, Directions direction){

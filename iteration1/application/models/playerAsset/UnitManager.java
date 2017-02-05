@@ -16,11 +16,12 @@ public class UnitManager {
     }
 
     //add a new unit to the map on the structure's location that created it
-    public void addNewUnit(String type, String unitLocation){
+    public Unit addNewUnit(String unitLocation, String type){
         Unit newUnit = factory.makeUnit(type);
         newUnit.setLocation(unitLocation);
         unitList.add(newUnit);
         unitCount++;
+        return newUnit;
     }
 
     //method to add units from disbanded army into the unit list

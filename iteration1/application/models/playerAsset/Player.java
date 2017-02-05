@@ -21,6 +21,10 @@ public class Player {
         System.out.println("Player created");
     }
 
+    public String getPosition(String assetID) {
+        return "T6";
+    }
+
     //method to do maintenence tasks on player's assets
     public void beginTurn(){
         int totalFoodCost = units.calculateTotalUpkeep() + armies.calculateTotalUpkeep();
@@ -44,7 +48,7 @@ public class Player {
     //and consume the colonist
     public boolean canCreateStructure(String armyID){
         return armies.findArmy(armyID).hasColonist();
-        }
+    }
 
     public Structure createStructure(String armyID){
         String location = armies.findArmy(armyID).getLocation();
@@ -52,13 +56,15 @@ public class Player {
         return structures.createStructure(location);
     }
 
+    public boolean canCreateUnit(String armyID){
+        return (units.unitCount < units.maxUnits);
+    }
+
     //method to place a new unit on the map through an existing structure
-    public void createUnit(String structureID, String type){
+    public Unit createUnit(String structureID, String type){
         String unitLoc = structures.getLocation(structureID);
-        units.addNewUnit(type, unitLoc);
+        return units.addNewUnit(type, unitLoc);
         //TO-DO: check to see if creation is valid
 
     }
-        
-        
 }
