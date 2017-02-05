@@ -5,17 +5,13 @@ public abstract class PlayerAsset {
     protected int offDamage;
     protected int defDamage;
     protected int armor;
-    protected int health;
+    protected int maxHealth;
+    protected int currentHealth;
     protected int upkeep;
     protected boolean poweredUp;
     protected String locationID;
     protected String assetID;
-    protected static int availableID; // TODO: have these IDs be recycled
 
-    public PlayerAsset() {
-    	assetID = Integer.toString(availableID);
-    	availableID++;
-    }
 
     public void setID(String id){
         assetID = id;

@@ -1,7 +1,5 @@
 package application.models.tileState;
 
-import application.models.playerAsset.PlayerAsset;
-
 /**Serves as the association between TileStates and PlayerAssets
  *
  */

@@ -4,12 +4,11 @@ package application.models.playerAsset;
 public class Colonist extends Unit{
     
     public Colonist(){
-    	super();
         offDamage = 0;
         defDamage = 0;
         armor = 0;
         movesPerTurn = 2;
-        health = 3;
+        maxHealth = currentHealth = 100;
         upkeep = 1;
     }
 }

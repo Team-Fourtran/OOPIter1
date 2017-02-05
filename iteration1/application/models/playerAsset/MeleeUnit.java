@@ -4,12 +4,11 @@ package application.models.playerAsset;
 public class MeleeUnit extends Unit{
     
     public MeleeUnit(){
-    	super();
-        offDamage = 5;
-        defDamage = 5;
-        armor = 5;
+        offDamage = 75;
+        defDamage = 50;
+        armor = 50;
         movesPerTurn = 2;
-        health = 5;
+        maxHealth = currentHealth = 150;
         upkeep = 1;
     }
 }
