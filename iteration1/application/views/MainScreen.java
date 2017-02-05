@@ -2,6 +2,8 @@ package application.views;
 
 import javax.swing.*;
 import javax.swing.table.*;
+
+import application.controllers.KeyPressInformer;
 import application.models.tileState.Map;
 import application.models.utility.TileGen;
 import java.awt.*;
@@ -27,7 +29,11 @@ public class MainScreen implements ActionListener{
 	private final int PIXELS = 45;
 	private final int prefWidth = COL * PIXELS;
 	private final int prefHeight = ROW * PIXELS;
-	private ArrayList<String> keyList;
+
+	//KeyPressInformer for Controller
+    private KeyPressInformer keyInformer;
+	private HashMap<String, Boolean> keyList;
+
 	private JLabel[][] Grid;
 	
 	private final ImageIcon NORMAL = new ImageIcon("TileImages/Normal/Normal.png");
@@ -42,19 +48,14 @@ public class MainScreen implements ActionListener{
     private final String[] unitColumnStats = {"Player Resource", "Offensive Damage", 
 											  "Defensive Damage", "Armor", "Movement", 
 											  "Health", "Upkeep"};
-    
-	public MainScreen(){
-		prepareMainScreen();
-		System.out.println("Calling mainscreen constructor");
-	}
 	
 	public void showMainScreen(){
 		mainScreen.setVisible(true);
 	}
-	public ArrayList<String> getKeyPressListener(){
-		return keyList;
+	public KeyPressInformer getKeyInformer(){
+		return keyInformer;
 	}
-	private void prepareMainScreen(){
+	public void prepareMainScreen(){
 		mainScreen = new JFrame("Fourtran Game");
 		Grid = new JLabel[ROW][COL];
 		
@@ -98,26 +99,49 @@ public class MainScreen implements ActionListener{
 		}
 		
 		//Adding KeyListener for areaViewPort.
-		keyList = new ArrayList<String>();
-		areaViewPort.addKeyListener(new KeyListener(){
+		keyList = new HashMap<String, Boolean>();
+		keyList.put("UP", false);
+		keyList.put("DOWN", false);
+		keyList.put("LEFT", false);
+		keyList.put("RIGHT", false);
+		keyList.put("CONTROL", false);
+		keyList.put("ENTER", false);
+
+        keyInformer = new KeyPressInformer(keyList);
+
+        areaViewPort.addKeyListener(new KeyListener(){
 			@Override
 			public void keyTyped(KeyEvent e){}
 			@Override
-			public void keyReleased(KeyEvent e){}
+			public void keyReleased(KeyEvent e){
+				if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+                    keyInformer.update("RIGHT", false);
+				} else if(e.getKeyCode() == KeyEvent.VK_LEFT){
+                    keyInformer.update("LEFT", false);
+				} else if(e.getKeyCode() == KeyEvent.VK_UP){
+                    keyInformer.update("UP", false);
+				} else if(e.getKeyCode() == KeyEvent.VK_DOWN){
+                    keyInformer.update("DOWN", false);
+				} else if(e.getKeyCode() == KeyEvent.VK_CONTROL){
+                    keyInformer.update("CONTROL", false);
+				} else if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                    keyInformer.update("ENTER", false);
+				}
+			}
 			@Override
 			public void keyPressed(KeyEvent e){
 				if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-					keyList.add("RIGHT");
+                    keyInformer.update("RIGHT", true);
 				} else if(e.getKeyCode() == KeyEvent.VK_LEFT){
-					keyList.add("LEFT");
+                    keyInformer.update("LEFT", true);
 				} else if(e.getKeyCode() == KeyEvent.VK_UP){
-					keyList.add("UP");
+                    keyInformer.update("UP", true);
 				} else if(e.getKeyCode() == KeyEvent.VK_DOWN){
-					keyList.add("DOWN");
+                    keyInformer.update("DOWN", true);
 				} else if(e.getKeyCode() == KeyEvent.VK_CONTROL){
-					keyList.add("CONTROL");
+                    keyInformer.update("CONTROL", true);
 				} else if(e.getKeyCode() == KeyEvent.VK_ENTER){
-					keyList.add("ENTER");
+                    keyInformer.update("ENTER", true);
 				}
 			}
 		});
@@ -128,6 +152,7 @@ public class MainScreen implements ActionListener{
 		statusViewPort = new JPanel(new BorderLayout());
 		
 		//Initializing buttons.
+		buttonPanel = new JPanel();
 		unitOVButton = new JButton("Unit Overview");
 		structureOVButton = new JButton("Structure Overview");
 		unitOVButton.setActionCommand("openUnitOV");

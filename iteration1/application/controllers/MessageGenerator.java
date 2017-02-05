@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 
-class MessageGenerator {
+class MessageGenerator implements KeyPressListener{
     private ArrayList<Mode> modes = new ArrayList<Mode>();
     private Mode currentMode;
     private int modeIndex;	//Originally used ListIterator, but the Java List interface iterators are garbage
@@ -15,69 +15,60 @@ class MessageGenerator {
 
     private Controller receiver;
 
-    MessageGenerator(Controller receiver, ArrayList<String> keysPressedList, HashMap<String, Iterator> assetIterators){
+    MessageGenerator(Controller receiver, KeyPressInformer keyInformer, HashMap<String, Iterator> assetIterators){
         initializeModes();
         this.assetIterators = assetIterators;
         this.receiver = receiver;
         //System.out.println(this.modes);
-        listenToKeyboard(keysPressedList);
+        keyInformer.registerClient(this);
     }
-
+    //Gets called when player turn switches. Changes the iterators on hand.
     protected void updateIterators(HashMap<String, Iterator> assetIterators){
         this.assetIterators = assetIterators;
     }
 
-    private void listenToKeyboard(ArrayList<String> ks){
-        //Runs perpetually
-        System.out.println("Syntax:\n\t'UP','DOWN','LEFT','RIGHT','CONTROL','ENTER'\n\t(Space-separated)");
-        Scanner s = new Scanner(System.in);
+    @Override //Listen to notifications from a KeyPressInformer
+    public void updateKeysPressed(HashMap<String, Boolean> kp) {
+        interpretKeystrokes(kp);
+    }
 
-        while(true){
-            //System.out.println(keystrokes);
+    private void interpretKeystrokes(HashMap<String, Boolean> keystrokes){
+        System.out.println(keystrokes);
 
-            System.out.println("\n\nEnter simulated keystrokes: ");
-            ArrayList<String> keystrokes = new ArrayList<String>();
-            String[] tempS = s.nextLine().split(" ");
-            for(int i = 0; i < tempS.length; i++)
-                keystrokes.add(tempS[i]);
-
-            // Enter and nothing else == "Submit"
-            if(keystrokes.contains("ENTER") && keystrokes.size() == 1){
-                generateMessage();
-            }
-
-            if(keystrokes.contains("CONTROL")){
-                //Cycle MODE
-                if(keystrokes.contains("UP")){
-                    nextMode();
-                } else if(keystrokes.contains("DOWN")){
-                    previousMode();
-                }
-
-                //Cycle TYPE
-                else if(keystrokes.contains("LEFT")){
-                    this.currentMode.controlLeft();			//Forward to Mode
-                } else if(keystrokes.contains("RIGHT")){
-                    this.currentMode.controlRight();		//Forward to Mode
-                }
-
-            } else {
-                if(keystrokes.contains("UP")){
-                    this.currentMode.upKey();
-                } else if(keystrokes.contains("DOWN")){
-                    this.currentMode.downKey();
-                }
-
-                //Cycle TYPE
-                else if(keystrokes.contains("LEFT")){
-                    this.currentMode.leftKey();
-                } else if(keystrokes.contains("RIGHT")){
-                    this.currentMode.rightKey();
-                }
-            }
-
-
+        if(keystrokes.get("ENTER")){
+            generateMessage();
         }
+
+        if(keystrokes.get("CONTROL")){
+            //Cycle MODE
+            if(keystrokes.get("UP")){
+                nextMode();
+            } else if(keystrokes.get("DOWN")){
+                previousMode();
+            }
+
+            //Cycle TYPE
+            else if(keystrokes.get("LEFT")){
+                this.currentMode.controlLeft();			//Forward to Mode
+            } else if(keystrokes.get("RIGHT")){
+                this.currentMode.controlRight();		//Forward to Mode
+            }
+
+        } else {
+            if(keystrokes.get("UP")){
+                this.currentMode.upKey();
+            } else if(keystrokes.get("DOWN")){
+                this.currentMode.downKey();
+            }
+
+            //Cycle TYPE
+            else if(keystrokes.get("LEFT")){
+                this.currentMode.leftKey();
+            } else if(keystrokes.get("RIGHT")){
+                this.currentMode.rightKey();
+            }
+        }
+
     }
 
     private void generateMessage(){
@@ -118,11 +109,11 @@ interface Mode{
     void controlRight();
 
 
-	void upKey();
-	void downKey();
+    void upKey();
+    void downKey();
 
-	void leftKey();
-	void rightKey();
+    void leftKey();
+    void rightKey();
 
     String toString();
 }

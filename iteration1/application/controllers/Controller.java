@@ -8,9 +8,9 @@ public class Controller {
     MessageGenerator msgGen;
 
     //Takes an arrayList that at any given time holds String representations of the currently-pressed keys
-    public Controller(ArrayList<String> keysPressedList, HashMap<String, Iterator> assetIterators){
+    public Controller(KeyPressInformer keyInformer, HashMap<String, Iterator> assetIterators){
         //Initializes the message generator, setting itself as the reciever, and forwarding the keysPressedList
-        this.msgGen = new MessageGenerator(this, keysPressedList, assetIterators);
+        this.msgGen = new MessageGenerator(this, keyInformer, assetIterators);
     }
 
     public void updateIterators(HashMap<String, Iterator> assetIterators){

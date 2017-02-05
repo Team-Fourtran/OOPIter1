@@ -18,8 +18,9 @@ public class TestMessageGenerator {
     public static void main(String[] args){
         System.out.println("Starting game");
         mainView = new MainScreen();
+        mainView.prepareMainScreen();
         mainView.showMainScreen();
-/*
+
         playerList = new ArrayList<Player>();
 
         playerList.add(new Player());   //Player 1
@@ -32,8 +33,8 @@ public class TestMessageGenerator {
         assetIterators.put("Unit", currentPlayer.getUnitIterator());
         assetIterators.put("Structure", currentPlayer.getStructureIterator());
 
-        //gameController = new Controller(mainView.getKeyPressListener(),assetIterators);
-*/
+        gameController = new Controller(mainView.getKeyInformer(),assetIterators);
+
     }
 
     private static void switchActivePlayer(){
