@@ -1,6 +1,6 @@
 package application.models.playerAsset;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Player {
     
@@ -45,7 +45,7 @@ public class Player {
     //and consume the colonist
     public boolean canCreateStructure(String armyID){
         return armies.findArmy(armyID).hasColonist();
-        }
+    }
 
     public Structure createStructure(String armyID){
         String location = armies.findArmy(armyID).getLocation();
@@ -53,15 +53,20 @@ public class Player {
         return structures.createStructure(location);
     }
 
+    public boolean canCreateUnit(String armyID){
+        return (units.unitCount < units.maxUnits);
+    }
+
     //method to place a new unit on the map through an existing structure
-    public void createUnit(String structureID, String type){
+    public Unit createUnit(String structureID, String type){
         String unitLoc = structures.getLocation(structureID);
-        units.addNewUnit(type, unitLoc);
+        return units.addNewUnit(type, unitLoc);
         //TO-DO: check to see if creation is valid
 
     }
     
     // Getter method for Unit Manager, for initializing the Player with the proper units
+    // TODO: made the getPlayerAsset. May not need this anymore!
     public UnitManager getUnitManager() {
     	return units;
     }
@@ -82,5 +87,28 @@ public class Player {
     		return null;
     	}
     }
-        
+
+    public String getPosition(String assetID){
+        if (assetID.charAt(0) == 'u')
+            return units.getPosition(assetID);
+        else if (assetID.charAt(0) == 'a')
+             return armies.getPosition(assetID);
+        else if (assetID.charAt(0) == 's')
+            return structures.getPosition(assetID);
+        else
+            return ("No asset with that ID found");
+    }
+
+    public Iterator getUnitIterator(){
+        return units.makeIterator();
+
+    }
+
+    public Iterator getArmyIterator(){
+        return armies.makeIterator();
+    }
+
+    public Iterator getStructureIterator(){
+        return structures.makeIterator();
+    }
 }

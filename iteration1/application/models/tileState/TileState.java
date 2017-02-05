@@ -85,16 +85,33 @@ public class TileState {
     public List<Occupance> getOccupance() {
     	return occupances;
     }
-    
-    public void addOccupance(Occupance _o){
-    	System.out.println("Occupance added for " + id);
+
+    public TileState addOccupance(Occupance _o){
         occupances.add(_o);
+        return this;
     }
 
     private void removeOccupance(Occupance _o){
         occupances.remove(_o);
     }
-    
+
+    public void removeOccupance(String ID){
+        for(Occupance _o : occupances){
+            if (_o.getAssetID().equals(ID)){
+                removeOccupance(_o);
+            }
+        }
+    }
+
+    public Occupance getOccupance(String assetID){
+        for(Occupance _o : occupances){
+            if (_o.getAssetID().equals(assetID)){
+                return _o;
+            }
+        }
+        return null;
+    }
+
     public void moveOccupance(String id, Directions direction){
         for (Occupance _o : occupances){
             if(id.equals(_o.getAssetID())){

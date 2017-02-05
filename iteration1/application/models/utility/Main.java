@@ -23,5 +23,6 @@ public class Main {
         t.get("T0").getTileInfo().addAoEs(new DamageAoE(), new HealingAoE());
         t.get("T0").getTileInfo().addItems(new OneShotItem(), new Decal("crossBones"));
         System.out.println(t.get("T0").getProperties());
+
     }
 }

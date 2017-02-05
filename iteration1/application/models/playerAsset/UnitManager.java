@@ -1,6 +1,7 @@
 package application.models.playerAsset;
 
 import java.util.ArrayList;
+import java.util.*;
 
 public class UnitManager {
     
@@ -28,7 +29,7 @@ public class UnitManager {
     }
 
     //add a new unit to the map on the structure's location that created it
-    public Unit addNewUnit(String type, String unitLocation){
+    public Unit addNewUnit(String unitLocation, String type){
         Unit newUnit = factory.makeUnit(type);
         newUnit.setLocation(unitLocation);
         unitList.add(newUnit);
@@ -49,4 +50,17 @@ public class UnitManager {
         }
         return totalUpkeep;
     }
+
+    public String getPosition(String assetID){
+        for (Unit u: unitList)
+            if (u.getID() == assetID)
+                return u.getLocation();
+        return null;
+    }
+
+    public Iterator makeIterator(){
+        return unitList.iterator();
+    }
+
+
 }

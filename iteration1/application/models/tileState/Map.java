@@ -24,6 +24,10 @@ public class Map {
         return tiles.get(tileID);
     }
 
+    public String generatePath(String startTileID, String endTileID) {
+        return "N_N_N_N_W_W_S_W";
+    }
+
     //View Interface:
     
     public int getLength() {
