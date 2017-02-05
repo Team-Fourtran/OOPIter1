@@ -14,7 +14,6 @@ public class NewStructureCommand extends ConcreteCommand{
 
     public void doInitialize(String ... strings){
         assetID = strings[1];
-        System.out.println("AssetID " + assetID);
     }
 
     @Override

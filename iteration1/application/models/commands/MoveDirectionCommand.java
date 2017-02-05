@@ -31,6 +31,7 @@ public class MoveDirectionCommand extends ConcreteCommand{
         Player player = getPlayer();
 
         System.out.println("\nMoving " + assetID + " direction " + direction);
+        System.out.println(player.getPosition(assetID));
         map.getTileState(player.getPosition(assetID)).moveOccupance(assetID, direction);
 
     }

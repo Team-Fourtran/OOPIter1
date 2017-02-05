@@ -4,19 +4,20 @@ import java.util.ArrayList;
 
 public class Army extends PlayerAsset{
     
-    ArrayList<Unit> battleGroup;
-    ArrayList<Unit> reinforcements;
+    ArrayList<Unit> battleGroup = new ArrayList<Unit>();
+    ArrayList<Unit> reinforcements = new ArrayList<Unit>();
     String rallyPoint;
 
     public Army(ArrayList<Unit> units, String rallyPoint){
         this.rallyPoint = rallyPoint;
         for (Unit u: units){
-            if (u.getLocation() == rallyPoint)
+            if (u.getLocation().equals(rallyPoint)) {
                 battleGroup.add(u);
-            else
+            }
+            else {
                 reinforcements.add(u);
+            }
         }
-        
     }
 
     //method to set new rally point. If any reinforcements are on that tile
@@ -47,9 +48,12 @@ public class Army extends PlayerAsset{
 
     //after a structure is made, remove the colonist from the army
     public void removeColonist(){
-        for (Unit i: battleGroup)
+    	Unit removed = null;
+        for (Unit i: battleGroup) {
             if (i instanceof Colonist)
-                battleGroup.remove(i);
+            	removed = i;
+        }
+        battleGroup.remove(removed);
     }
 
     //see if any reinforcements arrived at the rally point
