@@ -34,15 +34,15 @@
 
 
 
-[System Overview]: https://github.com/Team-Fourtran/OOPIter1/blob/master/src/docs/System%20Overview.png?raw=true "System Overview"
+[System Overview]: https://github.com/Team-Fourtran/OOPIter1/blob/master/iteration1/docs/System%20Overview.png?raw=true "System Overview"
 
-[Model Overview]: https://github.com/Team-Fourtran/OOPIter1/blob/master/src/docs/Model%20Overview.png?raw=true "Model Overview"
+[Model Overview]: https://github.com/Team-Fourtran/OOPIter1/blob/master/iteration1/docs/Model%20Overview.png?raw=true "Model Overview"
 
-[Model: Map Subsystem]: https://github.com/Team-Fourtran/OOPIter1/blob/master/src/docs/Model%20-%20MapSubsystem.png?raw=true "Map Subsystem"
-[Model: Player Subsystem]: https://github.com/Team-Fourtran/OOPIter1/blob/master/src/docs/Model%20-%20PlayerSubsystem.png?raw=true "Player Subsystem"
+[Model: Map Subsystem]: https://github.com/Team-Fourtran/OOPIter1/blob/master/iteration1/docs/Model%20-%20MapSubsystem.png?raw=true "Map Subsystem"
+[Model: Player Subsystem]: https://github.com/Team-Fourtran/OOPIter1/blob/master/iteration1/docs/Model%20-%20PlayerSubsystem.png?raw=true "Player Subsystem"
 
-[Controller Overview]: https://github.com/Team-Fourtran/OOPIter1/blob/master/src/docs/Controller%20Overview.png?raw=true "Controller Overview"
+[Controller Overview]: https://github.com/Team-Fourtran/OOPIter1/blob/master/iteration1/docs/Controller%20Overview.png?raw=true "Controller Overview"
 
-[Controller: Message Generation Subsystem]: https://github.com/Team-Fourtran/OOPIter1/blob/master/src/docs/Controller%20-%20MessageGenerator%20Subsystem.png?raw=true "Message Subsystem"
+[Controller: Message Generation Subsystem]: https://github.com/Team-Fourtran/OOPIter1/blob/master/iteration1/docs/Controller%20-%20MessageGenerator%20Subsystem.png?raw=true "Message Subsystem"
 
-[View Overview]: https://github.com/Team-Fourtran/OOPIter1/blob/master/src/docs/View%20Overview.png?raw=true "View Overview"
+[View Overview]: https://github.com/Team-Fourtran/OOPIter1/blob/master/iteration1/docs/View%20Overview.png?raw=true "View Overview"
