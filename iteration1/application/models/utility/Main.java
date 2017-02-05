@@ -16,15 +16,12 @@ public class Main {
         TileGen T = new TileGen(length, width);
         Map m = new Map(T.execute(), length, width);
         m.printOut();
-        /*
+
         Player p = new Player();
 
-        CommandGenerator generator = new CommandGenerator();
-        generator.generateCommand("CS_U001");
-        */
-
-
         CommandGenerator cGen = new CommandGenerator(p, m);
+        cGen.generateCommand("CS_U001");
+
         for(Command c : cGen.generateCommand("MV_U5_T5_T10")){
             c.execute();
         }
