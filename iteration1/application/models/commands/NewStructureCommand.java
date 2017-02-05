@@ -1,6 +1,7 @@
 package application.models.commands;
 
 import application.models.playerAsset.Player;
+import application.models.playerAsset.PlayerAsset;
 import application.models.tileState.AssetOccupance;
 import application.models.tileState.Map;
 import application.models.tileState.Occupance;
@@ -14,7 +15,6 @@ public class NewStructureCommand extends ConcreteCommand{
 
     public void doInitialize(String ... strings){
         assetID = strings[1];
-        System.out.println("AssetID " + assetID);
     }
 
     @Override
@@ -23,9 +23,10 @@ public class NewStructureCommand extends ConcreteCommand{
         Player player = getPlayer();
         if(player.canCreateStructure(assetID)){
             System.out.println("Creating Occupance...\n");
-            Occupance _o = new AssetOccupance(player.createStructure(assetID));
+            PlayerAsset s = player.createStructure(assetID);
+            Occupance _o = new AssetOccupance(s);
             System.out.println("new asset occupance with id = " + assetID + "\n");
-            map.getTileState(_o.getTileID()).addOccupance(_o).removeOccupance(assetID);
+            map.getTileState(s.getLocation()).addOccupance(_o).removeOccupance(assetID);
         }
     }
 }
