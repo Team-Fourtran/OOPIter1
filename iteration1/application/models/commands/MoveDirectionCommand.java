@@ -35,6 +35,12 @@ public class MoveDirectionCommand extends ConcreteCommand{
         map.getTileState(player.getPosition(assetID)).moveOccupance(assetID, direction);
 
     }
+
+    @Override
+    public double getTurns() {
+        return 0.33;
+    }
+
     @Override
     protected void setPacking(){
         needsUnpacked = false;
