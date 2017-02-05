@@ -45,9 +45,10 @@ public class MainScreen implements ActionListener{
     
 	public MainScreen(){
 		prepareMainScreen();
+		System.out.println("Calling mainscreen constructor");
 	}
 	
-	private void showMainScreen(){
+	public void showMainScreen(){
 		mainScreen.setVisible(true);
 	}
 	public ArrayList<String> getKeyPressListener(){
@@ -61,9 +62,11 @@ public class MainScreen implements ActionListener{
 		TileGen T = new TileGen(ROW, COL);
 		Map m = new Map(T.execute(), ROW, COL);
 		String terrains2d[][] = new String[ROW][COL];
+
 		for(int i = 0; i < 15; i++){
 			for(int j = 0; j < 15; j++){
-				System.out.println(m.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties());
+				//System.out.println(i + " " + j);
+				//System.out.println(m.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties());
 				terrains2d[i][j] = m.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties().get("terrain").get(0);
 			}
 		}

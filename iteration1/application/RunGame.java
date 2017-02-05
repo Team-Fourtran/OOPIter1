@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import application.controllers.*;
 import application.models.playerAsset.Player;
 import application.models.tileState.Map;
-import application.views.*;
+import application.views.MainScreen;
 
 /* Named as per Dave's specifications */
 public class RunGame {
     public static void main(String[] args){
-        View mainView = new View();
-        Controller gameController = new Controller(mainView.getKeyPressListener());
+        MainScreen mainView = new MainScreen();
+        //Controller gameController = new Controller(mainView.getKeyPressListener());
 
         ArrayList<Player> players = new ArrayList<Player>();
         Player currentPlayer;
