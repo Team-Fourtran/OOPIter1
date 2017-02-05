@@ -1,12 +1,15 @@
 package application.models.playerAsset;
 
-import java.util.ArrayList;
+import application.models.commands.Command;
+
+import java.util.*;
 
 public class Army extends PlayerAsset{
     
     ArrayList<Unit> battleGroup;
     ArrayList<Unit> reinforcements;
     String rallyPoint;
+    Queue<Command> commandQueue = new LinkedList<>();
 
     public Army(ArrayList<Unit> units, String rallyPoint){
         rallyPoint = rallyPoint;

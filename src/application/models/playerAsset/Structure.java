@@ -1,8 +1,13 @@
 package application.models.playerAsset;
 
+import application.models.commands.Command;
+
+import java.util.*;
+
 public class Structure extends PlayerAsset{
 
     int productionRate;
+    Queue<Command> commandQueue = new LinkedList<>();
 
     public Structure(){
         
