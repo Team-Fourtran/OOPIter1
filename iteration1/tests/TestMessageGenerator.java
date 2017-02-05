@@ -24,9 +24,16 @@ public class TestMessageGenerator {
         playerList = new ArrayList<Player>();
 
         playerList.add(new Player());   //Player 1
+        for(int i = 0; i < 2; i++){
+            playerList.get(i).createInitialUnit("Tile0","Colonist");
+            playerList.get(i).createStructure()
+
+        }
+
         playerList.add(new Player());   //Player 2
 
         currentPlayer = playerList.get(0);
+        currentPlayer.beginTurn();
 
         HashMap<String, Iterator> assetIterators = new HashMap<String, Iterator>();
         assetIterators.put("Army", currentPlayer.getArmyIterator());
