@@ -3,10 +3,7 @@ package tests;
 import application.models.commands.Command;
 import application.models.commands.CommandGenerator;
 import application.models.playerAsset.Player;
-import application.models.playerAsset.Unit;
-import application.models.playerAsset.UnitManager;
 import application.models.tileState.Map;
-import application.models.tileState.TileState;
 import application.models.utility.TileGen;
 
 /*
