@@ -7,8 +7,8 @@ public class Structure extends PlayerAsset{
 
     public Structure(){
 
-        offDamage = 50;
-        defDamage = 25;
+        offDamage = 75;
+        defDamage = 75;
         armor = 150;
         productionRate = 2;
         maxHealth = currentHealth = 200;

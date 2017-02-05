@@ -4,9 +4,8 @@ package application.models.playerAsset;
 public class Explorer extends Unit{
     
     public Explorer(){
-        super();
-        offDamage = 2;
-        defDamage = 2;
+        offDamage = 20;
+        defDamage = 10;
         armor = 25;
         movesPerTurn = 2;
         maxHealth = currentHealth = 100;
