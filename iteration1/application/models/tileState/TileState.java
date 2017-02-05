@@ -11,7 +11,7 @@ public class TileState {
     private String id;
     private TileInfo tile;
     //private TileInfo tile
-    private List<Occupance> occupances;
+    private ArrayList<Occupance> occupances;
     private HashMap<Directions, TileState> neighbors;
 
     public TileState(String id, TileInfo tile){
@@ -98,7 +98,7 @@ public class TileState {
     	return properties;
     }
     
-    public List<Occupance> getOccupance() {
+    public ArrayList<Occupance> getOccupance() {
     	return occupances;
     }
 

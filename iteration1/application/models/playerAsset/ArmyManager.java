@@ -15,17 +15,18 @@ public class ArmyManager {
         }
 
     //create a new army with given units and add it to the armyList
-    public void formArmy(ArrayList<Unit> units, String rallyPoint){
+    public Army formArmy(ArrayList<Unit> units, String rallyPoint){
         Army newArmy = new Army(units, rallyPoint);
         newArmy.setID(armyIDs.get(0));
-        //TO-DO: set location of army (battle group?)
+        newArmy.setLocation(rallyPoint);
         armyList.add(newArmy);
         armyIDs.remove(0);
+        return newArmy;
 
     }
     public Army findArmy(String armyID){
         for (Army a: armyList){
-            if (a.getID() == armyID)
+            if (a.getID().equals(armyID))
                 return a;
         }
         return null;

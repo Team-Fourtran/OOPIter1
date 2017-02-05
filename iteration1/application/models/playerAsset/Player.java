@@ -30,7 +30,7 @@ public class Player {
     }
 
     //pass list of units to army manager to form army
-    public void formArmy(ArrayList<String> unitIDs, String rallyPoint){
+    public Army formArmy(ArrayList<String> unitIDs, String rallyPoint){
     	ArrayList<Unit> u = new ArrayList<Unit>();
     	for (int i = 0; i < unitIDs.size(); i++) {
     		// If the Player has this unitID, add it to the army
@@ -38,7 +38,7 @@ public class Player {
     			u.add(this.getUnit(unitIDs.get(i)));
     		}
     	}
-        armies.formArmy(u, rallyPoint);
+        return armies.formArmy(u, rallyPoint);
     }
 
     //decommission army, recieve released units, and pass them to unit manager
@@ -58,7 +58,8 @@ public class Player {
         if (canCreateStructure(armyID)) {
             String location = armies.findArmy(armyID).getLocation();
             armies.findArmy(armyID).removeColonist();
-            return structures.createStructure(location);
+            Structure s = structures.createStructure(location);
+            return s;
         }
         return null;
     }
