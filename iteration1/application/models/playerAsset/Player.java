@@ -1,6 +1,6 @@
 package application.models.playerAsset;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Player {
     
@@ -19,10 +19,6 @@ public class Player {
         wood = 0;
         
         System.out.println("Player created");
-    }
-
-    public String getPosition(String assetID) {
-        return "T6";
     }
 
     //method to do maintenence tasks on player's assets
@@ -66,5 +62,29 @@ public class Player {
         return units.addNewUnit(type, unitLoc);
         //TO-DO: check to see if creation is valid
 
+    }
+
+    public String getPosition(String assetID){
+        if (assetID.charAt(0) == 'u')
+            return units.getPosition(assetID);
+        else if (assetID.charAt(0) == 'a')
+             return armies.getPosition(assetID);
+        else if (assetID.charAt(0) == 's')
+            return structures.getPosition(assetID);
+        else
+            return ("No asset with that ID found");
+    }
+
+    public Iterator getUnitIterator(){
+        return units.makeIterator();
+
+    }
+
+    public Iterator getArmyIterator(){
+        return armies.makeIterator();
+    }
+
+    public Iterator getStructureIterator(){
+        return structures.makeIterator();
     }
 }

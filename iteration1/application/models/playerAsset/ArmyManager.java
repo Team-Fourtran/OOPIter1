@@ -1,6 +1,6 @@
 package application.models.playerAsset;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class ArmyManager {
     
@@ -53,6 +53,17 @@ public class ArmyManager {
                 totalUpkeep += u.getUpkeep();
         }
         return totalUpkeep;
+    }
+
+    public String getPosition(String assetID){
+        for (Army a: armyList)
+            if (a.getID() == assetID)
+                return a.getLocation();
+        return null;
+    }
+
+    public Iterator makeIterator(){
+        return armyList.iterator();
     }
 
     //debugging
