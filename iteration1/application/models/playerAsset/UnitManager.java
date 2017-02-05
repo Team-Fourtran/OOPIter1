@@ -1,27 +1,36 @@
 package application.models.playerAsset;
 
-import java.util.ArrayList;
 import java.util.*;
 
 public class UnitManager {
     
     ArrayList<Unit> unitList;
-    int unitCount;
     UnitFactory factory;
+    int unitCount;
+    int meleeCount;
+    int rangedCount;
+    int explorerCount;
+    int colonistCount;
     final int maxUnits = 25;
+    final int maxUnitType = 10;
+    ArrayList<String> unitIDs = new ArrayList<>();
 
     public UnitManager(){
         unitList = new ArrayList<>();
         unitCount = 0;
         factory = new UnitFactory();
+        for (int i = 1; i <= 25; i++)
+            unitIDs.add("u" + i);
     }
 
     //add a new unit to the map on the structure's location that created it
     public Unit addNewUnit(String unitLocation, String type){
         Unit newUnit = factory.makeUnit(type);
         newUnit.setLocation(unitLocation);
+        newUnit.setID(unitIDs.get(0));
         unitList.add(newUnit);
         unitCount++;
+
         return newUnit;
     }
 
@@ -39,6 +48,7 @@ public class UnitManager {
         return totalUpkeep;
     }
 
+    //find position of unit on the map
     public String getPosition(String assetID){
         for (Unit u: unitList) {
             if (u.getID().equals(assetID)) {
@@ -46,6 +56,36 @@ public class UnitManager {
             }
         }
         return null;
+    }
+
+    public void incrementUnit(String type){
+        switch(type){
+            case "melee": meleeCount++;
+            case "ranged": rangedCount++;
+            case "explorer": explorerCount++;
+            case "colonist": colonistCount++;
+        }
+    }
+
+    public void decrementUnit(String type){
+        switch(type){
+            case "melee": meleeCount--;
+            case "ranged": rangedCount--;
+            case "explorer": explorerCount--;
+            case "colonist": colonistCount--;
+        }
+    }
+
+    public boolean checkIfValid(String type){
+        if (unitCount < 25){
+            switch(type){
+                case "melee": if (meleeCount < 10) return true;
+                case "ranged": if (rangedCount < 10) return true;
+                case "explorer": if (explorerCount < 10) return true;
+                case "colonist": if (colonistCount < 10) return true;
+            }
+        }
+        return true;
     }
 
     public Iterator makeIterator(){
