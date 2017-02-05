@@ -17,14 +17,6 @@ public class StructureManager {
         return structureList.size();
     }
 
-    //intermediate method to find a certain structure's location
-    public String getLocation(String structureID){
-        for (Structure s : structureList)
-            if (s.getID() == structureID)
-                return s.getLocation();
-        return null;
-    }
-
     //add a new structure to the map on an Army's location
     public Structure createStructure(String location){
         Structure s = new Structure();

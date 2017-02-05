@@ -14,15 +14,16 @@ public class TileState {
     private ArrayList<Occupance> occupances;
     private HashMap<Directions, TileState> neighbors;
 
+    public HashMap<Directions, TileState> getNeighbors(){
+        return neighbors;
+    }
+
     public TileState(String id, TileInfo tile){
-    	occupances = new ArrayList<Occupance>();
-    	neighbors = new HashMap<Directions, TileState>();
+    	occupances = new ArrayList<>();
+    	neighbors = new HashMap<>();
         this.id = id;
         this.tile = tile;
-        neighbors = new HashMap<Directions, TileState>(Directions.values().length);
-        for (Directions d : Directions.values()){
-            neighbors.put(d, null);
-        }
+        neighbors = new HashMap<>(Directions.values().length);
     }
 
     public void printState(){

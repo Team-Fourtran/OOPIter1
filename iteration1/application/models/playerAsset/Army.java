@@ -9,7 +9,6 @@ public class Army extends PlayerAsset{
     String rallyPoint;
 
     public Army(ArrayList<Unit> units, String rallyPoint){
-    	assetID = 'a' + assetID;
         this.rallyPoint = rallyPoint;
         for (Unit u: units){
             if (u.getLocation().equals(rallyPoint)) {
@@ -55,6 +54,16 @@ public class Army extends PlayerAsset{
             	removed = i;
         }
         battleGroup.remove(removed);
+    }
+
+    //see if any reinforcements arrived at the rally point
+    //to be called each turn
+    public void updateArmyTypes(){
+        for (Unit u: reinforcements)
+            if (u.getLocation() == rallyPoint){
+                battleGroup.add(u);
+                reinforcements.remove(u);
+            }
     }
     
 

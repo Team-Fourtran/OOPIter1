@@ -4,7 +4,6 @@ package application.models.playerAsset;
 public class Colonist extends Unit{
     
     public Colonist(){
-    	super();
         offDamage = 0;
         defDamage = 0;
         armor = 0;

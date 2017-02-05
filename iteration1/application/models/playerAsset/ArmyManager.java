@@ -67,13 +67,6 @@ public class ArmyManager {
         return armyList.iterator();
     }
 
-    //debugging
-    public void displayArmy(){
-        System.out.println("There are " + armyList.size() + "armies for this player");
-        for (int i = 0; i < armyList.size(); i++){
-            System.out.println("Army " + i);
-        }
-    }
 
    
 }
