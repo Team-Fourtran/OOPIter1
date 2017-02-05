@@ -1,14 +1,19 @@
 package application.models.commands;
 
+import java.util.Iterator;
+
 import application.models.playerAsset.Player;
+import application.models.playerAsset.Unit;
+import application.models.playerAsset.UnitManager;
+import application.models.tileInfo.Item;
 import application.models.tileState.AssetOccupance;
 import application.models.tileState.Directions;
 import application.models.tileState.Map;
 import application.models.tileState.Occupance;
-
+import application.models.tileState.TileState;
 import java.util.ArrayList;
 
-class concreteCommand implements Command {
+class ConcreteCommand implements Command {
     protected int turnsToExcecute; //Can be private with final set methods?
     protected int turnsRemaining;
     private Map map;
@@ -16,7 +21,7 @@ class concreteCommand implements Command {
     private String commandType;
     protected boolean needsUnpacked = false;
 
-    concreteCommand(Player _p, Map _m){
+    ConcreteCommand(Player _p, Map _m){
         System.out.println("Creating " + this.getClass().toString() + "...\n");
         setPacking();
         this.map = _m;
@@ -61,15 +66,40 @@ class concreteCommand implements Command {
     }
 }
 
-class newStructureCommand extends concreteCommand{
+/*
+ * Command intended for the initial units (2 explorers, 1 colonist) for a given Player
+ */
+class InitialUnitsCommand extends ConcreteCommand {
+	private String destinationTileID;
+	private String unitType;
+	
+	InitialUnitsCommand(Player _p, Map _m) {
+		super(_p, _m);
+	}
+	
+	public void doInitialize(String... strings) {
+		destinationTileID = strings[2];
+		unitType = strings[3];
+	}
+	
+	@Override
+	public void execute() {
+	    Player p = getPlayer();
+	    Occupance _o = new AssetOccupance(p.createInitialUnit(destinationTileID, unitType));
+		getMap().getTileState(destinationTileID).addOccupance(_o);
+	}
+}
+
+class NewStructureCommand extends ConcreteCommand{
     private String assetID;
 
-    newStructureCommand(Player _p, Map _m){
+    NewStructureCommand(Player _p, Map _m){
         super(_p, _m);
     }
 
     public void doInitialize(String ... strings){
         assetID = strings[1];
+        System.out.println("AssetID " + assetID);
     }
 
     @Override
@@ -85,7 +115,7 @@ class newStructureCommand extends concreteCommand{
     }
 }
 
-class newUnitCommand extends concreteCommand{
+class newUnitCommand extends ConcreteCommand{
     private String assetID;
     private String unitType;
 
@@ -111,13 +141,13 @@ class newUnitCommand extends concreteCommand{
     }
 }
 
-class moveAssetCommand extends concreteCommand{
+class MoveAssetCommand extends ConcreteCommand{
     private String startTileID;
     private String destinationTileID;
     private String assetID;
 
 
-    moveAssetCommand(Player _p, Map _m){
+    MoveAssetCommand(Player _p, Map _m){
         super(_p, _m);
     }
     @Override
@@ -142,19 +172,19 @@ class moveAssetCommand extends concreteCommand{
         String[] directionsArray = path.split("[_]");
         ArrayList<Command> cmdList = new ArrayList<>(directionsArray.length);
         for(int i = 0; i < directionsArray.length; i++){
-            cmdList.add(new moveDirectionCommand(getPlayer(), getMap()));
+            cmdList.add(new MoveDirectionCommand(getPlayer(), getMap()));
             cmdList.get(i).initialize("MVD", assetID, directionsArray[i]);
         }
         return cmdList;
     }
 }
 
-class moveDirectionCommand extends concreteCommand{
+class MoveDirectionCommand extends ConcreteCommand{
     private Directions direction;
     private String degreesDirection;
     private String assetID;
 
-    moveDirectionCommand(Player _p, Map _m){
+    MoveDirectionCommand(Player _p, Map _m){
         super(_p, _m);
     }
 
@@ -162,14 +192,22 @@ class moveDirectionCommand extends concreteCommand{
     public void doInitialize(String... strings) {
         assetID = strings[1];
         degreesDirection = strings[2];
-        //direction = ????
+
+        for (Directions d : Directions.values()) {
+        	if (Integer.parseInt(degreesDirection) == d.getValue()) {
+        		direction = d;
+        	}
+        }
     }
+    
     @Override
     public void execute() {
         Map map = getMap();
         Player player = getPlayer();
-        System.out.println("Moving " + assetID + " direction " + direction);
+        
+        System.out.println("\nMoving " + assetID + " direction " + direction);
         map.getTileState(player.getPosition(assetID)).moveOccupance(assetID, direction);
+        
     }
     @Override
     protected void setPacking(){
@@ -177,8 +215,8 @@ class moveDirectionCommand extends concreteCommand{
     }
 }
 
-class nullCommand extends concreteCommand{
-    nullCommand(Player _p, Map _m){
+class NullCommand extends ConcreteCommand{
+    NullCommand(Player _p, Map _m){
         super(_p, _m);
     }
 }

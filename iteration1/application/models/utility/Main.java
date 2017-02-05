@@ -3,26 +3,37 @@ package application.models.utility;
 import application.models.commands.Command;
 import application.models.commands.CommandGenerator;
 import application.models.playerAsset.Player;
+import application.models.tileInfo.DamageAoE;
+import application.models.tileInfo.Decal;
+import application.models.tileInfo.HealingAoE;
+import application.models.tileInfo.OneShotItem;
 import application.models.tileState.Map;
+import application.models.tileState.TileState;
 
 public class Main {
     public static void main(String args[]) {
-        TileGen T = new TileGen(4, 4);
-        Map m = new Map(T.execute());
+    	int length = 4 , width = 4;
+        TileGen T = new TileGen(length, width);
+        Map m = new Map(T.execute(), length, width);
         m.printOut();
         /*
         Player p = new Player();
-<<<<<<< HEAD:src/application/models/utility/Main.java
 
         CommandGenerator generator = new CommandGenerator();
         generator.generateCommand("CS_U001");
         */
 
-=======
+
         CommandGenerator cGen = new CommandGenerator(p, m);
         for(Command c : cGen.generateCommand("MV_U5_T5_T10")){
             c.execute();
         }
->>>>>>> master:iteration1/application/models/utility/Main.java
+        
+        java.util.Map<String, TileState> t = m.getTiles();
+        
+        t.get("T0").getTileInfo().addAoEs(new DamageAoE(), new HealingAoE());
+        t.get("T0").getTileInfo().addItems(new OneShotItem(), new Decal("crossBones"));
+        System.out.println(t.get("T0").getProperties());
+
     }
 }

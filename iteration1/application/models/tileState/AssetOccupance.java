@@ -9,21 +9,19 @@ public class AssetOccupance extends Occupance{
         this.asset = _asset;
     }
 
-    @Override
-    void updateLocationIDofAsset() {
-        //asset.setLocationID();
-    }
+//    @Override
+//    void updateLocationIDofAsset() {
+//        asset.setLocation(tileID);
+//    }
 
     @Override
     public String getAssetID() {
-        //asset.getAssetID();
-        return "";
+        return asset.getID();
     }
 
     @Override
     public String getTileID() {
-        //asset.getTileID();
-        return "";
+        return asset.getLocation();
     }
 
 }

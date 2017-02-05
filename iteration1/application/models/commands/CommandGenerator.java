@@ -24,16 +24,20 @@ public class CommandGenerator {
         ArrayList<Command> cmd = new ArrayList<>(1);
 
         switch (commandArray[0]){
-            case "MV":  cmd.add(new moveAssetCommand(player, map));
-                        break;
-            case "NS":  cmd.add(new newStructureCommand(player, map));
-                        break;
-            default:    cmd.add(new nullCommand(player, map));
+        	case "IU":	cmd.add(new InitialUnitsCommand(player, map));
+        				break;
+            case "MV":  cmd.add(new MoveAssetCommand(player, map));
+            			break;
+            case "MD": 	cmd.add(new MoveDirectionCommand(player, map));
+            			break;
+            case "NS":  cmd.add(new NewStructureCommand(player, map));
+            			break;
+            default:    cmd.add(new NullCommand(player, map));
         }
         cmd.get(0).initialize(commandArray);
 
         if(cmd.get(0).needsUnpacked()){
-            return new ArrayList<>(((concreteCommand)cmd.get(0)).unpack());
+            return new ArrayList<>(((ConcreteCommand)cmd.get(0)).unpack());
         }
         return cmd;
     }

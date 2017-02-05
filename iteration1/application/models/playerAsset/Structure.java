@@ -6,7 +6,8 @@ public class Structure extends PlayerAsset{
     int productionRate;
 
     public Structure(){
-        
+    	assetID = 's' + assetID;
+    	
         offDamage = 10;
         defDamage = 5;
         armor = 15;
