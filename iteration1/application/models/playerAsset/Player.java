@@ -17,9 +17,7 @@ public class Player {
         structures = new StructureManager();
         food = 0;
         wood = 0;
-        
-        System.out.println("Player created");
-        
+
     }
 
     //method to do maintenence tasks on player's assets
@@ -31,46 +29,49 @@ public class Player {
         //TO-DO: enforce some punishment for not having enough
     }
 
-    //method to pass list of units to army manager to form army
+    //pass list of units to army manager to form army
     public void formArmy(ArrayList<Unit> units, String rallyPoint){
         armies.formArmy(units, rallyPoint);
     }
 
-    //method to decommission army, recieve released units, and pass them to unit manager
+    //decommission army, recieve released units, and pass them to unit manager
     public void decommissionArmy(String armyID){
         ArrayList<Unit> releasedUnits = armies.decommission(armyID);
         units.addUnits(releasedUnits);
     }
-    //method to check a specific army for a colonist, create a structure on that tile,
-    //and consume the colonist
+
+    //check to see if the structure creation is valid
     public boolean canCreateStructure(String armyID){
-        return armies.findArmy(armyID).hasColonist();
+        return (armies.findArmy(armyID).hasColonist() && structures.getStructureCount() < 10);
     }
 
+    //check a specific army for a colonist, create a structure on that tile,
+    //and consume the colonist
     public Structure createStructure(String armyID){
-        String location = armies.findArmy(armyID).getLocation();
-        armies.findArmy(armyID).removeColonist();
-        return structures.createStructure(location);
-    }
-
-    public boolean canCreateUnit(String armyID){
-        return (units.unitCount < units.maxUnits);
+        if (canCreateStructure(armyID)) {
+            String location = armies.findArmy(armyID).getLocation();
+            armies.findArmy(armyID).removeColonist();
+            return structures.createStructure(location);
+        }
+        return null;
     }
 
     //method to place a new unit on the map through an existing structure
     public Unit createUnit(String structureID, String type){
-        String unitLoc = structures.getLocation(structureID);
-        return units.addNewUnit(type, unitLoc);
-        //TO-DO: check to see if creation is valid
+        if (units.checkIfValid(type)) {
+            String unitLoc = structures.getLocation(structureID);
+            return units.addNewUnit(type, unitLoc);
+            //TO-DO: check to see if creation is valid
+        }
+        return null;
     }
 
+    //create initial unit(s) at beginning of the game
     public Unit createInitialUnit(String tileID, String type){
         return units.addNewUnit(tileID, type);
     }
-    
-    // Getter method for Unit Manager, for initializing the Player with the proper units
-    // TODO: made the getPlayerAsset. May not need this anymore!
 
+    //get current position of a specific PlayerAsset
     public String getPosition(String assetID){
         if (assetID.charAt(0) == 'u')
             return units.getPosition(assetID);
@@ -84,7 +85,6 @@ public class Player {
 
     public Iterator getUnitIterator(){
         return units.makeIterator();
-
     }
 
     public Iterator getArmyIterator(){

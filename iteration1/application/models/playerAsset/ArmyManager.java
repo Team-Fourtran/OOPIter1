@@ -10,8 +10,7 @@ public class ArmyManager {
     
     public ArmyManager(){
         armyList = new ArrayList<>();
-
-        for (int i = 0; i < 10; i++)
+        for (int i = 1; i <= 10; i++)
             armyIDs.add("a" + i);
         }
 

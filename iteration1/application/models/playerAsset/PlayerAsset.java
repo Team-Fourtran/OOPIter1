@@ -10,12 +10,13 @@ public abstract class PlayerAsset {
     protected boolean poweredUp;
     protected String locationID;
     protected String assetID;
-    protected static int availableID; // TODO: have these IDs be recycled
 
+    /*
     public PlayerAsset() {
     	assetID = Integer.toString(availableID);
     	availableID++;
     }
+    */
 
     public void setID(String id){
         assetID = id;
