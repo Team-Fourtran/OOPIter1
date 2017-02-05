@@ -19,11 +19,12 @@ public class TileGen {
         TileState[] states = new TileState[total];
         for (int i = 0; i < total; i++){
         	Terrain t;
-        	if (i < total/2) {
-        		t = new Normal();
-        	} else {
-        		t = new Impassable();
-        	}
+            if (i == 5 || i == 6 || i == 9 || i == 10){
+        	    t = new Slowing();
+            }
+            else{
+        	    t = new Normal();
+            }
             states[i] = new TileState("T" + i, new TileInfo(t));
         }
         for (int i = 0; i < total; i++) {
