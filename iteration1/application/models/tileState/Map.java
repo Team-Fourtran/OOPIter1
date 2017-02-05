@@ -1,5 +1,7 @@
 package application.models.tileState;
 
+import application.models.utility.AStarPathfinder;
+
 import java.util.HashMap;
 
 public class Map {

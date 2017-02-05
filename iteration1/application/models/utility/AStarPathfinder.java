@@ -1,4 +1,6 @@
-package application.models.tileState;
+package application.models.utility;
+
+import application.models.tileState.TileState;
 
 import java.util.List;
 
@@ -15,8 +17,6 @@ public class AStarPathfinder {
     }
 
     String execute(){
-
-
         return null;
     }
 }
