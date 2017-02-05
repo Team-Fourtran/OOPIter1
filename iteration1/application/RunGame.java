@@ -12,8 +12,8 @@ import application.views.*;
 /* Named as per Dave's specifications */
 public class RunGame {
     public static void main(String[] args){
-        Controller gameController = new Controller();
         View mainView = new View();
+        Controller gameController = new Controller(mainView.getKeyPressListener());
 
         ArrayList<Player> players = new ArrayList<Player>();
         Player currentPlayer;

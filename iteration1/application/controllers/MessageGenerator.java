@@ -12,7 +12,7 @@ class MessageGenerator {
 
     private Controller receiver;
 
-    MessageGenerator(Controller receiver){
+    MessageGenerator(Controller receiver, ArrayList<String> keysPressedList){
         initializeModes();
         this.receiver = receiver;
         System.out.println(this.modes);

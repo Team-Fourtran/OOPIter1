@@ -1,11 +1,14 @@
 package application.controllers;
 
+import java.util.ArrayList;
+
 public class Controller {
     MessageGenerator msgGen;
 
-    public Controller(){
-        //Create a new MessageGenerator with self as the receiver
-        this.msgGen = new MessageGenerator(this);
+    //Takes an arrayList that at any given time holds String representations of the currently-pressed keys
+    public Controller(ArrayList<String> keysPressedList){
+        //Initializes the message generator, setting itself as the reciever, and forwarding the keysPressedList
+        this.msgGen = new MessageGenerator(this, keysPressedList);
     }
 
     /* TODO: For now, just prints messages that it receives */
