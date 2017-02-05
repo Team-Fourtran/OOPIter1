@@ -71,6 +71,7 @@ class ConcreteCommand implements Command {
  */
 class InitialUnitsCommand extends ConcreteCommand {
 	private String destinationTileID;
+	private String unitType;
 	
 	InitialUnitsCommand(Player _p, Map _m) {
 		super(_p, _m);
@@ -78,16 +79,14 @@ class InitialUnitsCommand extends ConcreteCommand {
 	
 	public void doInitialize(String... strings) {
 		destinationTileID = strings[2];
+		unitType = strings[3];
 	}
 	
 	@Override
 	public void execute() {
-		UnitManager um = super.getPlayer().getUnitManager();
-		Unit unit = um.addNewUnit(destinationTileID, "colonist");
-		Occupance o = new AssetOccupance(unit);
-		o.setTileID(destinationTileID);
-		TileState ts = super.getMap().getTileState(destinationTileID);
-		ts.addOccupance(o);
+	    Player p = getPlayer();
+	    Occupance _o = new AssetOccupance(p.createInitialUnit(destinationTileID, unitType));
+		getMap().getTileState(destinationTileID).addOccupance(_o);
 	}
 }
 
@@ -109,22 +108,8 @@ class NewStructureCommand extends ConcreteCommand{
         Player player = getPlayer();
         if(player.canCreateStructure(assetID)){
             System.out.println("Creating Occupance...\n");
-            UnitManager um = player.getUnitManager();
-            String tileID = new String();
-            
-            // Based upon the assetID, find the proper Unit to get its locationID (i.e. tileID)
-    		Iterator<Unit> i = um.getUnitList().iterator();
-    		while (i.hasNext()) {
-    			Unit currentUnit = i.next();
-    			if (currentUnit.getID() == assetID) {
-    				tileID = currentUnit.getLocation();
-    			}
-    		}
-    		
             Occupance _o = new AssetOccupance(player.createStructure(assetID));
-            _o.setTileID(tileID);
             System.out.println("new asset occupance with id = " + assetID + "\n");
-
             map.getTileState(_o.getTileID()).addOccupance(_o).removeOccupance(assetID);
         }
     }

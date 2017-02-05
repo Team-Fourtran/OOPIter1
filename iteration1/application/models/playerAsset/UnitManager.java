@@ -15,18 +15,6 @@ public class UnitManager {
         unitCount = 0;
         factory = new UnitFactory();
     }
-    
-    public ArrayList<Unit> getUnitList() {
-    	return unitList;
-    }
-    
-    public Unit findUnit(String unitID){
-        for (Unit a: unitList){
-            if (a.getID().equals(unitID))
-                return a;
-        }
-        return null;
-    }
 
     //add a new unit to the map on the structure's location that created it
     public Unit addNewUnit(String unitLocation, String type){

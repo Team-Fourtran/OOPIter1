@@ -10,14 +10,6 @@ public class StructureManager {
         structureList = new ArrayList<>();
     }
 
-    public Structure findStructure(String structureID){
-        for (Structure a: structureList){
-            if (a.getID() == structureID)
-                return a;
-        }
-        return null;
-    }
-    
     //intermediate method to find a certain structure's location
     public String getLocation(String structureID){
         for (Structure s : structureList)

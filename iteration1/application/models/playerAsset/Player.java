@@ -62,14 +62,14 @@ public class Player {
         String unitLoc = structures.getLocation(structureID);
         return units.addNewUnit(type, unitLoc);
         //TO-DO: check to see if creation is valid
+    }
 
+    public Unit createInitialUnit(String tileID, String type){
+        return units.addNewUnit(tileID, type);
     }
     
     // Getter method for Unit Manager, for initializing the Player with the proper units
     // TODO: made the getPlayerAsset. May not need this anymore!
-    public UnitManager getUnitManager() {
-    	return units;
-    }
 
     public String getPosition(String assetID){
         if (assetID.charAt(0) == 'u')

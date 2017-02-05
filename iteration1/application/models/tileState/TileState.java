@@ -32,15 +32,6 @@ public class TileState {
     public void setNeighbor(TileState neighbor, Directions direction){
         neighbors.put(direction, neighbor);
     }
-    
-    public Directions getNeighborDirection(String neighbor) {
-    	for (Directions d : Directions.values()) {
-    		if ((neighbors.get(d) != null) && neighbors.get(d).getId().equals(neighbor)) {
-    			return d;
-    		}
-    	}
-    	return null;
-    }
 
     public String getId(){
         return this.id;
@@ -129,8 +120,6 @@ public class TileState {
             }
         }
         // Out here to avoid concurrent modification of ArrayLists
-        if (oldOccupance != null) {
-        	removeOccupance(oldOccupance);
-        }
+        removeOccupance(oldOccupance);
     }
 }
