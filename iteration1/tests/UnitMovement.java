@@ -24,13 +24,14 @@ public class UnitMovement {
         Command c = cGen.generateCommand("IU_0_T0_colonist").get(0);
         c.execute();
         
-        // Move unit 0 from T0 to T1
-        c = cGen.generateCommand("MD_u0_0").get(0);
-        System.out.println("\nPrevious Contents in T0: " + m.getTileState("T0").getOccupance("u0").getClass().getSimpleName());
-        System.out.println("nPrevious Contents in T1: " + m.getTileState("T1").getOccupance("u0"));
+        // Move unit 1 from T0 to T1
+        c = cGen.generateCommand("MD_u1_0").get(0);
+        
+        System.out.println("\nPrevious Contents in T0: " + m.getTileState("T0").getOccupance("u1").getClass().getSimpleName());
+        System.out.println("nPrevious Contents in T1: " + m.getTileState("T1").getOccupance("u1"));
         c.execute();
-        System.out.println("\nNew Contents in T0: " + m.getTileState("T0").getOccupance("u0"));
-        System.out.println("nNew Contents in T1: " + m.getTileState("T1").getOccupance("u0").getClass().getSimpleName());
+        System.out.println("\nNew Contents in T0: " + m.getTileState("T0").getOccupance("u1"));
+        System.out.println("nNew Contents in T1: " + m.getTileState("T1").getOccupance("u1").getClass().getSimpleName());
         
 	}
 
