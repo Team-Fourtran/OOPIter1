@@ -5,9 +5,16 @@ import java.util.*;
 public class StructureManager {
     ArrayList<Structure> structureList;
     final int maxStructures = 10;
+    ArrayList<String> structureIDs = new ArrayList<>();
     
     public StructureManager(){
         structureList = new ArrayList<>();
+        for (int i = 1; i <= 10; i++)
+            structureIDs.add("s" + i);
+    }
+
+    public int getStructureCount(){
+        return structureList.size();
     }
 
     //intermediate method to find a certain structure's location
@@ -22,8 +29,19 @@ public class StructureManager {
     public Structure createStructure(String location){
         Structure s = new Structure();
         s.setLocation(location);
+        s.setID(structureIDs.get(0));
         structureList.add(s);
+        structureIDs.remove(0);
         return s;
+    }
+
+    public void decommission(String structureID){
+        for (Structure s: structureList){
+            if (s.getID() == structureID){
+                structureIDs.add(s.getID());
+                structureList.remove(s);
+            }
+        }
     }
 
     //calculate upkeep from all the Player's structures
