@@ -4,7 +4,6 @@ import javax.swing.*;
 import javax.swing.table.*;
 import application.models.tileState.Map;
 import application.models.utility.TileGen;
-
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
