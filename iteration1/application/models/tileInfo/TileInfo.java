@@ -70,13 +70,14 @@ public class TileInfo {
 		return terrainType.getMovementCost();
 	}
 	
+	// Returns boolean signifying whether or not the tile is blocked
 	public boolean isBlocked() {
 		for (int i = 0; i < items.size(); i++) {
 			if (items.get(i) instanceof ObstacleItem) {
 				return true;
 			}
 		}
-			return false;
+		return false;
 	}
 	
 	/*
