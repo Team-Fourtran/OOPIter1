@@ -6,6 +6,7 @@ public class StructureManager {
     ArrayList<Structure> structureList;
     final int maxStructures = 10;
     ArrayList<String> structureIDs = new ArrayList<>();
+
     
     public StructureManager(){
         structureList = new ArrayList<>();
@@ -64,6 +65,8 @@ public class StructureManager {
                 return true;
         return false;
     }
+
+    //public void executeCommands(){}
 
     public Iterator makeIterator(){
         return structureList.iterator();

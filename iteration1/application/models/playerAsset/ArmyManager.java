@@ -63,6 +63,8 @@ public class ArmyManager {
         return null;
     }
 
+    //public void executeCommands(){}
+
     public Iterator makeIterator(){
         return armyList.iterator();
     }
