@@ -3,6 +3,8 @@ package application.controllers;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/* Listens for calls to its update() method that change the value of a key's "pressed" status (boolean), and informs
+ * clients (listeners) about the new status of the keymap. */
 public class KeyPressInformer {
     private HashMap<String, Boolean> keyMap;
     private ArrayList<KeyPressListener> clients;

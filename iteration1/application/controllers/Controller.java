@@ -7,12 +7,12 @@ import java.util.Iterator;
 public class Controller {
     MessageGenerator msgGen;
 
-    //Takes an arrayList that at any given time holds String representations of the currently-pressed keys
     public Controller(KeyPressInformer keyInformer, HashMap<String, Iterator> assetIterators){
         //Initializes the message generator, setting itself as the reciever, and forwarding the keysPressedList
         this.msgGen = new MessageGenerator(this, keyInformer, assetIterators);
     }
 
+    /* Happens when the player changes (aka turn switching) */
     public void updateIterators(HashMap<String, Iterator> assetIterators){
         this.msgGen.updateIterators(assetIterators);
     }

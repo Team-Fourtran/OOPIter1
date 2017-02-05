@@ -1,5 +1,7 @@
 package application.controllers;
 
+import sun.plugin2.message.Message;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -33,8 +35,7 @@ class MessageGenerator implements KeyPressListener{
     }
 
     private void interpretKeystrokes(HashMap<String, Boolean> keystrokes){
-        System.out.println(keystrokes);
-
+        //System.out.println(keystrokes);
         if(keystrokes.get("ENTER")){
             generateMessage();
         }
@@ -56,19 +57,18 @@ class MessageGenerator implements KeyPressListener{
 
         } else {
             if(keystrokes.get("UP")){
-                this.currentMode.upKey();
+                this.currentMode.upKey();          		//Forward to Mode
             } else if(keystrokes.get("DOWN")){
-                this.currentMode.downKey();
+                this.currentMode.downKey();		    	//Forward to Mode
             }
 
             //Cycle TYPE
             else if(keystrokes.get("LEFT")){
-                this.currentMode.leftKey();
+                this.currentMode.leftKey(); 			//Forward to Mode
             } else if(keystrokes.get("RIGHT")){
-                this.currentMode.rightKey();
+                this.currentMode.rightKey();    		//Forward to Mode
             }
         }
-
     }
 
     private void generateMessage(){
@@ -78,10 +78,10 @@ class MessageGenerator implements KeyPressListener{
 
     private void initializeModes(){
         //Fill this.modes with the 4 modes
-        this.modes.add((Mode) new RallyPointMode());
-        this.modes.add((Mode) new StructureMode());
-        this.modes.add((Mode) new UnitMode());
-        this.modes.add((Mode) new ArmyMode());
+        this.modes.add((Mode) new RallyPointMode(this));
+        this.modes.add((Mode) new StructureMode(this));
+        this.modes.add((Mode) new UnitMode(this));
+        this.modes.add((Mode) new ArmyMode(this));
 
         //Initialize currentMode
         this.modeIndex = 0;
@@ -92,12 +92,15 @@ class MessageGenerator implements KeyPressListener{
     private void nextMode(){
         this.modeIndex = Utils.mod(this.modeIndex + 1,this.modes.size());
         this.currentMode = (Mode) modes.get(modeIndex);
+        System.out.println(currentMode);
     }
 
     //Switches the mode to the previous mode on the list, looping back around when the beginning is reached.
     private void previousMode(){
         this.modeIndex = Utils.mod(this.modeIndex - 1,this.modes.size());
         this.currentMode = (Mode) modes.get(modeIndex);
+        System.out.println(currentMode);
+
     }
 }
 
@@ -122,8 +125,10 @@ class UnitMode implements Mode{
     private ArrayList<String> unitTypes = new ArrayList<String>();
     private String currentType;
     private int currentTypeIndex;
+    MessageGenerator owner;
 
-    UnitMode(){
+    UnitMode(MessageGenerator owner){
+        this.owner = owner;
         this.unitTypes.add("Explorer");
         this.unitTypes.add("Colonist");
         this.unitTypes.add("Melee Unit");
@@ -145,12 +150,14 @@ class UnitMode implements Mode{
     public void controlLeft() {
         this.currentTypeIndex = Utils.mod(currentTypeIndex - 1, this.unitTypes.size());
         this.currentType = this.unitTypes.get(this.currentTypeIndex);
+        System.out.println("Mode: Unit\tSubmode:" + currentType);
     }
 
     @Override //Cycle to next type
     public void controlRight() {
         this.currentTypeIndex = Utils.mod(currentTypeIndex + 1, this.unitTypes.size());
         this.currentType = this.unitTypes.get(this.currentTypeIndex);
+        System.out.println("Mode: Unit\tSubmode:" + currentType);
     }
 
     @Override
@@ -178,6 +185,11 @@ class StructureMode implements Mode{
     private ArrayList<String> baseTypes = new ArrayList<String>();
     private String currentType;
     private int currentTypeIndex;
+    MessageGenerator owner;
+
+    StructureMode(MessageGenerator owner){
+        this.owner = owner;
+    }
 
     public String toString(){
         return "I am in Structure Mode";
@@ -221,6 +233,12 @@ class StructureMode implements Mode{
 }
 
 class RallyPointMode implements Mode{
+    MessageGenerator owner;
+
+    RallyPointMode(MessageGenerator owner){
+        this.owner = owner;
+    }
+
     public String toString(){
         return "I am in RallyPoint Mode";
     }
@@ -260,8 +278,10 @@ class ArmyMode implements Mode{
     private ArrayList<Mode> subModes = new ArrayList<Mode>();
     private Mode currentSubMode = new EntireArmyMode();
     private int subModeIndex;
+    MessageGenerator owner;
 
-    ArmyMode() {
+    ArmyMode(MessageGenerator owner) {
+        this.owner = owner;
         subModes.add(new EntireArmyMode());
         subModes.add(new BattleGroupMode());
         subModes.add(new ReinforcementMode());
@@ -282,12 +302,15 @@ class ArmyMode implements Mode{
     public void controlLeft() {
         this.subModeIndex = Utils.mod(subModeIndex - 1, this.subModes.size());
         this.currentSubMode = this.subModes.get(this.subModeIndex);
+        System.out.println("Mode: Army\tSubmode:" + currentSubMode);
     }
 
     @Override //Cycle to next submode
     public void controlRight() {
         this.subModeIndex = Utils.mod(subModeIndex + 1, this.subModes.size());
         this.currentSubMode = this.subModes.get(this.subModeIndex);
+        System.out.println("Mode: Army\tSubmode:" + currentSubMode);
+
     }
 
     @Override
