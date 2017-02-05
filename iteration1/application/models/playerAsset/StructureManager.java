@@ -19,10 +19,11 @@ public class StructureManager {
     }
 
     //add a new structure to the map on an Army's location
-    public void createStructure(String location){
+    public Structure createStructure(String location){
         Structure s = new Structure();
         s.setLocation(location);
         structureList.add(s);
+        return s;
     }
 
     //calculate upkeep from all the Player's structures
