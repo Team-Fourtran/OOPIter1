@@ -13,6 +13,8 @@ public class TileState {
     private HashMap<Directions, TileState> neighbors;
 
     public TileState(String id, TileInfo tile){
+    	occupances = new ArrayList<Occupance>();
+    	neighbors = new HashMap<Directions, TileState>();
         this.id = id;
         this.tile = tile;
         neighbors = new HashMap<Directions, TileState>(Directions.values().length);
@@ -27,6 +29,15 @@ public class TileState {
 
     public void setNeighbor(TileState neighbor, Directions direction){
         neighbors.put(direction, neighbor);
+    }
+    
+    public Directions getNeighborDirection(String neighbor) {
+    	for (Directions d : Directions.values()) {
+    		if ((neighbors.get(d) != null) && neighbors.get(d).getId().equals(neighbor)) {
+    			return d;
+    		}
+    	}
+    	return null;
     }
 
     public String getId(){
@@ -71,17 +82,23 @@ public class TileState {
     	return properties;
     }
     
+    public List<Occupance> getOccupance() {
+    	return occupances;
+    }
+    
     public void addOccupance(Occupance _o){
+    	System.out.println("Occupance added for " + id);
         occupances.add(_o);
     }
 
     private void removeOccupance(Occupance _o){
         occupances.remove(_o);
     }
-
+    
     public void moveOccupance(String id, Directions direction){
         for (Occupance _o : occupances){
-            if(id == _o.getAssetID()){
+            if(id.equals(_o.getAssetID())){
+            	System.out.println("Hey " + neighbors.get(direction).getId());
                 neighbors.get(direction).addOccupance(_o);
                 removeOccupance(_o);
             }

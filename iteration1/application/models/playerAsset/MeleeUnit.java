@@ -4,7 +4,7 @@ package application.models.playerAsset;
 public class MeleeUnit extends Unit{
     
     public MeleeUnit(){
-        
+    	super();
         offDamage = 5;
         defDamage = 5;
         armor = 5;

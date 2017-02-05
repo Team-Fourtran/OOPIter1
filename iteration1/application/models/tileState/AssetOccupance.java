@@ -4,6 +4,7 @@ import application.models.playerAsset.PlayerAsset;
 
 public class AssetOccupance extends Occupance{
     private PlayerAsset asset;
+    private String tileID;
 
     public AssetOccupance(PlayerAsset _asset){
         this.asset = _asset;
@@ -11,19 +12,22 @@ public class AssetOccupance extends Occupance{
 
     @Override
     void updateLocationIDofAsset() {
-        //asset.setLocationID();
+        asset.setLocation(tileID);
     }
 
     @Override
     public String getAssetID() {
-        //asset.getAssetID();
-        return "";
+        return asset.getID();
     }
 
     @Override
     public String getTileID() {
-        //asset.getTileID();
-        return "";
+        return tileID;
     }
+
+	@Override
+	public void setTileID(String _id) {
+		tileID = _id;
+	}
 
 }

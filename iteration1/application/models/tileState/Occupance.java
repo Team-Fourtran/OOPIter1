@@ -8,7 +8,8 @@ import application.models.playerAsset.PlayerAsset;
 
 public abstract class Occupance {
     abstract void updateLocationIDofAsset();
-    abstract String getAssetID();
+    public abstract String getAssetID();
     public abstract String getTileID();
+    public abstract void setTileID(String id);
 }
 

@@ -19,6 +19,7 @@ public class Player {
         wood = 0;
         
         System.out.println("Player created");
+        
     }
 
     //method to do maintenence tasks on player's assets
@@ -59,6 +60,27 @@ public class Player {
         //TO-DO: check to see if creation is valid
 
     }
-        
+    
+    // Getter method for Unit Manager, for initializing the Player with the proper units
+    public UnitManager getUnitManager() {
+    	return units;
+    }
+    
+    // Returns the PlayerAsset object with the corresponding assetID
+    public PlayerAsset getPlayerAsset(String assetID) {
+    	Army a = armies.findArmy(assetID);
+    	Unit u = units.findUnit(assetID);
+    	Structure s = structures.findStructure(assetID);
+    	
+    	if (a != null) {
+    		return a;
+    	} else if (u != null) {
+    		return u;
+    	} else if (s != null) {
+    		return s;
+    	} else {
+    		return null;
+    	}
+    }
         
 }

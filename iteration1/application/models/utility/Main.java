@@ -1,5 +1,6 @@
 package application.models.utility;
 
+import application.models.commands.Command;
 import application.models.commands.CommandGenerator;
 import application.models.playerAsset.Player;
 import application.models.tileInfo.DamageAoE;
@@ -22,7 +23,5 @@ public class Main {
         t.get("T0").getTileInfo().addAoEs(new DamageAoE(), new HealingAoE());
         t.get("T0").getTileInfo().addItems(new OneShotItem(), new Decal("crossBones"));
         System.out.println(t.get("T0").getProperties());
-        CommandGenerator cGen = new CommandGenerator(p, m);
-        cGen.generateCommand("NS_U5").execute();
     }
 }

@@ -22,9 +22,13 @@ public class CommandGenerator {
         //      --Factory Method
 
         switch (commandArray[0]){
-            case "MV":  cmd = new moveAssetCommand(player, map);
-            case "NS":  cmd = new newStructureCommand(player, map);
-            default:    cmd = new nullCommand(player, map);
+        	case "IU":	cmd = new InitialUnitsCommand(player, map);
+        				break;
+            case "MV":  cmd = new MoveAssetCommand(player, map);
+            			break;
+            case "NS":  cmd = new NewStructureCommand(player, map);
+            			break;
+            default:    cmd = new NullCommand(player, map);
         }
         cmd.initialize(commandArray);
 

@@ -9,13 +9,13 @@ public class TileGen {
     private int width;
     private int total;
 
-    TileGen(int l, int w){
+    public TileGen(int l, int w){
         this.length = l;
         this.width = w;
         this.total = l*w;
     }
 
-    TileState[] execute(){
+    public TileState[] execute(){
         TileState[] states = new TileState[total];
         for (int i = 0; i < total; i++){
         	Terrain t;

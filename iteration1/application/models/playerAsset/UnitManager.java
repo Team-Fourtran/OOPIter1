@@ -14,13 +14,26 @@ public class UnitManager {
         unitCount = 0;
         factory = new UnitFactory();
     }
+    
+    public ArrayList<Unit> getUnitList() {
+    	return unitList;
+    }
+    
+    public Unit findUnit(String unitID){
+        for (Unit a: unitList){
+            if (a.getID().equals(unitID))
+                return a;
+        }
+        return null;
+    }
 
     //add a new unit to the map on the structure's location that created it
-    public void addNewUnit(String type, String unitLocation){
+    public Unit addNewUnit(String type, String unitLocation){
         Unit newUnit = factory.makeUnit(type);
         newUnit.setLocation(unitLocation);
         unitList.add(newUnit);
         unitCount++;
+        return newUnit;
     }
 
     //method to add units from disbanded army into the unit list
