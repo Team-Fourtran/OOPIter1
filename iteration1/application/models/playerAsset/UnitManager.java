@@ -30,6 +30,7 @@ public class UnitManager {
         newUnit.setID(unitIDs.get(0));
         unitList.add(newUnit);
         unitCount++;
+        incrementUnit(type);
 
         return newUnit;
     }
@@ -37,6 +38,22 @@ public class UnitManager {
     //method to add units from disbanded army into the unit list
     public void addUnits(ArrayList<Unit> units){
         unitList.addAll(units);
+    }
+
+    public void decommissionUnit(String unitID){
+        for (Unit u: unitList)
+            if (u.getID() == unitID){
+                unitIDs.add(u.getID());
+                if (u instanceof MeleeUnit)
+                    decrementUnit("melee");
+                else if (u instanceof RangedUnit)
+                    decrementUnit("ranged");
+                else if (u instanceof Explorer)
+                    decrementUnit("explorer");
+                else
+                    decrementUnit("colonist");
+                unitList.remove(u);
+            }
     }
 
     //Calculate upkeep from all of the Player's free units
@@ -86,6 +103,13 @@ public class UnitManager {
             }
         }
         return true;
+    }
+
+    public Unit getUnit(String unitID){
+        for (Unit u: unitList)
+            if (u.getID() == unitID)
+                return u;
+        return null;
     }
 
     public Iterator makeIterator(){

@@ -6,19 +6,18 @@ public class Structure extends PlayerAsset{
     int productionRate;
 
     public Structure(){
-    	assetID = 's' + assetID;
-    	
-        offDamage = 10;
-        defDamage = 5;
-        armor = 15;
+
+        offDamage = 50;
+        defDamage = 25;
+        armor = 150;
         productionRate = 2;
-        health = 10;
-        upkeep = 25;
+        maxHealth = currentHealth = 200;
+        upkeep = 1;
         
     }
 
     public void healUnit(Unit u){
-        //take Unit on same tile and restore health over time
+        u.heal(50);
     }
 
 }

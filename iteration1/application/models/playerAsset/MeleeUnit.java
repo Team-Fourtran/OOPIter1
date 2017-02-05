@@ -7,9 +7,9 @@ public class MeleeUnit extends Unit{
     	super();
         offDamage = 5;
         defDamage = 5;
-        armor = 5;
+        armor = 50;
         movesPerTurn = 2;
-        health = 5;
+        maxHealth = currentHealth = 150;
         upkeep = 1;
     }
 }
