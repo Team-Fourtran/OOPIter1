@@ -6,5 +6,5 @@ import application.models.tileState.Map;
 /* Named as per Dave's specifications */
 public class RunGame {
     Controller gameController = new Controller();
-    Map gameMap = new Map();
+    //Map gameMap = new Map;
 }
