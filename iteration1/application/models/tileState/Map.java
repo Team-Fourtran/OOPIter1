@@ -25,7 +25,11 @@ public class Map {
     }
 
     public String generatePath(String startTileID, String endTileID) {
-        return "N_N_N_N_W_W_S_W";
+        AStarPathfinder path = new AStarPathfinder(
+                tiles.get(startTileID),
+                tiles.get(endTileID)
+        );
+        return path.execute();
     }
 
     //View Interface:
