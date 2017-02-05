@@ -9,7 +9,8 @@ public class Army extends PlayerAsset{
     String rallyPoint;
 
     public Army(ArrayList<Unit> units, String rallyPoint){
-        rallyPoint = rallyPoint;
+    	assetID = 'a' + assetID;
+        this.rallyPoint = rallyPoint;
         for (Unit u: units){
             if (u.getLocation() == rallyPoint)
                 battleGroup.add(u);

@@ -2,6 +2,8 @@ package application.models.tileState;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+
 import application.models.tileInfo.*;
 import java.util.List;
 
@@ -96,7 +98,9 @@ public class TileState {
     }
 
     public void removeOccupance(String ID){
-        for(Occupance _o : occupances){
+    	Iterator<Occupance> i = occupances.iterator();
+        while(i.hasNext()){
+        	Occupance _o = i.next();
             if (_o.getAssetID().equals(ID)){
                 removeOccupance(_o);
             }
@@ -104,7 +108,9 @@ public class TileState {
     }
 
     public Occupance getOccupance(String assetID){
-        for(Occupance _o : occupances){
+    	Iterator<Occupance> i = occupances.iterator();
+        while(i.hasNext()){
+        	Occupance _o = i.next();
             if (_o.getAssetID().equals(assetID)){
                 return _o;
             }
@@ -113,12 +119,18 @@ public class TileState {
     }
 
     public void moveOccupance(String id, Directions direction){
-        for (Occupance _o : occupances){
+    	Occupance oldOccupance = null;
+    	Iterator<Occupance> i = occupances.iterator();
+        while(i.hasNext()){
+        	Occupance _o = i.next();
             if(id.equals(_o.getAssetID())){
-            	System.out.println("Hey " + neighbors.get(direction).getId());
                 neighbors.get(direction).addOccupance(_o);
-                removeOccupance(_o);
+                oldOccupance = _o;
             }
+        }
+        // Out here to avoid concurrent modification of ArrayLists
+        if (oldOccupance != null) {
+        	removeOccupance(oldOccupance);
         }
     }
 }

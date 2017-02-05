@@ -83,7 +83,7 @@ class InitialUnitsCommand extends ConcreteCommand {
 	@Override
 	public void execute() {
 		UnitManager um = super.getPlayer().getUnitManager();
-		Unit unit = um.addNewUnit("colonist", destinationTileID);
+		Unit unit = um.addNewUnit(destinationTileID, "colonist");
 		Occupance o = new AssetOccupance(unit);
 		o.setTileID(destinationTileID);
 		TileState ts = super.getMap().getTileState(destinationTileID);
@@ -207,26 +207,22 @@ class MoveDirectionCommand extends ConcreteCommand{
     public void doInitialize(String... strings) {
         assetID = strings[1];
         degreesDirection = strings[2];
-        //direction = ????
+
+        for (Directions d : Directions.values()) {
+        	if (Integer.parseInt(degreesDirection) == d.getValue()) {
+        		direction = d;
+        	}
+        }
     }
+    
     @Override
     public void execute() {
         Map map = getMap();
         Player player = getPlayer();
         
-        // get the TileState where the asset is located
-        TileState ts = map.getTileState(player.getPlayerAsset(assetID).getLocation());
-        
-        // determine the direction of the desired tile (discrete movement for now)
-        // pass in destinationTileID
-//        ts.moveOccupance(assetID, ts.getNeighborDirection(destinationTileID));
-        
-        TileState newTS = map.getTileState("T1");
-//        System.out.println(newTS.getOccupance().get(0).getClass().getSimpleName());
-        // call moveOccupance of the TS
-        
-        System.out.println("Moving " + assetID + " direction " + direction);
+        System.out.println("\nMoving " + assetID + " direction " + direction);
         map.getTileState(player.getPosition(assetID)).moveOccupance(assetID, direction);
+        
     }
     @Override
     protected void setPacking(){

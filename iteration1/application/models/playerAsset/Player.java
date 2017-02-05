@@ -70,23 +70,6 @@ public class Player {
     public UnitManager getUnitManager() {
     	return units;
     }
-    
-    // Returns the PlayerAsset object with the corresponding assetID
-    public PlayerAsset getPlayerAsset(String assetID) {
-    	Army a = armies.findArmy(assetID);
-    	Unit u = units.findUnit(assetID);
-    	Structure s = structures.findStructure(assetID);
-    	
-    	if (a != null) {
-    		return a;
-    	} else if (u != null) {
-    		return u;
-    	} else if (s != null) {
-    		return s;
-    	} else {
-    		return null;
-    	}
-    }
 
     public String getPosition(String assetID){
         if (assetID.charAt(0) == 'u')

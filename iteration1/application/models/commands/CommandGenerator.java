@@ -28,6 +28,8 @@ public class CommandGenerator {
         				break;
             case "MV":  cmd.add(new MoveAssetCommand(player, map));
             			break;
+            case "MD": 	cmd.add(new MoveDirectionCommand(player, map));
+            			break;
             case "NS":  cmd.add(new NewStructureCommand(player, map));
             			break;
             default:    cmd.add(new NullCommand(player, map));

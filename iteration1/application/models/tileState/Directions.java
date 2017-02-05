@@ -16,7 +16,7 @@ public enum Directions {
         this.value = _v;
     }
 
-    private int getValue(){
+    public int getValue(){
         return this.value;
     }
 }
