@@ -213,7 +213,7 @@ public class View extends JPanel implements ActionListener {
 	public ArrayList<String> getKeyPressListener(){
 		return keyList;
 	}
-	public static void main(String[] args){
+	public void goView(String[] args){
 		
 		SwingUtilities.invokeLater(new Runnable(){
 			public void run() {
@@ -274,7 +274,10 @@ public class View extends JPanel implements ActionListener {
 							keyList.add("CONTROL");
 						} else if(e.getKeyCode() == KeyEvent.VK_ENTER){
 							keyList.add("ENTER");
+						} else{
+							//System.out.println("Nothing - Current state: " + keyList);
 						}
+						System.out.println(keyList);
 					}
 				});
 				areaViewPort.setFocusable(true);

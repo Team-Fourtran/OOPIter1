@@ -1,38 +1,47 @@
 package application.controllers;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
 
 
 class MessageGenerator {
     private ArrayList<Mode> modes = new ArrayList<Mode>();
-
     private Mode currentMode;
     private int modeIndex;	//Originally used ListIterator, but the Java List interface iterators are garbage
 
+    private HashMap<String, Iterator> assetIterators;
+
     private Controller receiver;
 
-    MessageGenerator(Controller receiver, ArrayList<String> keysPressedList){
+    MessageGenerator(Controller receiver, ArrayList<String> keysPressedList, HashMap<String, Iterator> assetIterators){
         initializeModes();
+        this.assetIterators = assetIterators;
         this.receiver = receiver;
-        System.out.println(this.modes);
-        listenToKeyboard();
+        //System.out.println(this.modes);
+        listenToKeyboard(keysPressedList);
     }
 
-    private void listenToKeyboard(){
+    protected void updateIterators(HashMap<String, Iterator> assetIterators){
+        this.assetIterators = assetIterators;
+    }
+
+    private void listenToKeyboard(ArrayList<String> ks){
         //Runs perpetually
         System.out.println("Syntax:\n\t'UP','DOWN','LEFT','RIGHT','CONTROL','ENTER'\n\t(Space-separated)");
         Scanner s = new Scanner(System.in);
 
         while(true){
-			/*TODO: Get actual keyboard input. For now just prompts for keystrokes */
+            //System.out.println(keystrokes);
+
             System.out.println("\n\nEnter simulated keystrokes: ");
             ArrayList<String> keystrokes = new ArrayList<String>();
             String[] tempS = s.nextLine().split(" ");
             for(int i = 0; i < tempS.length; i++)
                 keystrokes.add(tempS[i]);
 
-            //Enter key and nothing else == "Submit"
+            // Enter and nothing else == "Submit"
             if(keystrokes.contains("ENTER") && keystrokes.size() == 1){
                 generateMessage();
             }
