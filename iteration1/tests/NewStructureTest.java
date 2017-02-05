@@ -52,10 +52,10 @@ public class NewStructureTest {
     	m.getTileState("T0").addOccupance(arm);
 
        
-        
         System.out.println(m.getTileState("T0").getProperties() + "\n");
         
         // New Structure command
+
         c = cGen.generateCommand("NS_a1").get(0);
         c.execute();
         
