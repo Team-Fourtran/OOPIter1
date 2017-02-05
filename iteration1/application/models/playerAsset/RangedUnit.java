@@ -9,9 +9,9 @@ public class RangedUnit extends Unit{
     	super();
         offDamage = 5;
         defDamage = 3;
-        armor = 1;
+        armor = 25;
         movesPerTurn = 2;
-        health = 5;
+        maxHealth = currentHealth = 150;
         upkeep = 1;
         range = 2;
     }

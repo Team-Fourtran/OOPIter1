@@ -9,7 +9,7 @@ public class Colonist extends Unit{
         defDamage = 0;
         armor = 0;
         movesPerTurn = 2;
-        health = 3;
+        maxHealth = currentHealth = 100;
         upkeep = 1;
     }
 }
