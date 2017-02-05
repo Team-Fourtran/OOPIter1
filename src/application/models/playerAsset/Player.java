@@ -1,6 +1,6 @@
 package application.models.playerAsset;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class Player {
     
@@ -57,6 +57,19 @@ public class Player {
         units.addNewUnit(type, unitLoc);
         //TO-DO: check to see if creation is valid
 
+    }
+
+    public Iterator getUnitIterator(){
+        return units.makeIterator();
+
+    }
+
+    public Iterator getArmyIterator(){
+        return armies.makeIterator();
+    }
+
+    public Iterator getStructureIterator(){
+        return structures.makeIterator();
     }
         
         

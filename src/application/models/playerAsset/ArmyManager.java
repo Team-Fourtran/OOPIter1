@@ -1,6 +1,6 @@
 package application.models.playerAsset;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class ArmyManager {
     
@@ -55,6 +55,10 @@ public class ArmyManager {
                 totalUpkeep += u.getUpkeep();
         }
         return totalUpkeep;
+    }
+
+    public Iterator makeIterator(){
+        return armyList.iterator();
     }
 
     //debugging

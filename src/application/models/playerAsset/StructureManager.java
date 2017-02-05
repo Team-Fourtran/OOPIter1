@@ -1,6 +1,6 @@
 package application.models.playerAsset;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class StructureManager {
     ArrayList<Structure> structureList;
@@ -32,6 +32,10 @@ public class StructureManager {
             totalUpkeep += s.getUpkeep();
         }
         return totalUpkeep;
+    }
+
+    public Iterator makeIterator(){
+        return structureList.iterator();
     }
 
 }

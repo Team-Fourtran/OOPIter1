@@ -1,6 +1,7 @@
 package application.models.playerAsset;
 
 import java.util.ArrayList;
+import java.util.*;
 
 public class UnitManager {
     
@@ -35,5 +36,9 @@ public class UnitManager {
             totalUpkeep += u.getUpkeep();
         }
         return totalUpkeep;
+    }
+
+    public Iterator makeIterator(){
+        return unitList.iterator();
     }
 }
