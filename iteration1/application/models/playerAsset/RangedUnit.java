@@ -3,12 +3,11 @@ package application.models.playerAsset;
 //Responsibilities: Attacker, can attack over multiple tiles
 public class RangedUnit extends Unit{
     
-    private final int range;
+    private final int range; //number of tiles ranger can shoot across?
     
     public RangedUnit(){
-    	super();
-        offDamage = 5;
-        defDamage = 3;
+        offDamage = 75;
+        defDamage = 25;
         armor = 25;
         movesPerTurn = 2;
         maxHealth = currentHealth = 150;

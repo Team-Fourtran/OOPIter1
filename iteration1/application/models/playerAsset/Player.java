@@ -27,6 +27,7 @@ public class Player {
         food -= totalFoodCost;
         wood -= totalWoodCost;
         //TO-DO: enforce some punishment for not having enough
+        //Traverse all queues and execute
     }
 
     //pass list of units to army manager to form army
@@ -72,7 +73,7 @@ public class Player {
     //method to place a new unit on the map through an existing structure
     public Unit createUnit(String structureID, String type){
         if (units.checkIfValid(type)) {
-            String unitLoc = structures.getLocation(structureID);
+            String unitLoc = structures.getPosition(structureID);
             return units.addNewUnit(type, unitLoc);
             //TO-DO: check to see if creation is valid
         }
