@@ -2,10 +2,13 @@ package application.models.utility;
 
 import application.models.commands.CommandGenerator;
 import application.models.playerAsset.Player;
+<<<<<<< HEAD:src/application/models/utility/Main.java
 import application.models.tileInfo.DamageAoE;
 import application.models.tileInfo.Decal;
 import application.models.tileInfo.HealingAoE;
 import application.models.tileInfo.OneShotItem;
+=======
+>>>>>>> 049d0c3a1f0f9b751f3ca4fad322c56a0bf61900:iteration1/application/models/utility/Main.java
 import application.models.tileState.Map;
 import application.models.tileState.TileState;
 
@@ -16,14 +19,13 @@ public class Main {
         Map m = new Map(T.execute(), length, width);
         m.printOut();
         Player p = new Player();
-
-        CommandGenerator generator = new CommandGenerator();
-        generator.generateCommand("CS_U001");
-
+        
         java.util.Map<String, TileState> t = m.getTiles();
         
         t.get("T0").getTileInfo().addAoEs(new DamageAoE(), new HealingAoE());
         t.get("T0").getTileInfo().addItems(new OneShotItem(), new Decal("crossBones"));
         System.out.println(t.get("T0").getProperties());
+        CommandGenerator cGen = new CommandGenerator(p, m);
+        cGen.generateCommand("NS_U5").execute();
     }
 }
