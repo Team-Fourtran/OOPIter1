@@ -21,7 +21,7 @@ public class UnitMovement {
         CommandGenerator cGen = new CommandGenerator(p, m);   
         
         // Adding unit to tile T0
-        Command c = cGen.generateCommand("IU_0_T0").get(0);
+        Command c = cGen.generateCommand("IU_0_T0_colonist").get(0);
         c.execute();
         
         // Move unit 0 from T0 to T1
