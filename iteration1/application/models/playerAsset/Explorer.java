@@ -4,7 +4,7 @@ package application.models.playerAsset;
 public class Explorer extends Unit{
     
     public Explorer(){
-        
+        super();
         offDamage = 2;
         defDamage = 2;
         armor = 0;

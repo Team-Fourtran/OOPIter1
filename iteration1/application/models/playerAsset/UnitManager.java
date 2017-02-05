@@ -40,9 +40,11 @@ public class UnitManager {
     }
 
     public String getPosition(String assetID){
-        for (Unit u: unitList)
-            if (u.getID() == assetID)
+        for (Unit u: unitList) {
+            if (u.getID().equals(assetID)) {
                 return u.getLocation();
+            }
+        }
         return null;
     }
 
