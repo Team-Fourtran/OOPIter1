@@ -42,12 +42,14 @@ public class Player {
     }
     //method to check a specific army for a colonist, create a structure on that tile,
     //and consume the colonist
-    public void createStructure(String armyID){
-        if(armies.findArmy(armyID).hasColonist()){
-            String location = armies.findArmy(armyID).getLocation();
-            structures.createStructure(location);
-            armies.findArmy(armyID).removeColonist();
+    public boolean canCreateStructure(String armyID){
+        return armies.findArmy(armyID).hasColonist();
         }
+
+    public Structure createStructure(String armyID){
+        String location = armies.findArmy(armyID).getLocation();
+        armies.findArmy(armyID).removeColonist();
+        return structures.createStructure(location);
     }
 
     //method to place a new unit on the map through an existing structure
