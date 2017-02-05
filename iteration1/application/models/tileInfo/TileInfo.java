@@ -70,6 +70,15 @@ public class TileInfo {
 		return terrainType.getMovementCost();
 	}
 	
+	public boolean isBlocked() {
+		for (int i = 0; i < items.size(); i++) {
+			if (items.get(i) instanceof ObstacleItem) {
+				return true;
+			}
+		}
+			return false;
+	}
+	
 	/*
 	 *  Similar to getResourcePacakge, but it removes the TileInfo's reference to the object,
 	 *  as it has been "harvested"
