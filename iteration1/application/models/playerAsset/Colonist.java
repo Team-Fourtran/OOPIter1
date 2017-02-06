@@ -1,5 +1,6 @@
 package application.models.playerAsset;
 
+//Unit type
 //Responsibilities: Weak attacker, can be consumed to make structure
 public class Colonist extends Unit{
     
@@ -9,7 +10,7 @@ public class Colonist extends Unit{
         armor = 0;
         movesPerTurn = 2;
         maxHealth = currentHealth = 100;
-        upkeep = 1;
+        upkeep = 8;
     }
 
     public String getType(){

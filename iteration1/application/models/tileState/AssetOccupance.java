@@ -1,7 +1,9 @@
 package application.models.tileState;
 
 import application.models.playerAsset.PlayerAsset;
-
+/*
+ * See Occupance class
+ */
 public class AssetOccupance extends Occupance{
     private PlayerAsset asset;
 

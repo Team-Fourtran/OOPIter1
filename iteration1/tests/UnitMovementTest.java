@@ -9,7 +9,7 @@ import application.models.utility.TileGen;
 /*
  * This is a test class for initializing a colonist unit and having it move E(0)
  */
-public class UnitMovement {
+public class UnitMovementTest {
 
 	public static void main(String[] args) {
     	int length = 4 , width = 4;

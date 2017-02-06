@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
-
 class MessageGenerator implements KeyPressListener{
     private ArrayList<Mode> modes = new ArrayList<Mode>();
     private Mode currentMode;

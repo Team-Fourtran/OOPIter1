@@ -1,6 +1,9 @@
 package application.models.tileInfo;
 
-
+/*
+ * See Terrain interface. This provides an 'infinity' cost, making it impossible for an asset to make a path
+ * through that tile with this terrain.
+ */
 public class Impassable implements Terrain {
 	private double movementCost = Double.POSITIVE_INFINITY;
 	

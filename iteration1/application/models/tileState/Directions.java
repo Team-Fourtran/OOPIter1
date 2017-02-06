@@ -1,5 +1,7 @@
 package application.models.tileState;
-
+/*
+ * Enum for representing degree directions to N,S,E,W etc
+ */
 public enum Directions {
     N(90),
     NE(45),

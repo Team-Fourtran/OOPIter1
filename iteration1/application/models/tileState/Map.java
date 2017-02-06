@@ -3,7 +3,9 @@ package application.models.tileState;
 import application.models.utility.AStarPathfinder;
 
 import java.util.HashMap;
-
+/*
+ * Class for containing TileStates and optimal path between tiles
+ */
 public class Map {
     private java.util.Map<String, TileState> tiles;
     private int length;
@@ -26,6 +28,7 @@ public class Map {
         return tiles.get(tileID);
     }
 
+    // Gerneate degrees representing the optimal path to get from start to end
     public String generatePath(String startTileID, String endTileID) {
         AStarPathfinder path = new AStarPathfinder(
                 tiles.get(startTileID),

@@ -79,6 +79,15 @@ public class MainScreen{
     public KeyPressInformer getKeyInformer(){
         return keyInformer;
     }
+    public void updateMainScreen(ListIterator unitIterator, ListIterator structureIterator){
+        this.unitIterator = unitIterator;
+        this.structureIterator = structureIterator;
+        generateMainScreen();
+        mainScreen.setVisible(false);
+        mainScreen.revalidate();
+        mainScreen.repaint();
+        mainScreen.setVisible(true);
+    }
     public void generateMainScreen(){
         mainScreen = new JFrame("Fourtran Game");
         Grid = new JLabel[ROW][COL];
@@ -146,7 +155,7 @@ public class MainScreen{
         while(structureIterator.hasPrevious()){
             structureIterator.previous();
         }
-        
+
         String terrains2d[][] = new String[ROW][COL];
         for(int i = 0; i < 15; i++){
             for(int j = 0; j < 15; j++){

@@ -6,7 +6,9 @@ import application.models.playerAsset.Player;
 import application.models.tileState.AssetOccupance;
 import application.models.tileState.Map;
 import application.models.tileState.Occupance;
-
+/*
+ * Create a new army command
+ */
 public class NewArmyCommand extends ConcreteCommand{
     private String destinationTileID;
     private ArrayList<String> unitIDList;
@@ -15,6 +17,7 @@ public class NewArmyCommand extends ConcreteCommand{
         super(_p, _m);
     }
 
+    // Specify the army's rally point (destinationTileID)
     @Override
     public void doInitialize(String... strings){
         destinationTileID = strings[1];

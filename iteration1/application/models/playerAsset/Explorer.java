@@ -1,5 +1,6 @@
 package application.models.playerAsset;
 
+//Unit type
 //Responsibilities: Weak attacker, uncovers resources on map
 public class Explorer extends Unit{
     
@@ -9,7 +10,7 @@ public class Explorer extends Unit{
         armor = 25;
         movesPerTurn = 2;
         maxHealth = currentHealth = 100;
-        upkeep = 1;
+        upkeep = 12;
     }
 
     public String getType(){

@@ -2,6 +2,9 @@ package application.models.playerAsset;
 
 import java.util.*;
 
+/* Manager for a Player's Units
+   Helps create units and pass commands to them
+ */
 public class UnitManager {
     
     ArrayList<Unit> unitList;
@@ -13,13 +16,13 @@ public class UnitManager {
     int colonistCount;
     final int maxUnits = 25;
     final int maxUnitType = 10;
-    ArrayList<String> unitIDs = new ArrayList<String>();
+    static ArrayList<String> unitIDs = new ArrayList<String>();
 
     public UnitManager(){
         unitList = new ArrayList<>();
         unitCount = 0;
         factory = new UnitFactory();
-        for (int i = 1; i <= 25; i++)
+        for (int i = 1; i <= 50; i++)
             unitIDs.add("u" + i);
     }
 
@@ -65,6 +68,7 @@ public class UnitManager {
         return totalUpkeep;
     }
 
+    //recycle an ID of a unit who doesn't need one anymore
     public void freeID(String assetID) {
     	int escapee = Integer.parseInt(assetID.substring(assetID.lastIndexOf("u") + 1).trim());
     	for (int i = 0; i < unitIDs.size(); i++) {
@@ -88,6 +92,7 @@ public class UnitManager {
         return null;
     }
 
+    //depending on the type of unit made, increment that count
     public void incrementUnit(String type){
         switch(type){
             case "melee": meleeCount++;
@@ -97,6 +102,7 @@ public class UnitManager {
         }
     }
 
+    //decrement count of a decommissioned unit based on its type
     public void decrementUnit(String type){
         switch(type){
             case "melee": meleeCount--;
@@ -106,6 +112,7 @@ public class UnitManager {
         }
     }
 
+    //check if unit creation is valid
     public boolean checkIfValid(String type){
         if (unitCount < 25){
             switch(type){
@@ -118,6 +125,7 @@ public class UnitManager {
         return true;
     }
 
+    //get a specific unit based on ID
     public Unit getUnit(String unitID){
         for (Unit u: unitList)
             if (u.getID().equals(unitID))
@@ -125,12 +133,14 @@ public class UnitManager {
         return null;
     }
 
+    //if possible, execute a (movement) command in units
     public void executeCommands(){
         for (Unit u: unitList)
             if (!u.emptyQueue())
                 u.executeCommand();
     }
 
+    //reset the ability for a unit to move
     public void resetCommands(){
         for (Unit u: unitList)
             u.resetCommands();

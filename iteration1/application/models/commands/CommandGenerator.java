@@ -3,22 +3,22 @@ package application.models.commands;
 
 import application.models.playerAsset.Player;
 import application.models.tileState.Map;
-
+/*
+ * This class is to allow for the generation of Commands
+ */
 public class CommandGenerator {
     private Player player;
     private Map map;
 
+    // Specify the player that this command belongs to and a reference to the map
     public CommandGenerator(Player _p, Map _m){
         this.player = _p;
         this.map = _m;
     }
+    
+    //Decide which command to create based on first string argument
     public void generateCommand(String stringCommand){
         String[] commandArray = stringCommand.split("[_]");
-        //Decide which command to create based on first string argument
-        //Could be replaced by creational pattern???
-        //      --Builder
-        //      --Abstract Factory
-        //      --Factory Method
         Command cmd;
 
         switch (commandArray[0]){
@@ -40,6 +40,7 @@ public class CommandGenerator {
                         break;
             default:    cmd = new NullCommand(player, map);
         }
+        // Initialize the command, set the type and arguments specified
         cmd.initialize(commandArray);
     }
 

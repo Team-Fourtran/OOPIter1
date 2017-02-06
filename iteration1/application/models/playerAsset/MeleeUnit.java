@@ -1,5 +1,6 @@
 package application.models.playerAsset;
 
+//Unit type
 //Responsibilities: Weak attacker, uncovers resources on map
 public class MeleeUnit extends Unit{
     
@@ -9,7 +10,7 @@ public class MeleeUnit extends Unit{
         armor = 50;
         movesPerTurn = 2;
         maxHealth = currentHealth = 150;
-        upkeep = 1;
+        upkeep = 20;
     }
 
     public String getType(){

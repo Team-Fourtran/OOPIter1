@@ -1,6 +1,9 @@
 package application.models.tileInfo;
 
-
+/*
+ * See Terrain interface. This provides a movement cost, affecting the preference of an asset to make a path
+ * through that tile with this terrain.
+ */
 public class Slowing implements Terrain {
 	private double movementCost = 2;
 	

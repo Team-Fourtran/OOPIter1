@@ -1,20 +1,28 @@
 package tests;
 
+import java.awt.List;
+import java.util.ArrayList;
+import java.util.Iterator;
+
+import application.models.commands.Command;
 import application.models.commands.CommandGenerator;
+import application.models.playerAsset.Army;
 import application.models.playerAsset.Player;
+import application.models.playerAsset.Unit;
+import application.models.tileState.AssetOccupance;
 import application.models.tileState.Map;
+import application.models.tileState.Occupance;
 import application.models.utility.TileGen;
 
 public class NewStructureTest {
+
 	public static void main(String[] args) {
 
 		// Create a colonist unit
-    	int length = 5 , width = 5;
+    	int length = 4 , width = 4;
         TileGen T = new TileGen(length, width);
         Map m = new Map(T.execute(), length, width);
-        m.printOut();
         Player p = new Player();
-        
         CommandGenerator cGen = new CommandGenerator(p, m);
 
         cGen.generateCommand("IU_T0_colonist");

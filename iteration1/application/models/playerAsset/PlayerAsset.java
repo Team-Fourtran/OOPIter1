@@ -3,6 +3,9 @@ package application.models.playerAsset;
 import application.models.commands.Command;
 import java.util.*;
 
+/* Class that represents all of the common features of a what the player can own
+   This includes Army, Structure, and Unit
+*/
 public abstract class PlayerAsset {
 
     protected int offDamage;
@@ -19,14 +22,13 @@ public abstract class PlayerAsset {
     protected int commandCount = 0;
     protected int moveCounter = 0;
 
+    //Various getter and setters for attributes
     public void setID(String id){
         assetID = id;
     }
-
     public String getID(){
         return assetID;
     }
-
     public String getLocation(){
         return locationID;
     }
@@ -51,21 +53,24 @@ public abstract class PlayerAsset {
     public void setLocation(String location){
         locationID = location;
     }
-
     public int getUpkeep(){
         return upkeep;
     }
 
+    //Power up a unit, increase the resource consumption back to %100
     public void powerUp(){
-        if (!poweredUp)         //incorrect logic, will be fixed
+        if (!poweredUp)
             upkeep *= 4;
     }
 
+    //Power down a powered up unit and change its resource consumption to %25
     public void powerDown(){
         if (poweredUp)
-            upkeep = (int)Math.ceil(.25*upkeep);
+            upkeep /= 4;
     }
 
+    //Add a command to its queue
+    //if no command has been executed this turn, execute it
     public void addCommand(Command c){
         commandQueue.add(c);
         if (!hasExecutedCommand) {
@@ -73,6 +78,9 @@ public abstract class PlayerAsset {
         }
     }
 
+    //execute the first command in the queue
+    //if turns are divisible by 1, then execute or wait until enough turns have passed
+    //if it's a movement command, make sure the max amount of moves can be made
     public void executeCommand() {
         if (!hasExecutedCommand) {
 
@@ -117,6 +125,7 @@ public abstract class PlayerAsset {
 
         }
 
+    //helper method for execute to compare equality for double and int
     public boolean equal(double d, int i){
         double n = d-i;
         if (n < 0.000001)
@@ -124,22 +133,27 @@ public abstract class PlayerAsset {
         return false;
     }
 
+    //check if queue is empty or not
     public boolean emptyQueue() {
         if (commandQueue.size() == 0)
             return true;
         return false;
     }
 
+    //clear all entries in the queue
     public void clearQueue(){
         commandQueue.clear();
     }
 
+    //heal units - implemented in Unit
     public void heal(){}
 
+    //reset the asset's ability to execute a command
     public void resetCommands(){
         hasExecutedCommand = false;
     }
 
+    //get asset type, overridden in subclasses
     public String getType(){
        return "basic asset type";
     }
