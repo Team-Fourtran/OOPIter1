@@ -27,14 +27,7 @@ public class Player {
         command.execute();
     }
     public void notify(String assetID, Command command){
-        System.out.println(command.toString());
-
-        if (assetID.charAt(0) == 's')
-            structures.addCommand(command, assetID);
-        else if (assetID.charAt(0) == 'a')
-            armies.addCommand(command, assetID);
-        else
-            System.out.println("Invalid assetID");
+    	command.execute();
     }
 
     public void setGame(Game game){
