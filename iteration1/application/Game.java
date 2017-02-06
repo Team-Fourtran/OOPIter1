@@ -7,9 +7,10 @@ import application.models.playerAsset.*;
 import application.models.tileState.*;
 import application.models.utility.*;
 import application.views.*;
-/*
- * This class is for initializing the game and handling game flow at a high level (i.e., switching turns)
- */
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 public class Game {
 
 	private Player[] players;
@@ -30,16 +31,18 @@ public class Game {
 		T = new TileGen(ROW, COL);
 		map = new Map(T.execute(), ROW, COL);
 
+
 		// Generate a colonist and 2 explorer units for the two players
 		CommandGenerator cGen0 = new CommandGenerator(players[0], map);
-		cGen0.generateCommand("IU_T4_colonist");
-		cGen0.generateCommand("IU_T5_explorer");
-		cGen0.generateCommand("IU_T6_explorer");
+		cGen0.generateCommand("IU_T65_colonist");
+		cGen0.generateCommand("IU_T19_explorer");
+		cGen0.generateCommand("IU_T24_explorer");
         
-		CommandGenerator cGen1 = new CommandGenerator(players[1], map);
-		cGen1.generateCommand("IU_T10_colonist");
-		cGen1.generateCommand("IU_T11_explorer");
-		cGen1.generateCommand("IU_T12_explorer");
+//		CommandGenerator cGen1 = new CommandGenerator(players[0], map);
+//		cGen1.generateCommand("IU_T100_colonist");
+//		cGen1.generateCommand("IU_T115_explorer");
+//		cGen1.generateCommand("IU_T130_explorer");
+
 
 		for(int i = 0; i < 15; i++){
             for(int j = 0; j < 15; j++){
@@ -47,32 +50,47 @@ public class Game {
                 System.out.println(map.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties());
             }
         }
-		
-		ListIterator unitIterator = currentPlayer.getUnitIterator();
-		ListIterator structureIterator = currentPlayer.getStructureIterator();
 
-		// Startup main screen
-		mainScreen = new MainScreen(map, unitIterator, structureIterator);
+        ListIterator unitIterator = currentPlayer.getUnitIterator();
+		ListIterator structureIterator = currentPlayer.getStructureIterator();
+		ListIterator armyIterator = currentPlayer.getArmyIterator();
+
+		mainScreen = new MainScreen(map, unitIterator, structureIterator, armyIterator);
 		mainScreen.generateMainScreen();
 		mainScreen.showMainScreen();
 
-		try {
-		    Thread.sleep(1000);
-		} catch(InterruptedException ex) {
-		    Thread.currentThread().interrupt();
-		}
-		cGen0.generateCommand("IU_T8_colonist");
-		cGen0.generateCommand("IU_T65_explorer");
+		new Timer().schedule(new TimerTask(){
+		    public void run(){
+		        mainScreen.renderMainScreen(currentPlayer.getUnitIterator(), currentPlayer.getStructureIterator());
+            }
+        }, 0, 250);
 
-		unitIterator = currentPlayer.getUnitIterator();
-		structureIterator = currentPlayer.getStructureIterator();
-		mainScreen.updateMainScreen(unitIterator, structureIterator);
-	}
+		cGen0.generateCommand("NA_T36_u1_u2_u3");
+		currentPlayer.endTurn();
+		currentPlayer.beginTurn();
+		currentPlayer.endTurn();
+		currentPlayer.beginTurn();
+		cGen0.generateCommand("NS_a1");
+		currentPlayer.endTurn();
+		currentPlayer.beginTurn();
+		currentPlayer.endTurn();
+		currentPlayer.beginTurn();
+		currentPlayer.endTurn();
+		currentPlayer.beginTurn();
+		currentPlayer.endTurn();
+		currentPlayer.beginTurn();
+		cGen0.generateCommand("MRP_a1_T3");
+		currentPlayer.endTurn();
+		currentPlayer.beginTurn();
+		currentPlayer.endTurn();
+		currentPlayer.beginTurn();
+//        System.out.println(map.getTileState("T4").getProperties());
+        //cGen.generateCommand("IU_T8_ranged");
+//        cGen.generateCommand("NA_T24_u1_u2_u3");
 
-	// Retrieve the current player
-	public Player getCurrentPlayer(){
-		return currentPlayer;
-	}
+//        System.out.println(map.getTileState("T4").getProperties());
+    }
+
 	
 	// Change the active player to the other one
 	public void switchPlayers(){

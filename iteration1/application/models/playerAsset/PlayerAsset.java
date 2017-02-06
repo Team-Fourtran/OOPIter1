@@ -103,22 +103,22 @@ public abstract class PlayerAsset {
                         endMovement = true;
                         break;
                     }
-                        numCommands++;
-                    }
-
-                    for (int i = 0; i < numCommands; i++) {
-                        commandQueue.remove().execute();
-                        moveCounter++;
-                    }
-
-                    if (moveCounter == 3 || endMovement)
-                        hasExecutedCommand = true;
-
+                    numCommands++;
                 }
+
+                for (int i = 0; i < numCommands; i++) {
+                    commandQueue.remove().execute();
+                    moveCounter++;
+                }
+
+                if (moveCounter == 3 || endMovement)
+                    hasExecutedCommand = true;
+
+            }
             if(hasExecutedCommand){
                 moveCounter = 0;
             }
-        }
+            }
 
         }
 

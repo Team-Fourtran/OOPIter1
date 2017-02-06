@@ -30,9 +30,11 @@ public class MoveRallyPointCommand extends ConcreteCommand{
         currentArmyPosition = p.getPosition(armyID);
         unitIDList = getPlayer().getUnitIDs(armyID);
 
+
         // Add the occupance containing the armyID to the destination tile (the rally point)
         Occupance o = m.getTileState(currentArmyPosition).getOccupance(armyID);
         m.getTileState(currentArmyPosition).removeOccupance(armyID);
+
         m.getTileState(destinationTileID).addOccupance(o);
         p.setRallyPoint(armyID, destinationTileID);
         p.resetArmyUnitQueue(armyID);

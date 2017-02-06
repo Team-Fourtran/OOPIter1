@@ -3,9 +3,9 @@ package application.models.commands;
 import application.models.playerAsset.Player;
 import application.models.tileState.Directions;
 import application.models.tileState.Map;
-/*
- * The discrete movement for an asset to move from one tile to an adjacent one
- */
+
+import java.util.concurrent.TimeUnit;
+
 public class MoveDirectionCommand extends ConcreteCommand{
     private Directions direction;
     private String degreesDirection;
@@ -39,6 +39,11 @@ public class MoveDirectionCommand extends ConcreteCommand{
         Player player = getPlayer();
         System.out.println("\nMoving " + assetID + " direction " + direction);
         map.getTileState(player.getPosition(assetID)).moveOccupance(assetID, direction);
+        try {
+            TimeUnit.MILLISECONDS.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

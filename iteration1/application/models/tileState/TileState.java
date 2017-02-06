@@ -146,6 +146,7 @@ public class TileState {
         while(i.hasNext()){
         	Occupance _o = i.next();
             if(id.equals(_o.getAssetID())){
+                _o.updateAssetLocation(neighbors.get(direction).getId());
                 neighbors.get(direction).addOccupance(_o);
                 oldOccupance = _o;
             }

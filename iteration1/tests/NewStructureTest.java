@@ -23,40 +23,45 @@ public class NewStructureTest {
         TileGen T = new TileGen(length, width);
         Map m = new Map(T.execute(), length, width);
         Player p = new Player();
-        
-        CommandGenerator cGen = new CommandGenerator(p, m);   
-        
-        // Adding unit to tile T0
-        cGen.generateCommand("IU_0_T0_colonist");
-        
-        System.out.println(m.getTileState("T0").getProperties());
-        
-        // Create an army containing that colonist unit
-        System.out.println("\nCreate army");
-        ArrayList<String> units = new ArrayList<String>();
-        units.add("u1");
-        Army a = p.formArmy(units, "T0");
+        CommandGenerator cGen = new CommandGenerator(p, m);
 
-        ArrayList<Occupance> o = m.getTileState("T0").getOccupance();
-        
-        Iterator<Occupance> i = o.iterator();
-        while(i.hasNext()) {
-        	Occupance oc = i.next();
-        	if (oc.getAssetID().equals("u1"));
-        	i.remove();
-        }
-        
-    	Occupance arm = new AssetOccupance(a);
-    	m.getTileState("T0").addOccupance(arm);
-
-       
-        System.out.println(m.getTileState("T0").getProperties() + "\n");
-        
-        // New Structure command
-
-        cGen.generateCommand("NS_a1");
-        
-        System.out.println(m.getTileState("T0").getProperties());
+        cGen.generateCommand("IU_T0_colonist");
+        cGen.generateCommand("IU_T1_colonist");
+        cGen.generateCommand("IU_T2_colonist");
+        System.out.println("-----BEFORE-----");
+        System.out.println("u1: " + p.getPosition("u1"));
+        System.out.println("u2: " + p.getPosition("u2"));
+        System.out.println("u3: " + p.getPosition("u3"));
+        cGen.generateCommand("NA_T24_u1_u2_u3");
+//        cGen.generateCommand("MRP_a1_T3"); //Might have to clear associated queues???
+        System.out.println("-----AFTER-----");
+        System.out.println("u1: " + p.getPosition("u1"));
+        System.out.println("u2: " + p.getPosition("u2"));
+        System.out.println("u3: " + p.getPosition("u3"));
+        p.endTurn();
+        p.beginTurn();
+        System.out.println("-----AFTER2-----");
+        System.out.println("u1: " + p.getPosition("u1"));
+        System.out.println("u2: " + p.getPosition("u2"));
+        System.out.println("u3: " + p.getPosition("u3"));
+        p.endTurn();
+        p.beginTurn();
+        System.out.println("-----AFTER3-----");
+        System.out.println("u1: " + p.getPosition("u1"));
+        System.out.println("u2: " + p.getPosition("u2"));
+        System.out.println("u3: " + p.getPosition("u3"));
+        p.endTurn();
+        p.beginTurn();
+        System.out.println("-----AFTER4-----");
+        System.out.println("u1: " + p.getPosition("u1"));
+        System.out.println("u2: " + p.getPosition("u2"));
+        System.out.println("u3: " + p.getPosition("u3"));
+        p.endTurn();
+        p.beginTurn();
+        System.out.println("-----AFTER5-----");
+        System.out.println("u1: " + p.getPosition("u1"));
+        System.out.println("u2: " + p.getPosition("u2"));
+        System.out.println("u3: " + p.getPosition("u3"));
 	}
 
 }
