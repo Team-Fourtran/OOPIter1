@@ -51,6 +51,18 @@ public class StructureManager {
         }
         return totalUpkeep;
     }
+    
+    public void freeID(String assetID) {
+    	int escapee = Integer.parseInt(assetID.substring(assetID.lastIndexOf("u") + 1).trim());
+    	for (int i = 0; i < structureIDs.size(); i++) {
+    		String currentID = structureIDs.get(i);
+    		int id = Integer.parseInt(currentID.substring(currentID.lastIndexOf("u") + 1).trim());
+    		if (escapee < id) {
+    			structureIDs.add(i, assetID);
+    			break;
+    		}
+    	}
+    }
 
     public String getPosition(String assetID){
         for (Structure s: structureList)
