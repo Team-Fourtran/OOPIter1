@@ -24,8 +24,9 @@ public class Structure extends PlayerAsset{
     }
 
     //heal unit on same tile as structure
-    public void healUnit(Unit u){
-        u.heal(50);
+    public void healUnits(){
+    	
+//        u.heal(50);
     }
 
     public void addCommand(Command c){
