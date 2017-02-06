@@ -55,6 +55,18 @@ public class ArmyManager {
         }
         return totalUpkeep;
     }
+    
+    public void freeID(String assetID) {
+    	int escapee = Integer.parseInt(assetID.substring(assetID.lastIndexOf("u") + 1).trim());
+    	for (int i = 0; i < armyIDs.size(); i++) {
+    		String currentID = armyIDs.get(i);
+    		int id = Integer.parseInt(currentID.substring(currentID.lastIndexOf("u") + 1).trim());
+    		if (escapee < id) {
+    			armyIDs.add(i, assetID);
+    			break;
+    		}
+    	}
+    }
 
     public String getPosition(String assetID){
         for (Army a: armyList)
