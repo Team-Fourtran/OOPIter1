@@ -28,7 +28,14 @@ public class Player {
     }
     public void notify(String assetID, Command command){
         System.out.println(command.toString());
-        //Pass c to corresponding asset queue
+
+        if (assetID.charAt(0) == 's')
+            structures.addCommand(command, assetID);
+        else if (assetID.charAt(0) == 'a')
+            armies.addCommand(command, assetID);
+        else
+            System.out.println("Invalid assetID");
+
     }
 
     public void setGame(Game game){
@@ -40,11 +47,13 @@ public class Player {
         int totalWoodCost = structures.calculateTotalUpkeep();
         food -= totalFoodCost;
         wood -= totalWoodCost;
-        //TO-DO: enforce some punishment for not having enough
-        //Traverse all queues and execute
+        armies.executeCommands();
+        structures.executeCommands();
     }
     public void endTurn(){
-    	 game.switchPlayers();
+        armies.resetCommands();
+        structures.resetCommands();
+        game.switchPlayers();
     }
     //pass list of units to army manager to form army
     public Army formArmy(ArrayList<String> unitIDs, String rallyPoint){

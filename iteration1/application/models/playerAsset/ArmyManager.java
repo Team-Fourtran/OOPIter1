@@ -86,7 +86,13 @@ public class ArmyManager {
 
     public void executeCommands(){
         for (Army a: armyList)
-            a.executeCommand();
+            if (!a.emptyQueue())
+                a.executeCommand();
+    }
+
+    public void resetCommands(){
+        for (Army a: armyList)
+            a.resetCommands();
     }
 
     public Iterator makeIterator(){

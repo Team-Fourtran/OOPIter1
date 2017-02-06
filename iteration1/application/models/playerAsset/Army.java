@@ -14,6 +14,7 @@ public class Army extends PlayerAsset{
 
     public Army(ArrayList<Unit> units, String rallyPoint){
         commandCount = 0;
+        hasExecutedCommand = false;
         this.rallyPoint = rallyPoint;
         for (Unit u: units){
             if (u.getLocation().equals(rallyPoint)) {
@@ -73,6 +74,10 @@ public class Army extends PlayerAsset{
 
     public void addCommand(Command c){
         commandQueue.add(c);
+        if (!hasExecutedCommand) {
+            executeCommand();
+            hasExecutedCommand = true;
+        }
     }
 
 
@@ -80,32 +85,33 @@ public class Army extends PlayerAsset{
     //if movement, could be many commands
     //if multi-turn command, stall until turn count is reached
     public void executeCommand(){
-        int turns = (int) commandQueue.peek().getTurns();
+        if (!hasExecutedCommand) {
 
+            int turns = (int) commandQueue.peek().getTurns();
 
-        if (turns != 0) {
-            commandCount++;
-            if (equal(commandQueue.peek().getTurns(), commandCount)) {
-                commandQueue.peek().execute();
-                commandQueue.remove();
-                commandCount = 0;
+            if (turns != 0) {
+                commandCount++;
+                if (equal(commandQueue.peek().getTurns(), commandCount)) {
+                    commandQueue.peek().execute();
+                    commandQueue.remove();
+                    commandCount = 0;
+                }
+            } else {
+                int numCommands = 0;
+                double turnCount = 0;
+                for (Command c : commandQueue) {
+                    turnCount += c.getTurns();
+                    numCommands++;
+                    if (turnCount >= .99)
+                        break;
+                }
+
+                for (int i = 0; i < numCommands; i++) {
+                    commandQueue.peek().execute();
+                    commandQueue.remove();
+                }
+
             }
-        }
-        else{
-            int numCommands = 0;
-            double turnCount = 0;
-            for (Command c: commandQueue){
-                turnCount += c.getTurns();
-                numCommands++;
-                if (turnCount >= .99)
-                    break;
-            }
-
-            for (int i = 0; i < numCommands; i++) {
-                commandQueue.peek().execute();
-                commandQueue.remove();
-            }
-
         }
     }
 
@@ -115,6 +121,16 @@ public class Army extends PlayerAsset{
         if (n < 0.000001)
             return true;
         return false;
+    }
+
+    public boolean emptyQueue(){
+        if (commandQueue.size() == 0)
+            return true;
+        return false;
+    }
+
+    public void resetCommands(){
+        hasExecutedCommand = false;
     }
     
 
