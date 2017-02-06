@@ -11,5 +11,8 @@ public class Explorer extends Unit{
         maxHealth = currentHealth = 100;
         upkeep = 1;
     }
-    
+
+    public String getType(){
+        return "Explorer";
+    }
 }

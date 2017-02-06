@@ -11,4 +11,8 @@ public class Colonist extends Unit{
         maxHealth = currentHealth = 100;
         upkeep = 1;
     }
+
+    public String getType(){
+        return "Colonist";
+    }
 }

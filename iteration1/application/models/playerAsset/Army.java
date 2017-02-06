@@ -67,4 +67,19 @@ public class Army extends PlayerAsset{
                 reinforcements.remove(u);
             }
     }
+
+    public void heal(String location){
+        ArrayList<Unit> units = getUnits();
+        for (Unit u: units)
+            if (u.getLocation() == location)
+                u.heal(50);
+    }
+
+    public Unit getUnit(String unitID){
+        ArrayList<Unit> units = getUnits();
+        for (Unit u: units)
+            if (u.getID() == unitID)
+                return u;
+        return null;
+    }
 }

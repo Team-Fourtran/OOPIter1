@@ -27,18 +27,20 @@ public class Player {
         command.execute();
     }
     public void notify(String assetID, Command command){
-        command.execute();
-//        if (assetID.charAt(0) == 's')
-//            structures.addCommand(command, assetID);
-//        else if (assetID.charAt(0) == 'a')
-//            armies.addCommand(command, assetID);
-//        else
-//            System.out.println("Invalid assetID");
+        if (assetID.charAt(0) == 's')
+            structures.addCommand(command, assetID);
+        else if (assetID.charAt(0) == 'a')
+            armies.addCommand(command, assetID);
+        else if (assetID.charAt(0) == 'u')
+            armies.addMoveCommand(command, assetID);
+        else
+            System.out.println("Invalid assetID");
     }
 
     public void setGame(Game game){
     	this.game = game;
     }
+
     //method to do maintenence tasks on player's assets
     public void beginTurn(){
         int totalFoodCost = units.calculateTotalUpkeep() + armies.calculateTotalUpkeep();
@@ -80,6 +82,14 @@ public class Player {
         return (armies.findArmy(armyID).hasColonist() && structures.getStructureCount() < 10);
     }
 
+    public ArrayList<String> getUnitIDs(String armyID){
+        ArrayList<Unit> units = armies.findArmy(armyID).getUnits();
+        ArrayList<String> unitIDs = new ArrayList<String>();
+        for (Unit u: units)
+            unitIDs.add(u.getID());
+        return unitIDs;
+    }
+
     //check a specific army for a colonist, create a structure on that tile,
     //and consume the colonist
     public Structure createStructure(String armyID){
@@ -96,9 +106,10 @@ public class Player {
         structures.decommission(structureID);
     }
 
-    public void healUnit(String structureID, String unitID){
-        if (units.getPosition(unitID) == structures.getPosition(structureID))
-            structures.heal(structureID, units.getUnit(unitID));
+    public void healUnits(String structureID){
+        String location = structures.getPosition(structureID);
+        armies.heal(location);
+        units.heal(location);
     }
 
     public boolean canCreateUnit(String structureID, String type){
