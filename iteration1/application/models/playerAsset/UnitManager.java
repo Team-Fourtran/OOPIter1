@@ -125,6 +125,11 @@ public class UnitManager {
         return null;
     }
 
+    public void resetCommands(){
+        for (Unit u: unitList)
+            u.resetCommands();
+    }
+
     public Iterator makeIterator(){
         return unitList.iterator();
     }
