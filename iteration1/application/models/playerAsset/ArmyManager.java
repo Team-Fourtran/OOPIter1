@@ -70,6 +70,12 @@ public class ArmyManager {
     	}
     }
 
+    public void setRallyPoint(String armyID, String rallyPoint){
+        for (Army a: armyList)
+            if (a.getID() == armyID)
+                a.setRallyPoint(rallyPoint);
+    }
+
     public String getPosition(String assetID){
         for (Army a: armyList)
             if (a.getID() == assetID)
