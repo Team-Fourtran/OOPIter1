@@ -36,7 +36,7 @@ public class NewStructureTest {
         System.out.println("u1: " + p.getPosition("u1"));
         System.out.println("u2: " + p.getPosition("u2"));
         System.out.println("u3: " + p.getPosition("u3"));
-        cGen.generateCommand("NS_");
+
         p.endTurn();
         p.beginTurn();
         System.out.println("-----AFTER2-----");

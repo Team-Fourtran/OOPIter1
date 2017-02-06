@@ -165,16 +165,16 @@ public class Player {
         armies.resetArmyUnitQueue(armyID);
     }
 
-    public Iterator getUnitIterator(){
-        return units.makeIterator();
+    public ListIterator getUnitIterator(){
+        return units.makeListIterator();
     }
 
-    public Iterator getArmyIterator(){
-        return armies.makeIterator();
+    public ListIterator getArmyIterator(){
+        return armies.makeListIterator();
     }
 
-    public Iterator getStructureIterator(){
-        return structures.makeIterator();
+    public ListIterator getStructureIterator(){
+        return structures.makeListIterator();
     }
     
     // Used primarily in army formation currently, so that Units can be added to an army

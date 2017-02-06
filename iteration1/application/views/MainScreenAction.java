@@ -28,7 +28,7 @@ public class MainScreenAction implements ActionListener{
 		});*/
 		//JButton armyDisbandButton = new JButton("Disband Selected Army");
 		UnitOverViewScreen unitOVScreen = new UnitOverViewScreen(unitData);
-		StructureOverViewScreen structureOVScreen = new StructureOverViewScreen(unitData);
+		StructureOverViewScreen structureOVScreen = new StructureOverViewScreen(structData);
 		if("openUnitOV".equals(e.getActionCommand())){
 			SwingUtilities.invokeLater(new Runnable(){
 				public void run(){

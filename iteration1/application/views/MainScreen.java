@@ -7,9 +7,12 @@ import application.models.tileState.Map;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 import javax.swing.border.Border;
 
 public class MainScreen{
@@ -34,6 +37,7 @@ public class MainScreen{
     //Iterator
     public ListIterator unitIterator;
     public ListIterator structureIterator;
+    public ListIterator armyIterator;
 
     //KeyPressInformer for Controller
     private KeyPressInformer keyInformer;
@@ -41,21 +45,22 @@ public class MainScreen{
 
     private JLabel[][] Grid;
     private Map map;
-    private final ImageIcon NORMAL = new ImageIcon("TileImages/Normal/Normal.png");
-    private final ImageIcon NORMAL_COLONIST = new ImageIcon("TileImages/Normal/Normal-Colonist.png");
-    private final ImageIcon NORMAL_EXPLORER = new ImageIcon("TileImages/Normal/Normal-Explorer.png");
-    private final ImageIcon NORMAL_MELEE = new ImageIcon("TileImages/Normal/Normal-MeleeUnit.png");
-    private final ImageIcon NORMAL_RANGED = new ImageIcon("TileImages/Normal/Normal-RangedUnit.png");
-    private final ImageIcon NORMAL_STRUCTURE = new ImageIcon("TileImages/Structure/Normal-Structure.png");
+    private final ImageIcon NORMAL = new ImageIcon("iteration1/TileImages/Normal/Normal.png");
+    private final ImageIcon NORMAL_COLONIST = new ImageIcon("iteration1/TileImages/Normal/Normal-Colonist.png");
+    private final ImageIcon NORMAL_EXPLORER = new ImageIcon("iteration1/TileImages/Normal/Normal-Explorer.png");
+    private final ImageIcon NORMAL_MELEE = new ImageIcon("iteration1/TileImages/Normal/Normal-MeleeUnit.png");
+    private final ImageIcon NORMAL_RANGED = new ImageIcon("iteration1/TileImages/Normal/Normal-RangedUnit.png");
+    private final ImageIcon NORMAL_STRUCTURE = new ImageIcon("iteration1/TileImages/Structure/Normal-Structure.png");
+    private final ImageIcon NORMAL_ARMY = new ImageIcon("iteration1/TileImages/Normal/Normal-Army.png");
+    private final ImageIcon SLOW_ARMY = new ImageIcon("iteration1/TileImages/Normal/Slow-Army.png");
+    private final ImageIcon SLOW = new ImageIcon("iteration1/TileImages/Slow/Slow.png");
+    private final ImageIcon SLOW_COLONIST = new ImageIcon("iteration1/TileImages/Slow/Slow-Colonist.png");
+    private final ImageIcon SLOW_EXPLORER = new ImageIcon("iteration1/TileImages/Slow/Slow-Explorer.png");
+    private final ImageIcon SLOW_MELEE = new ImageIcon("iteration1/TileImages/Slow/Slow-MeleeUnit.png");
+    private final ImageIcon SLOW_RANGED = new ImageIcon("iteration1/TileImages/Slow/Slow-RangedUnit.png");
+    private final ImageIcon SLOW_STRUCTURE = new ImageIcon("iteration1/TileImages/Structure/Slow-Structure.png");
 
-    private final ImageIcon SLOW = new ImageIcon("TileImages/Slow/Slow.png");
-    private final ImageIcon SLOW_COLONIST = new ImageIcon("TileImages/Slow/Slow-Colonist.png");
-    private final ImageIcon SLOW_EXPLORER = new ImageIcon("TileImages/Slow/Slow-Explorer.png");
-    private final ImageIcon SLOW_MELEE = new ImageIcon("TileImages/Slow/Slow-MeleeUnit.png");
-    private final ImageIcon SLOW_RANGED = new ImageIcon("TileImages/Slow/Slow-RangedUnit.png");
-    private final ImageIcon SLOW_STRUCTURE = new ImageIcon("TileImages/Structure/Slow-Structure.png");
-
-    private final ImageIcon IMPASSABLE = new ImageIcon("TileImages/Impassable/Impassable.png");
+    private final ImageIcon IMPASSABLE = new ImageIcon("iteration1/TileImages/Impassable/Impassable.png");
     private final ImageIcon[] TERRAIN = {
             NORMAL,
             SLOW,
@@ -66,10 +71,11 @@ public class MainScreen{
             "Defensive Damage", "Armor", "Movement",
             "Health", "Upkeep"};
     
-    public MainScreen(Map map, ListIterator unitIterator, ListIterator structureIterator){
+    public MainScreen(Map map, ListIterator unitIterator, ListIterator structureIterator, ListIterator armyIterator){
     	this.map = map;
     	this.unitIterator = unitIterator;
     	this.structureIterator = structureIterator;
+    	this.armyIterator = armyIterator;
     }
     public void showMainScreen(){
         mainScreen.setVisible(true);
@@ -88,8 +94,10 @@ public class MainScreen{
         
         String[] unitTypeArr = new String[ROW * COL];
         String[] structTypeArr = new String[ROW * COL];
+        String[] armyTypeArr = new String[ROW * COL];
         Arrays.fill(unitTypeArr, "");
         Arrays.fill(structTypeArr, "");
+        Arrays.fill(armyTypeArr, "");
         
         while(unitIterator.hasNext()){
 			PlayerAsset asset = (PlayerAsset) unitIterator.next();
@@ -112,6 +120,7 @@ public class MainScreen{
 				z++;
 			}
 		}
+
         z = 0;
         while(structureIterator.hasNext()){
 			PlayerAsset asset = (PlayerAsset) structureIterator.next();
@@ -135,6 +144,28 @@ public class MainScreen{
 				z++;
 			}
 		}
+        z = 0;
+        while(armyIterator.hasNext()){
+            PlayerAsset asset = (PlayerAsset) armyIterator.next();
+            String str = asset.getLocation().replaceAll("\\D+","");
+            int location = Integer.parseInt(str);
+            armyTypeArr[location] = asset.getType();
+            if(z == 24){
+                z = 0;
+            }
+            else{
+                z++;
+            }
+        }
+        while(unitIterator.hasPrevious()){
+            unitIterator.previous();
+        }
+        while(structureIterator.hasPrevious()){
+            structureIterator.previous();
+        }
+        while(armyIterator.hasPrevious()){
+            armyIterator.previous();
+        }
         
         String terrains2d[][] = new String[ROW][COL];
         for(int i = 0; i < 15; i++){
@@ -146,25 +177,25 @@ public class MainScreen{
         
         for(int i = 0; i < 15; i++){
         	for(int j = 0; j < 15; j++){
-        		if(unitTypeArr[i*10 + j].toString().toUpperCase().equals("COLONIST")){
+        		if(unitTypeArr[i*(ROW) + j].toString().toUpperCase().equals("COLONIST")){
             		if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
             			terrains2d[i][j] = "NORMALCOLONIST";
             		} else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
             			terrains2d[i][j] = "SLOWCOLONIST";
             		}
-            	} else if(unitTypeArr[i*10 + j].toString().toUpperCase().equals("EXPLORER")){
+            	} else if(unitTypeArr[i*(ROW) + j].toString().toUpperCase().equals("EXPLORER")){
             		if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
             			terrains2d[i][j] = "NORMALEXPLORER";
             		} else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
             			terrains2d[i][j] = "SLOWEXPLORER";
             		}
-            	} else if(unitTypeArr[i*10 + j].toString().toUpperCase().equals("MELEE")){
+            	} else if(unitTypeArr[i*(ROW) + j].toString().toUpperCase().equals("MELEE")){
             		if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
             			terrains2d[i][j] = "NORMALMELEE";
             		} else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
             			terrains2d[i][j] = "SLOWMELEE";
             		}
-            	} else if(unitTypeArr[i*10 + j].toString().toUpperCase().equals("RANGED")){
+            	} else if(unitTypeArr[i*(ROW) + j].toString().toUpperCase().equals("RANGED")){
             		if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
             			terrains2d[i][j] = "NORMALRANGED";
             		} else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
@@ -175,7 +206,7 @@ public class MainScreen{
         }
         for(int i = 0; i < 15; i++){
         	for(int j = 0; j < 15; j++){
-        		if(structTypeArr[i*10 + j].toString().toUpperCase().equals("STRUCTURE")){
+        		if(structTypeArr[i*(ROW) + j].toString().toUpperCase().equals("STRUCTURE")){
             		if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
             			terrains2d[i][j] = "NORMALSTRUCTURE";
             		} else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
@@ -184,12 +215,27 @@ public class MainScreen{
             	} 
         	}
         }
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                if(armyTypeArr[i*(ROW) + j].toUpperCase().equals("ARMY")){
+                    if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
+                        terrains2d[i][j] = "NORMALARMY";
+                    } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
+                        terrains2d[i][j] = "ARMYSTRUCTURE";
+                    }
+                }
+            }
+        }
         //Initializing the Grid of JLabels.
         for(int i = 0; i < ROW; i++){
             for(int j = 0; j < COL; j++){
                 JLabel tileLabel = new JLabel();
                 if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
                     tileLabel.setIcon(TERRAIN[0]);
+                } else if(terrains2d[i][j].equals("NORMALARMY")) {
+                    tileLabel.setIcon(NORMAL_ARMY);
+                } else if(terrains2d[i][j].equals("SLOWARMY")) {
+                    tileLabel.setIcon(SLOW_ARMY);
                 } else if(terrains2d[i][j].equals("NORMALCOLONIST")){
                 	tileLabel.setIcon(NORMAL_COLONIST);
                 } else if(terrains2d[i][j].equals("NORMALEXPLORER")){
@@ -310,11 +356,6 @@ public class MainScreen{
         buttonPanel.add(unitOVButton);
         buttonPanel.add(structureOVButton);
 
-        //Initializing Status Table
-        Object[][] unitData = {{new Integer(2000), new Integer(25), new Integer(25),
-                new Integer(10), new Integer(2), new Integer(50),
-                new Integer(50)}};
-
         NonEditableTable table = new NonEditableTable(unitData, unitColumnStats);
         statusTable = new JTable(table);
         statusTablePanel = new JPanel();
@@ -329,6 +370,202 @@ public class MainScreen{
         mainScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainScreen.pack();
     
+    }
+
+    public void renderMainScreen(){
+        int z = 0;
+        String[] unitTypeArr = new String[ROW * COL];
+        String[] structTypeArr = new String[ROW * COL];
+        String[] armyTypeArr = new String[ROW * COL];
+        Arrays.fill(unitTypeArr, "");
+        Arrays.fill(structTypeArr, "");
+        while(unitIterator.hasNext()){
+            PlayerAsset asset = (PlayerAsset) unitIterator.next();
+            unitData[z][0] = asset.getID();
+            unitData[z][1] = asset.getType();
+            unitData[z][2] = asset.getOffDamage();
+            unitData[z][3] = asset.getDefDamage();
+            unitData[z][4] = asset.getArmor();
+            unitData[z][5] = asset.getMaxHealth();
+            unitData[z][6] = asset.getCurrentHealth();
+            unitData[z][7] = asset.getUpkeep();
+            unitData[z][8] = asset.getLocation();
+            String str = asset.getLocation().replaceAll("\\D+","");
+            int location = Integer.parseInt(str);
+            unitTypeArr[location] = asset.getType();
+            if(z == 24){
+                z = 0;
+            }
+            else{
+                z++;
+            }
+        }
+
+        z = 0;
+        while(structureIterator.hasNext()){
+            PlayerAsset asset = (PlayerAsset) structureIterator.next();
+            structData[z][0] = asset.getID();
+            structData[z][1] = asset.getType();
+            structData[z][2] = asset.getOffDamage();
+            structData[z][3] = asset.getDefDamage();
+            structData[z][4] = asset.getArmor();
+            structData[z][5] = asset.getMaxHealth();
+            structData[z][6] = asset.getCurrentHealth();
+            structData[z][7] = asset.getUpkeep();
+            structData[z][8] = asset.getLocation();
+
+            String str = asset.getLocation().replaceAll("\\D+","");
+            int location = Integer.parseInt(str);
+            structTypeArr[location] = asset.getType();
+            if(z == 24){
+                z = 0;
+            }
+            else{
+                z++;
+            }
+        }
+        z = 0;
+        while(armyIterator.hasNext()){
+            PlayerAsset asset = (PlayerAsset) armyIterator.next();
+            String str = asset.getLocation().replaceAll("\\D+","");
+            int location = Integer.parseInt(str);
+            armyTypeArr[location] = asset.getType();
+            if(z == 24){
+                z = 0;
+            }
+            else{
+                z++;
+            }
+        }
+        while(unitIterator.hasPrevious()){
+            unitIterator.previous();
+        }
+        while(structureIterator.hasPrevious()){
+            structureIterator.previous();
+        }
+        while(armyIterator.hasPrevious()){
+            structureIterator.previous();
+        }
+
+        String terrains2d[][] = new String[ROW][COL];
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                terrains2d[i][j] = map.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties().get("terrain").get(0);
+            }
+        }
+
+
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                if(unitTypeArr[i*(ROW) + j].toUpperCase().equals("COLONIST")){
+                    if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
+                        terrains2d[i][j] = "NORMALCOLONIST";
+                    } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
+                        terrains2d[i][j] = "SLOWCOLONIST";
+                    }
+                } else if(unitTypeArr[i*(ROW) + j].toUpperCase().equals("EXPLORER")){
+                    if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
+                        terrains2d[i][j] = "NORMALEXPLORER";
+                    } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
+                        terrains2d[i][j] = "SLOWEXPLORER";
+                    }
+                } else if(unitTypeArr[i*(ROW) + j].toUpperCase().equals("MELEE")){
+                    if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
+                        terrains2d[i][j] = "NORMALMELEE";
+                    } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
+                        terrains2d[i][j] = "SLOWMELEE";
+                    }
+                } else if(unitTypeArr[i*(ROW) + j].toUpperCase().equals("RANGED")){
+                    if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
+                        terrains2d[i][j] = "NORMALRANGED";
+                    } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
+                        terrains2d[i][j] = "SLOWRANGED";
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                if(structTypeArr[i*(ROW) + j].toUpperCase().equals("STRUCTURE")){
+                    if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
+                        terrains2d[i][j] = "NORMALSTRUCTURE";
+                    } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
+                        terrains2d[i][j] = "SLOWSTRUCTURE";
+                    }
+                }
+            }
+        }
+        for(int i = 0; i < 15; i++){
+            for(int j = 0; j < 15; j++){
+                if(armyTypeArr[i*(ROW-1) + j].toUpperCase().equals("ARMY")){
+                    if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
+                        terrains2d[i][j] = "NORMALARMY";
+                    } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
+                        terrains2d[i][j] = "ARMYSTRUCTURE";
+                    }
+                }
+            }
+        }
+        //Initializing the Grid of JLabels.
+        for(int i = 0; i < ROW; i++){
+            for(int j = 0; j < COL; j++){
+                JLabel tileLabel = new JLabel();
+                if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
+                    tileLabel.setIcon(TERRAIN[0]);
+                } else if(terrains2d[i][j].equals("NORMALARMY")) {
+                    tileLabel.setIcon(NORMAL_ARMY);
+                } else if(terrains2d[i][j].equals("SLOWARMY")) {
+                    tileLabel.setIcon(SLOW_ARMY);
+                } else if(terrains2d[i][j].equals("NORMALCOLONIST")){
+                    tileLabel.setIcon(NORMAL_COLONIST);
+                } else if(terrains2d[i][j].equals("NORMALEXPLORER")){
+                    tileLabel.setIcon(NORMAL_EXPLORER);
+                } else if(terrains2d[i][j].equals("NORMALMELEE")){
+                    tileLabel.setIcon(NORMAL_MELEE);
+                } else if(terrains2d[i][j].equals("NORMALRANGED")){
+                    tileLabel.setIcon(NORMAL_RANGED);
+                } else if(terrains2d[i][j].toUpperCase().equals("IMPASSABLE")){
+                    tileLabel.setIcon(TERRAIN[2]);
+                } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
+                    tileLabel.setIcon(TERRAIN[1]);
+                } else if(terrains2d[i][j].equals("SLOWCOLONIST")){
+                    tileLabel.setIcon(SLOW_COLONIST);
+                } else if(terrains2d[i][j].equals("SLOWEXPLORER")){
+                    tileLabel.setIcon(SLOW_EXPLORER);
+                } else if(terrains2d[i][j].equals("SLOWMELEE")){
+                    tileLabel.setIcon(SLOW_MELEE);
+                } else if(terrains2d[i][j].equals("SLOWRANGED")){
+                    tileLabel.setIcon(SLOW_RANGED);
+                } else if(terrains2d[i][j].equals("NORMALSTRUCTURE")){
+                    tileLabel.setIcon(NORMAL_STRUCTURE);
+                } else if(terrains2d[i][j].equals("SLOWSTRUCTURE")){
+                    tileLabel.setIcon(SLOW_STRUCTURE);
+                } else{
+                    tileLabel.setIcon(TERRAIN[0]);
+                }
+                Grid[i][j] = tileLabel;
+            }
+        }
+
+//        //Initializing areaViewPort with Grid.
+//        areaViewPort = new JPanel(new GridLayout(ROW, COL));
+//        areaViewPort.setPreferredSize(new Dimension(prefWidth, prefHeight));
+//        for(int i = 0; i < ROW; i++){
+//            for(int j = 0; j < COL; j++){
+//                areaViewPort.add(Grid[i][j]);
+//            }
+//        }
+//
+//        mainScreen.add(areaViewPort);
+////        mainScreen.update(areaViewPort.getGraphics());
+//        mainScreen.add(statusViewPort, BorderLayout.EAST);
+//        mainScreen.setSize(500, 500);
+//        mainScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        mainScreen.pack();
+//        mainScreen.setVisible(false);
+//        mainScreen.revalidate();
+//        mainScreen.repaint();
+//        mainScreen.setVisible(true);
     }
 }
 
