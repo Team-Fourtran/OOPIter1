@@ -3,8 +3,6 @@ package application.models.commands;
 import application.models.playerAsset.Player;
 import application.models.tileState.Map;
 
-import java.util.ArrayList;
-
 public class MoveAssetCommand extends ConcreteCommand{
     private String startTileID;
     private String destinationTileID;
