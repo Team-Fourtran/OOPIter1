@@ -95,8 +95,8 @@ public class StructureManager {
         }
     }
 
-    public Iterator makeIterator(){
-        return structureList.iterator();
+    public ListIterator makeListIterator(){
+        return structureList.listIterator();
     }
 
 }

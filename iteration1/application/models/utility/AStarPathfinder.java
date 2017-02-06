@@ -4,7 +4,9 @@ import application.models.tileState.Directions;
 import application.models.tileState.TileState;
 
 import java.util.*;
-
+/*
+ * Class that finds the optimal path between start TileState and goal TileState
+ */
 public class AStarPathfinder {
     private TileState start;
     private TileState goal;

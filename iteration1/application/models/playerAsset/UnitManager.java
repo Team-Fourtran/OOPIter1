@@ -136,8 +136,8 @@ public class UnitManager {
             u.resetCommands();
     }
 
-    public Iterator makeIterator(){
-        return unitList.iterator();
+    public ListIterator makeListIterator(){
+        return unitList.listIterator();
     }
 
 

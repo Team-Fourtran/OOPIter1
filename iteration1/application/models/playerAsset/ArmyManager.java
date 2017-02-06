@@ -119,8 +119,8 @@ public class ArmyManager {
 
     }
 
-    public Iterator makeIterator(){
-        return armyList.iterator();
+    public ListIterator makeListIterator(){
+        return armyList.listIterator();
     }
 
 
