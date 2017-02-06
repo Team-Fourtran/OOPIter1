@@ -1,5 +1,7 @@
 package application.models.playerAsset;
 
+import application.models.commands.Command;
+
 import java.util.*;
 
 public class StructureManager {
@@ -78,7 +80,18 @@ public class StructureManager {
         return false;
     }
 
-    //public void executeCommands(){}
+    //add command into specific structure's queue
+    public void addCommand(Command c, String structureID){
+        for (Structure s: structureList)
+            if (s.getID() == structureID)
+                s.addCommand(c);
+    }
+
+    //used at beginning of player's turn
+    public void executeCommands(){
+        for (Structure s: structureList)
+            s.executeCommand();
+    }
 
     public Iterator makeIterator(){
         return structureList.iterator();
