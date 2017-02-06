@@ -36,9 +36,9 @@ public class MainScreen implements ActionListener{
 
     private JLabel[][] Grid;
 
-    private final ImageIcon NORMAL = new ImageIcon("TileImages/Normal/Normal.png");
-    private final ImageIcon SLOW = new ImageIcon("TileImages/Slow/Slow.png");
-    private final ImageIcon IMPASSABLE = new ImageIcon("TileImages/Impassable/Impassable.png");
+    private final ImageIcon NORMAL = new ImageIcon("iteration1/TileImages/Normal/Normal.png");
+    private final ImageIcon SLOW = new ImageIcon("iteration1/TileImages/Slow/Slow.png");
+    private final ImageIcon IMPASSABLE = new ImageIcon("iteration1/TileImages/Impassable/Impassable.png");
     private final ImageIcon[] TERRAIN = {
             NORMAL,
             SLOW,

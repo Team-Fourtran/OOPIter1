@@ -127,8 +127,8 @@ public class UnitManager {
         return null;
     }
 
-    public Iterator makeIterator(){
-        return unitList.iterator();
+    public ListIterator makeIterator(){
+        return unitList.listIterator();
     }
 
 

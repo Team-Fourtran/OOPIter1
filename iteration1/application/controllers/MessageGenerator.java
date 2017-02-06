@@ -2,10 +2,10 @@ package application.controllers;
 
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Scanner;
+import java.util.*;
+
+import application.models.playerAsset.Player;
+import application.models.playerAsset.PlayerAsset;
 
 
 class MessageGenerator implements KeyPressListener{
@@ -13,11 +13,11 @@ class MessageGenerator implements KeyPressListener{
     private Mode currentMode;
     private int modeIndex;	//Originally used ListIterator, but the Java List interface iterators are garbage
 
-    protected HashMap<String, Iterator> assetIterators;
+    protected HashMap<String, ListIterator> assetIterators;
 
     private Controller receiver;
 
-    MessageGenerator(Controller receiver, KeyPressInformer keyInformer, HashMap<String, Iterator> assetIterators){
+    MessageGenerator(Controller receiver, KeyPressInformer keyInformer, HashMap<String, ListIterator> assetIterators){
         initializeModes();
         this.assetIterators = assetIterators;
         this.receiver = receiver;
@@ -25,7 +25,7 @@ class MessageGenerator implements KeyPressListener{
         keyInformer.registerClient(this);
     }
     //Gets called when player turn switches. Changes the iterators on hand.
-    protected void updateIterators(HashMap<String, Iterator> assetIterators){
+    protected void updateIterators(HashMap<String, ListIterator> assetIterators){
         this.assetIterators = assetIterators;
     }
 
@@ -127,6 +127,10 @@ class UnitMode implements Mode{
     private int currentTypeIndex;
     MessageGenerator owner;
 
+    boolean iteratingUnitsForward = true;  //To deal with ListIterator's funkiness
+
+    String message = "";    //the ID of the unit in focus
+
     UnitMode(MessageGenerator owner){
         this.owner = owner;
         this.unitTypes.add("Explorer");
@@ -172,13 +176,30 @@ class UnitMode implements Mode{
 
     @Override
     public void leftKey() {
-        String tempUnit = this.owner.assetIterators.get("army").next().toString();
-        System.out.println(tempUnit);
+        if(this.owner.assetIterators.get("unit").hasPrevious()){
+            //Deal with ListIterator's iteration mechanics
+            if(iteratingUnitsForward)
+                this.owner.assetIterators.get("unit").previous();
+            iteratingUnitsForward = false;
+
+            PlayerAsset p = (PlayerAsset) this.owner.assetIterators.get("unit").previous();
+            this.message = p.getID();
+            System.out.println("Message state: " + message);
+        }
     }
 
     @Override
     public void rightKey() {
+        if(this.owner.assetIterators.get("unit").hasNext()){
+            //Deal with ListIterator's iteration mechanics
+            if(!iteratingUnitsForward)
+                this.owner.assetIterators.get("unit").next();
+            iteratingUnitsForward = true;
 
+            PlayerAsset p = (PlayerAsset) this.owner.assetIterators.get("unit").next();
+            this.message = p.getID();
+            System.out.println("Message state: " + message);
+        }
     }
 }
 

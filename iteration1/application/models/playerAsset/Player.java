@@ -121,15 +121,15 @@ public class Player {
             structures.freeID(assetID);
     }
 
-    public Iterator getUnitIterator(){
+    public ListIterator getUnitIterator(){
         return units.makeIterator();
     }
 
-    public Iterator getArmyIterator(){
+    public ListIterator getArmyIterator(){
         return armies.makeIterator();
     }
 
-    public Iterator getStructureIterator(){
+    public ListIterator getStructureIterator(){
         return structures.makeIterator();
     }
     

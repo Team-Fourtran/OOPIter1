@@ -12,20 +12,17 @@ import application.views.MainScreen;
 import application.views.MainScreen;
 import application.models.playerAsset.Player;
 
+import javax.swing.text.html.HTMLDocument;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.HashMap;
+import java.util.ListIterator;
 
 public class TestMessageGenerator {
     static MainScreen mainView;
     static Controller gameController;
 
     public static void main(String[] args){
-//        System.out.println("Starting game");
-//        mainView = new MainScreen();
-//        mainView.prepareMainScreen();
-//        mainView.showMainScreen();
-
         Player p = new Player();
 
         int length = 4 , width = 4;
@@ -140,7 +137,23 @@ public class TestMessageGenerator {
         System.out.println(m.getTileState("T2").getProperties());
         System.out.println(m.getTileState("T3").getProperties());
 
-//        
+        ListIterator unitIterator = p.getUnitIterator();
+        ListIterator armyIterator = p.getArmyIterator();
+        ListIterator structureIterator = p.getStructureIterator();
+
+        HashMap<String, ListIterator> iters = new HashMap<String, ListIterator>();
+        iters.put("unit",unitIterator);
+        iters.put("army",armyIterator);
+        iters.put("structure",structureIterator);
+
+        mainView = new MainScreen();
+        mainView.prepareMainScreen();
+        mainView.showMainScreen();
+
+        gameController = new Controller(mainView.getKeyInformer(),iters);
+
+
+        //
 //        // Create an army containing that colonist unit
 //        System.out.println("\nCreate army");
 //        ArrayList<String> units = new ArrayList<String>();

@@ -80,8 +80,8 @@ public class StructureManager {
 
     //public void executeCommands(){}
 
-    public Iterator makeIterator(){
-        return structureList.iterator();
+    public ListIterator makeIterator(){
+        return structureList.listIterator();
     }
 
 }

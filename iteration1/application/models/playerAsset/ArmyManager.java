@@ -77,8 +77,8 @@ public class ArmyManager {
 
     //public void executeCommands(){}
 
-    public Iterator makeIterator(){
-        return armyList.iterator();
+    public ListIterator makeIterator(){
+        return armyList.listIterator();
     }
 
 
