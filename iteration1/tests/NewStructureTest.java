@@ -25,25 +25,35 @@ public class NewStructureTest {
         System.out.println("u2: " + p.getPosition("u2"));
         System.out.println("u3: " + p.getPosition("u3"));
         cGen.generateCommand("NA_T24_u1_u2_u3");
+//        cGen.generateCommand("MRP_a1_T3"); //Might have to clear associated queues???
         System.out.println("-----AFTER-----");
         System.out.println("u1: " + p.getPosition("u1"));
         System.out.println("u2: " + p.getPosition("u2"));
         System.out.println("u3: " + p.getPosition("u3"));
- //       cGen.generateCommand("MRP_a1_T0"); //Might have to clear associated queues???
         p.endTurn();
         p.beginTurn();
         System.out.println("-----AFTER2-----");
         System.out.println("u1: " + p.getPosition("u1"));
         System.out.println("u2: " + p.getPosition("u2"));
         System.out.println("u3: " + p.getPosition("u3"));
-
         p.endTurn();
         p.beginTurn();
-        System.out.println("-----AFTER2-----");
+        System.out.println("-----AFTER3-----");
         System.out.println("u1: " + p.getPosition("u1"));
         System.out.println("u2: " + p.getPosition("u2"));
         System.out.println("u3: " + p.getPosition("u3"));
-
+        p.endTurn();
+        p.beginTurn();
+        System.out.println("-----AFTER4-----");
+        System.out.println("u1: " + p.getPosition("u1"));
+        System.out.println("u2: " + p.getPosition("u2"));
+        System.out.println("u3: " + p.getPosition("u3"));
+        p.endTurn();
+        p.beginTurn();
+        System.out.println("-----AFTER5-----");
+        System.out.println("u1: " + p.getPosition("u1"));
+        System.out.println("u2: " + p.getPosition("u2"));
+        System.out.println("u3: " + p.getPosition("u3"));
 	}
 
 }

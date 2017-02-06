@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public class MoveRallyPointCommand extends ConcreteCommand{
     private String armyID;
     private String destinationTileID;
-    private String currentArmyPosition;
+    private String currentTileID;
     private ArrayList<String> unitIDList = new ArrayList<>();
 
     MoveRallyPointCommand(Player _p, Map _m) {
@@ -22,14 +22,13 @@ public class MoveRallyPointCommand extends ConcreteCommand{
         Map m = getMap();
         armyID = strings[1];
         destinationTileID = strings[2];
-        currentArmyPosition = p.getPosition(armyID);
+        currentTileID = p.getPosition(armyID);
         unitIDList = getPlayer().getUnitIDs(armyID);
 
-        Occupance o = m.getTileState(currentArmyPosition).getOccupance(armyID);
-        m.getTileState(currentArmyPosition).removeOccupance(armyID);
+        Occupance o = m.getTileState(currentTileID).getOccupance(armyID);
+        m.getTileState(currentTileID).removeOccupance(armyID);
         m.getTileState(destinationTileID).addOccupance(o);
         p.setRallyPoint(armyID, destinationTileID);
-        p.resetArmyUnitQueue(armyID);
         this.unpack();
     }
     @Override
@@ -40,7 +39,7 @@ public class MoveRallyPointCommand extends ConcreteCommand{
     public void unpack(){
         for(String assetID : unitIDList){
             Command cmd = new MoveAssetCommand(getPlayer(), getMap());
-            cmd.initialize("MV", assetID, getPlayer().getPosition(assetID), destinationTileID);
+            cmd.initialize("MV", assetID, currentTileID, destinationTileID);
         }
     }
 }

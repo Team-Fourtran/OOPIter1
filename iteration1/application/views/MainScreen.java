@@ -145,27 +145,27 @@ public class MainScreen{
 			}
 		}
         z = 0;
-        while(armyIterator.hasNext()){
-            PlayerAsset asset = (PlayerAsset) armyIterator.next();
-            String str = asset.getLocation().replaceAll("\\D+","");
-            int location = Integer.parseInt(str);
-            armyTypeArr[location] = asset.getType();
-            if(z == 24){
-                z = 0;
-            }
-            else{
-                z++;
-            }
-        }
+//        while(armyIterator.hasNext()){
+//            PlayerAsset asset = (PlayerAsset) armyIterator.next();
+//            String str = asset.getLocation().replaceAll("\\D+","");
+//            int location = Integer.parseInt(str);
+//            armyTypeArr[location] = asset.getType();
+//            if(z == 24){
+//                z = 0;
+//            }
+//            else{
+//                z++;
+//            }
+//        }
         while(unitIterator.hasPrevious()){
             unitIterator.previous();
         }
         while(structureIterator.hasPrevious()){
             structureIterator.previous();
         }
-        while(armyIterator.hasPrevious()){
-            armyIterator.previous();
-        }
+//        while(armyIterator.hasPrevious()){
+//            armyIterator.previous();
+//        }
         
         String terrains2d[][] = new String[ROW][COL];
         for(int i = 0; i < 15; i++){
@@ -215,55 +215,53 @@ public class MainScreen{
             	} 
         	}
         }
-        for(int i = 0; i < 15; i++){
-            for(int j = 0; j < 15; j++){
-                if(armyTypeArr[i*(ROW) + j].toUpperCase().equals("ARMY")){
-                    if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
-                        terrains2d[i][j] = "NORMALARMY";
-                    } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
-                        terrains2d[i][j] = "ARMYSTRUCTURE";
-                    }
-                }
-            }
-        }
+//        for(int i = 0; i < 15; i++){
+//            for(int j = 0; j < 15; j++){
+//                if(armyTypeArr[i*(ROW) + j].toUpperCase().equals("ARMY")){
+//                    if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
+//                        terrains2d[i][j] = "NORMALARMY";
+//                    } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
+//                        terrains2d[i][j] = "ARMYSTRUCTURE";
+//                    }
+//                }
+//            }
+//        }
         //Initializing the Grid of JLabels.
         for(int i = 0; i < ROW; i++){
             for(int j = 0; j < COL; j++){
-                JLabel tileLabel = new JLabel();
                 if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
-                    tileLabel.setIcon(TERRAIN[0]);
+                    Grid[i][j].setIcon(TERRAIN[0]);
                 } else if(terrains2d[i][j].equals("NORMALARMY")) {
-                    tileLabel.setIcon(NORMAL_ARMY);
+                    Grid[i][j].setIcon(NORMAL_ARMY);
                 } else if(terrains2d[i][j].equals("SLOWARMY")) {
-                    tileLabel.setIcon(SLOW_ARMY);
+                    Grid[i][j].setIcon(SLOW_ARMY);
                 } else if(terrains2d[i][j].equals("NORMALCOLONIST")){
-                	tileLabel.setIcon(NORMAL_COLONIST);
+                    Grid[i][j].setIcon(NORMAL_COLONIST);
                 } else if(terrains2d[i][j].equals("NORMALEXPLORER")){
-                	tileLabel.setIcon(NORMAL_EXPLORER);
+                    Grid[i][j].setIcon(NORMAL_EXPLORER);
                 } else if(terrains2d[i][j].equals("NORMALMELEE")){
-                	tileLabel.setIcon(NORMAL_MELEE);
+                    Grid[i][j].setIcon(NORMAL_MELEE);
                 } else if(terrains2d[i][j].equals("NORMALRANGED")){
-                	tileLabel.setIcon(NORMAL_RANGED);
+                    Grid[i][j].setIcon(NORMAL_RANGED);
                 } else if(terrains2d[i][j].toUpperCase().equals("IMPASSABLE")){
-                    tileLabel.setIcon(TERRAIN[2]);
+                    Grid[i][j].setIcon(TERRAIN[2]);
                 } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
-                    tileLabel.setIcon(TERRAIN[1]);
+                    Grid[i][j].setIcon(TERRAIN[1]);
                 } else if(terrains2d[i][j].equals("SLOWCOLONIST")){
-                	tileLabel.setIcon(SLOW_COLONIST);
+                    Grid[i][j].setIcon(SLOW_COLONIST);
                 } else if(terrains2d[i][j].equals("SLOWEXPLORER")){
-                	tileLabel.setIcon(SLOW_EXPLORER);
+                    Grid[i][j].setIcon(SLOW_EXPLORER);
                 } else if(terrains2d[i][j].equals("SLOWMELEE")){
-                	tileLabel.setIcon(SLOW_MELEE);
+                    Grid[i][j].setIcon(SLOW_MELEE);
                 } else if(terrains2d[i][j].equals("SLOWRANGED")){
-                	tileLabel.setIcon(SLOW_RANGED);
+                    Grid[i][j].setIcon(SLOW_RANGED);
                 } else if(terrains2d[i][j].equals("NORMALSTRUCTURE")){
-                	tileLabel.setIcon(NORMAL_STRUCTURE);
+                    Grid[i][j].setIcon(NORMAL_STRUCTURE);
                 } else if(terrains2d[i][j].equals("SLOWSTRUCTURE")){
-                	tileLabel.setIcon(SLOW_STRUCTURE);
+                    Grid[i][j].setIcon(SLOW_STRUCTURE);
                 } else{
-                    tileLabel.setIcon(TERRAIN[0]);
+                    Grid[i][j].setIcon(TERRAIN[0]);
                 }
-                Grid[i][j] = tileLabel;
             }
         }
 
@@ -425,18 +423,18 @@ public class MainScreen{
             }
         }
         z = 0;
-        while(armyIterator.hasNext()){
-            PlayerAsset asset = (PlayerAsset) armyIterator.next();
-            String str = asset.getLocation().replaceAll("\\D+","");
-            int location = Integer.parseInt(str);
-            armyTypeArr[location] = asset.getType();
-            if(z == 24){
-                z = 0;
-            }
-            else{
-                z++;
-            }
-        }
+//        while(armyIterator.hasNext()){
+//            PlayerAsset asset = (PlayerAsset) armyIterator.next();
+//            String str = asset.getLocation().replaceAll("\\D+","");
+//            int location = Integer.parseInt(str);
+//            armyTypeArr[location] = asset.getType();
+//            if(z == 24){
+//                z = 0;
+//            }
+//            else{
+//                z++;
+//            }
+//        }
         while(unitIterator.hasPrevious()){
             unitIterator.previous();
         }
@@ -495,55 +493,53 @@ public class MainScreen{
                 }
             }
         }
-        for(int i = 0; i < 15; i++){
-            for(int j = 0; j < 15; j++){
-                if(armyTypeArr[i*(ROW-1) + j].toUpperCase().equals("ARMY")){
-                    if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
-                        terrains2d[i][j] = "NORMALARMY";
-                    } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
-                        terrains2d[i][j] = "ARMYSTRUCTURE";
-                    }
-                }
-            }
-        }
+//        for(int i = 0; i < 15; i++){
+//            for(int j = 0; j < 15; j++){
+//                if(armyTypeArr[i*(ROW-1) + j].toUpperCase().equals("ARMY")){
+//                    if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
+//                        terrains2d[i][j] = "NORMALARMY";
+//                    } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
+//                        terrains2d[i][j] = "ARMYSTRUCTURE";
+//                    }
+//                }
+//            }
+//        }
         //Initializing the Grid of JLabels.
         for(int i = 0; i < ROW; i++){
             for(int j = 0; j < COL; j++){
-                JLabel tileLabel = new JLabel();
                 if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
-                    tileLabel.setIcon(TERRAIN[0]);
+                    Grid[i][j].setIcon(TERRAIN[0]);
                 } else if(terrains2d[i][j].equals("NORMALARMY")) {
-                    tileLabel.setIcon(NORMAL_ARMY);
+                    Grid[i][j].setIcon(NORMAL_ARMY);
                 } else if(terrains2d[i][j].equals("SLOWARMY")) {
-                    tileLabel.setIcon(SLOW_ARMY);
+                    Grid[i][j].setIcon(SLOW_ARMY);
                 } else if(terrains2d[i][j].equals("NORMALCOLONIST")){
-                    tileLabel.setIcon(NORMAL_COLONIST);
+                    Grid[i][j].setIcon(NORMAL_COLONIST);
                 } else if(terrains2d[i][j].equals("NORMALEXPLORER")){
-                    tileLabel.setIcon(NORMAL_EXPLORER);
+                    Grid[i][j].setIcon(NORMAL_EXPLORER);
                 } else if(terrains2d[i][j].equals("NORMALMELEE")){
-                    tileLabel.setIcon(NORMAL_MELEE);
+                    Grid[i][j].setIcon(NORMAL_MELEE);
                 } else if(terrains2d[i][j].equals("NORMALRANGED")){
-                    tileLabel.setIcon(NORMAL_RANGED);
+                    Grid[i][j].setIcon(NORMAL_RANGED);
                 } else if(terrains2d[i][j].toUpperCase().equals("IMPASSABLE")){
-                    tileLabel.setIcon(TERRAIN[2]);
+                    Grid[i][j].setIcon(TERRAIN[2]);
                 } else if(terrains2d[i][j].toUpperCase().equals("SLOWING")){
-                    tileLabel.setIcon(TERRAIN[1]);
+                    Grid[i][j].setIcon(TERRAIN[1]);
                 } else if(terrains2d[i][j].equals("SLOWCOLONIST")){
-                    tileLabel.setIcon(SLOW_COLONIST);
+                    Grid[i][j].setIcon(SLOW_COLONIST);
                 } else if(terrains2d[i][j].equals("SLOWEXPLORER")){
-                    tileLabel.setIcon(SLOW_EXPLORER);
+                    Grid[i][j].setIcon(SLOW_EXPLORER);
                 } else if(terrains2d[i][j].equals("SLOWMELEE")){
-                    tileLabel.setIcon(SLOW_MELEE);
+                    Grid[i][j].setIcon(SLOW_MELEE);
                 } else if(terrains2d[i][j].equals("SLOWRANGED")){
-                    tileLabel.setIcon(SLOW_RANGED);
+                    Grid[i][j].setIcon(SLOW_RANGED);
                 } else if(terrains2d[i][j].equals("NORMALSTRUCTURE")){
-                    tileLabel.setIcon(NORMAL_STRUCTURE);
+                    Grid[i][j].setIcon(NORMAL_STRUCTURE);
                 } else if(terrains2d[i][j].equals("SLOWSTRUCTURE")){
-                    tileLabel.setIcon(SLOW_STRUCTURE);
+                    Grid[i][j].setIcon(SLOW_STRUCTURE);
                 } else{
-                    tileLabel.setIcon(TERRAIN[0]);
+                    Grid[i][j].setIcon(TERRAIN[0]);
                 }
-                Grid[i][j] = tileLabel;
             }
         }
 

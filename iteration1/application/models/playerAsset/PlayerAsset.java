@@ -81,7 +81,8 @@ public abstract class PlayerAsset {
             if (turns != 0) {
                 commandCount++;
                 if (equal(commandQueue.peek().getTurns(), commandCount)) {
-                    commandQueue.remove().execute();
+                    commandQueue.peek().execute();
+                    commandQueue.remove();
                     commandCount = 0;
                     hasExecutedCommand = true;
                 }
@@ -91,15 +92,17 @@ public abstract class PlayerAsset {
                 boolean endMovement = false;
                 for (Command c : commandQueue) {
                     turnCount += c.getTurns();
-                    if (turnCount >= 1) {
+                    if (turnCount >= .99) {
                         endMovement = true;
                         break;
                     }
                         numCommands++;
+
                     }
 
                     for (int i = 0; i < numCommands; i++) {
-                        commandQueue.remove().execute();
+                        commandQueue.peek().execute();
+                        commandQueue.remove();
                         moveCounter++;
                     }
 
@@ -107,10 +110,10 @@ public abstract class PlayerAsset {
                         hasExecutedCommand = true;
 
                 }
-            if(hasExecutedCommand){
-                moveCounter = 0;
+
+            moveCounter = 0;
+
             }
-        }
 
         }
 
