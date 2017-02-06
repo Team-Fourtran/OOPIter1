@@ -1,11 +1,15 @@
 package application.models.commands;
 
+import java.util.ArrayList;
+
 import application.models.playerAsset.Player;
+import application.models.tileState.AssetOccupance;
 import application.models.tileState.Map;
+import application.models.tileState.Occupance;
 
 public class NewArmyCommand extends ConcreteCommand{
     private String destinationTileID;
-    private String[] unitIDList;
+    private ArrayList<String> unitIDList;
 
     NewArmyCommand(Player _p, Map _m) {
         super(_p, _m);
@@ -19,10 +23,12 @@ public class NewArmyCommand extends ConcreteCommand{
             return;
         }
         //Populates an array of unit IDs comprising the army
-        unitIDList = new String[strings.length - 2];
+        unitIDList = new ArrayList<>(strings.length - 2);//String[strings.length - 2];
         for (int i = 2; i < strings.length; i++){
-            unitIDList[i-2] = strings[i];
+            unitIDList.add(strings[i]);
         }
+        Occupance _o = new AssetOccupance(getPlayer().formArmy(unitIDList, destinationTileID));
+        getMap().getTileState(destinationTileID).addOccupance(_o);
         this.unpack();
     }
 
