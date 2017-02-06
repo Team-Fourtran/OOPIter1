@@ -28,10 +28,10 @@ public class UnitManager {
         Unit newUnit = factory.makeUnit(type);
         newUnit.setLocation(unitLocation);
         newUnit.setID(unitIDs.get(0));
+        unitIDs.remove(0);
         unitList.add(newUnit);
         unitCount++;
         incrementUnit(type);
-
         return newUnit;
     }
 
@@ -65,6 +65,18 @@ public class UnitManager {
         return totalUpkeep;
     }
 
+    public void freeID(String assetID) {
+    	int escapee = Integer.parseInt(assetID.substring(assetID.lastIndexOf("u") + 1).trim());
+    	for (int i = 0; i < unitIDs.size(); i++) {
+    		String currentID = unitIDs.get(i);
+    		int id = Integer.parseInt(currentID.substring(currentID.lastIndexOf("u") + 1).trim());
+    		if (escapee < id) {
+    			unitIDs.add(i, assetID);
+    			break;
+    		}
+    	}
+    }
+    
     //find position of unit on the map
     public String getPosition(String assetID){
     	System.out.println("as " + assetID);
@@ -110,7 +122,7 @@ public class UnitManager {
 
     public Unit getUnit(String unitID){
         for (Unit u: unitList)
-            if (u.getID() == unitID)
+            if (u.getID().equals(unitID))
                 return u;
         return null;
     }

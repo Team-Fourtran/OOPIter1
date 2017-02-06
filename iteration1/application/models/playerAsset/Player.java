@@ -79,10 +79,10 @@ public class Player {
     }
 
     //method to place a new unit on the map through an existing structure
-    public Unit createUnit(String structureID, String type){
+    public Unit createUnit(String type, String structureID){
         if (units.checkIfValid(type)) {
             String unitLoc = structures.getPosition(structureID);
-            return units.addNewUnit(type, unitLoc);
+            return units.addNewUnit(unitLoc, type);
             //TO-DO: check to see if creation is valid
         }
         return null;
@@ -107,6 +107,15 @@ public class Player {
             return structures.getPosition(assetID);
         else
             return ("No asset with that ID found");
+    }
+    
+    public void freeFromSuffering(String assetID) {
+        if (assetID.charAt(0) == 'u')
+            units.freeID(assetID);
+        else if (assetID.charAt(0) == 'a')
+             armies.getPosition(assetID);
+        else if (assetID.charAt(0) == 's')
+            structures.getPosition(assetID);
     }
 
     public Iterator getUnitIterator(){

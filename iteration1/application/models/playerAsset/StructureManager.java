@@ -3,7 +3,7 @@ package application.models.playerAsset;
 import java.util.*;
 
 public class StructureManager {
-    ArrayList<Structure> structureList;
+    public ArrayList<Structure> structureList;
     final int maxStructures = 10;
     ArrayList<String> structureIDs = new ArrayList<>();
 
@@ -39,7 +39,7 @@ public class StructureManager {
 
     public void heal(String structureID, Unit u){
         for (Structure s: structureList)
-            if (s.getID() == structureID)
+            if (s.getID().equals(structureID))
                 s.healUnit(u);
     }
 
@@ -54,14 +54,14 @@ public class StructureManager {
 
     public String getPosition(String assetID){
         for (Structure s: structureList)
-            if (s.getID() == assetID)
+            if (s.getID().equals(assetID))
                 return s.getLocation();
         return null;
     }
 
     public boolean structureExists(String structureID){
         for (Structure s: structureList)
-            if (s.getID() == structureID)
+            if (s.getID().equals(structureID))
                 return true;
         return false;
     }
