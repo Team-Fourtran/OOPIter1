@@ -33,16 +33,22 @@ public class TileInfo {
 	
 	/*
 	 *  This get method does not remove the object's ResourcePackage. 
-	 *  Mainly intended for the view to parse through a tile's contents to represent it.
+	 *  Mainly intended for the View to parse through a tile's resource contents to represent it.
 	 */
 	public ResourcePackage getResourcePacakge() {
 		return myResources;
 	}
 	
+	/*
+	 * Retrieve list of AoEs in tile
+	 */
 	public ArrayList<AoE> getAoEs() {
 		return aoE;
 	}
 	
+	/*
+	 * Retrieve list of Items in tile
+	 */
 	public ArrayList<Item> getItems() {
 		return items;
 	}

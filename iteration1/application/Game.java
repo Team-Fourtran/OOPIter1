@@ -5,7 +5,9 @@ import application.models.playerAsset.*;
 import application.models.tileState.*;
 import application.models.utility.*;
 import application.views.*;
-
+/*
+ * This class is for initializing the game and handling game flow at a high level (i.e., switching turns)
+ */
 public class Game {
 
 	private Player[] players;
@@ -17,6 +19,8 @@ public class Game {
 	private MainScreen mainScreen;
 	
 	public Game(){
+		
+		// Create two players and generate map
 		players = new Player[2];
 		players[0] = new Player();
 		players[1] = new Player();
@@ -24,6 +28,7 @@ public class Game {
 		T = new TileGen(ROW, COL);
 		map = new Map(T.execute(), ROW, COL);
 
+		// Generate a colonist and 2 explorer units for the two players
 		CommandGenerator cGen0 = new CommandGenerator(players[0], map);
 		cGen0.generateCommand("IU_T4_colonist");
 		cGen0.generateCommand("IU_T5_explorer");
@@ -40,15 +45,19 @@ public class Game {
                 System.out.println(map.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties());
             }
         }
+		
+		// Startup main screen
 //		mainScreen = new MainScreen(map);
 //		mainScreen.prepareMainScreen();
 //		mainScreen.showMainScreen();
 	}
 
+	// Retrieve the current player
 	public Player getCurrentPlayer(){
 		return currentPlayer;
 	}
 	
+	// Change the active player to the other one
 	public void switchPlayers(){
 		currentPlayer = (currentPlayer == players[0]) ? players[1] : players[0];
 	}
