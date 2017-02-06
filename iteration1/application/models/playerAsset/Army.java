@@ -35,7 +35,8 @@ public class Army extends PlayerAsset{
 
     //return all units in the army
     public ArrayList<Unit> getUnits(){
-        ArrayList<Unit> newList = battleGroup;
+        ArrayList<Unit> newList = new ArrayList<>();
+        newList.addAll(battleGroup);
         newList.addAll(reinforcements);
         return newList;
     }
