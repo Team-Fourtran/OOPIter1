@@ -11,6 +11,5 @@ public class TestPathGen {
         TileGen T = new TileGen(ROW, COL);
         Map testMap = new Map(T.execute(), ROW, COL);
 
-
     }
 }

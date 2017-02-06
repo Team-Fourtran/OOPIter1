@@ -5,11 +5,11 @@ import application.models.tileState.AssetOccupance;
 import application.models.tileState.Map;
 import application.models.tileState.Occupance;
 
-public class newUnitCommand extends ConcreteCommand{
+public class NewUnitCommand extends ConcreteCommand{
     private String assetID;
     private String unitType;
 
-    newUnitCommand(Player _p, Map _m){
+    NewUnitCommand(Player _p, Map _m){
         super(_p, _m);
     }
 

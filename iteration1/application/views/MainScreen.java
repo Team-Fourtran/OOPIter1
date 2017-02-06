@@ -35,7 +35,7 @@ public class MainScreen implements ActionListener{
     private HashMap<String, Boolean> keyList;
 
     private JLabel[][] Grid;
-
+    private Map map;
     private final ImageIcon NORMAL = new ImageIcon("TileImages/Normal/Normal.png");
     private final ImageIcon SLOW = new ImageIcon("TileImages/Slow/Slow.png");
     private final ImageIcon IMPASSABLE = new ImageIcon("TileImages/Impassable/Impassable.png");
@@ -48,7 +48,10 @@ public class MainScreen implements ActionListener{
     private final String[] unitColumnStats = {"Player Resource", "Offensive Damage",
             "Defensive Damage", "Armor", "Movement",
             "Health", "Upkeep"};
-
+    
+    public MainScreen(Map map){
+    	this.map = map;
+    }
     public void showMainScreen(){
         mainScreen.setVisible(true);
     }
@@ -60,15 +63,14 @@ public class MainScreen implements ActionListener{
         Grid = new JLabel[ROW][COL];
 
         //Getting map to generate static terrains.
-        TileGen T = new TileGen(ROW, COL);
-        Map m = new Map(T.execute(), ROW, COL);
+        
         String terrains2d[][] = new String[ROW][COL];
 
         for(int i = 0; i < 15; i++){
             for(int j = 0; j < 15; j++){
                 //System.out.println(i + " " + j);
                 //System.out.println(m.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties());
-                terrains2d[i][j] = m.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties().get("terrain").get(0);
+                terrains2d[i][j] = map.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties().get("terrain").get(0);
             }
         }
 
@@ -157,8 +159,8 @@ public class MainScreen implements ActionListener{
         structureOVButton = new JButton("Structure Overview");
         unitOVButton.setActionCommand("openUnitOV");
         structureOVButton.setActionCommand("openStructOV");
-        unitOVButton.addActionListener(new MainScreen());
-        structureOVButton.addActionListener(new MainScreen());
+        unitOVButton.addActionListener(new MainScreenAction());
+        structureOVButton.addActionListener(new MainScreenAction());
         buttonPanel.add(unitOVButton);
         buttonPanel.add(structureOVButton);
 
@@ -211,7 +213,7 @@ public class MainScreen implements ActionListener{
         //armyButtonPanel.add(armyDisband);
 
         armyAssembleButton.setActionCommand("assembleArmy");
-        armyAssembleButton.addActionListener(new MainScreen());
+        armyAssembleButton.addActionListener(new MainScreenAction());
 
         JPanel mainUnitOVPanel = new JPanel(new BorderLayout());
         mainUnitOVPanel.add(armyButtonPanel, BorderLayout.SOUTH);

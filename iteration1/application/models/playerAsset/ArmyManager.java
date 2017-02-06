@@ -1,5 +1,7 @@
 package application.models.playerAsset;
 
+import application.models.commands.Command;
+
 import java.util.*;
 
 public class ArmyManager {
@@ -55,6 +57,18 @@ public class ArmyManager {
         }
         return totalUpkeep;
     }
+    
+    public void freeID(String assetID) {
+    	int escapee = Integer.parseInt(assetID.substring(assetID.lastIndexOf("u") + 1).trim());
+    	for (int i = 0; i < armyIDs.size(); i++) {
+    		String currentID = armyIDs.get(i);
+    		int id = Integer.parseInt(currentID.substring(currentID.lastIndexOf("u") + 1).trim());
+    		if (escapee < id) {
+    			armyIDs.add(i, assetID);
+    			break;
+    		}
+    	}
+    }
 
     public String getPosition(String assetID){
         for (Army a: armyList)
@@ -63,7 +77,17 @@ public class ArmyManager {
         return null;
     }
 
-    //public void executeCommands(){}
+    //add command into specific structure's queue
+    public void addCommand(Command c, String armyID){
+        for (Army a: armyList)
+            if (a.getID() == armyID)
+                a.addCommand(c);
+    }
+
+    public void executeCommands(){
+        for (Army a: armyList)
+            a.executeCommand();
+    }
 
     public Iterator makeIterator(){
         return armyList.iterator();

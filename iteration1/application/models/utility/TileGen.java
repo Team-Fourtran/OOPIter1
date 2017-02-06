@@ -3,6 +3,7 @@ package application.models.utility;
 import application.models.tileInfo.*;
 import application.models.tileState.Directions;
 import application.models.tileState.TileState;
+import java.util.*;
 
 public class TileGen {
     private int length;
@@ -17,6 +18,7 @@ public class TileGen {
 
     public TileState[] execute(){
         TileState[] states = new TileState[total];
+        Random rand = new Random();
         for (int i = 0; i < total; i++){
         	Terrain t;
             t = new Normal();

@@ -52,7 +52,7 @@ public class Army extends PlayerAsset{
     }
 
     //after a structure is made, remove the colonist from the army
-    public void removeColonist(){
+    public void removeColonist() {
     	Unit removed = null;
         for (Unit i: battleGroup) {
             if (i instanceof Colonist)
@@ -71,12 +71,17 @@ public class Army extends PlayerAsset{
             }
     }
 
+    public void addCommand(Command c){
+        commandQueue.add(c);
+    }
+
+
     //execute appropriate number of commands for this turn
     //if movement, could be many commands
     //if multi-turn command, stall until turn count is reached
     public void executeCommand(){
+        int turns = (int) commandQueue.peek().getTurns();
 
-        double turns = commandQueue.peek().getTurns();
 
         if (turns != 0) {
             commandCount++;

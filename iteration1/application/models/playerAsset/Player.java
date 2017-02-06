@@ -3,7 +3,7 @@ package application.models.playerAsset;
 import application.models.commands.Command;
 
 import java.util.*;
-
+import application.*;
 public class Player {
     
     private final ArmyManager armies;
@@ -11,7 +11,7 @@ public class Player {
     private final StructureManager structures;
     private int food;
     private int wood;
-    
+    private Game game;
     
     public Player(){
         armies = new ArmyManager();
@@ -31,6 +31,9 @@ public class Player {
         //Pass c to corresponding asset queue
     }
 
+    public void setGame(Game game){
+    	this.game = game;
+    }
     //method to do maintenence tasks on player's assets
     public void beginTurn(){
         int totalFoodCost = units.calculateTotalUpkeep() + armies.calculateTotalUpkeep();
@@ -40,7 +43,9 @@ public class Player {
         //TO-DO: enforce some punishment for not having enough
         //Traverse all queues and execute
     }
-
+    public void endTurn(){
+    	 game.switchPlayers();
+    }
     //pass list of units to army manager to form army
     public Army formArmy(ArrayList<String> unitIDs, String rallyPoint){
     	ArrayList<Unit> u = new ArrayList<Unit>();
@@ -90,10 +95,10 @@ public class Player {
     }
 
     //method to place a new unit on the map through an existing structure
-    public Unit createUnit(String structureID, String type){
+    public Unit createUnit(String type, String structureID){
         if (units.checkIfValid(type)) {
             String unitLoc = structures.getPosition(structureID);
-            return units.addNewUnit(type, unitLoc);
+            return units.addNewUnit(unitLoc, type);
             //TO-DO: check to see if creation is valid
         }
         return null;
@@ -118,6 +123,18 @@ public class Player {
             return structures.getPosition(assetID);
         else
             return ("No asset with that ID found");
+    }
+    
+    /*
+     * Recycle asset id
+     */
+    public void freeFromSuffering(String assetID) {
+        if (assetID.charAt(0) == 'u')
+            units.freeID(assetID);
+        else if (assetID.charAt(0) == 'a')
+             armies.freeID(assetID);
+        else if (assetID.charAt(0) == 's')
+            structures.freeID(assetID);
     }
 
     public Iterator getUnitIterator(){
