@@ -9,7 +9,7 @@ public class Colonist extends Unit{
         armor = 0;
         movesPerTurn = 2;
         maxHealth = currentHealth = 100;
-        upkeep = 1;
+        upkeep = 8;
     }
 
     public String getType(){

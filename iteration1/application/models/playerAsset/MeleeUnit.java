@@ -9,7 +9,7 @@ public class MeleeUnit extends Unit{
         armor = 50;
         movesPerTurn = 2;
         maxHealth = currentHealth = 150;
-        upkeep = 1;
+        upkeep = 20;
     }
 
     public String getType(){
