@@ -9,5 +9,6 @@ public abstract class Occupance {
     public abstract String getAssetID();
     public abstract String getTileID();
     public abstract void updateAssetLocation(String tileID);
+    public void healPlayerAssets(){ }
 }
 

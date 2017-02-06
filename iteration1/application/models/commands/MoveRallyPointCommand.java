@@ -3,6 +3,8 @@ package application.models.commands;
 import application.models.playerAsset.Player;
 import application.models.tileState.Map;
 
+import java.util.Iterator;
+
 public class MoveRallyPointCommand extends ConcreteCommand{
     private String armyID;
     private String destinationTileID;
@@ -25,6 +27,6 @@ public class MoveRallyPointCommand extends ConcreteCommand{
     }
     @Override
     public void unpack(){
-
+        //getMap().getTileState(destinationTileID)
     }
 }
