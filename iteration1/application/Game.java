@@ -24,11 +24,15 @@ public class Game {
 		T = new TileGen(ROW, COL);
 		map = new Map(T.execute(), ROW, COL);
 
-		CommandGenerator cGen = new CommandGenerator(players[0], map);
-		cGen.generateCommand("IU_T4_colonist");
-		cGen.generateCommand("IU_T5_explorer");
-		cGen.generateCommand("IU_T6_melee");
-        cGen.generateCommand("IU_T6_ranged");
+		CommandGenerator cGen0 = new CommandGenerator(players[0], map);
+		cGen0.generateCommand("IU_T4_colonist");
+		cGen0.generateCommand("IU_T5_explorer");
+		cGen0.generateCommand("IU_T6_explorer");
+        
+		CommandGenerator cGen1 = new CommandGenerator(players[1], map);
+		cGen1.generateCommand("IU_T10_colonist");
+		cGen1.generateCommand("IU_T11_explorer");
+		cGen1.generateCommand("IU_T12_explorer");
 
 		for(int i = 0; i < 15; i++){
             for(int j = 0; j < 15; j++){

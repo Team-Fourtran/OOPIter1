@@ -7,12 +7,12 @@ import java.util.*;
 public class StructureManager {
     public ArrayList<Structure> structureList;
     final int maxStructures = 10;
-    ArrayList<String> structureIDs = new ArrayList<>();
+    static ArrayList<String> structureIDs = new ArrayList<>();
 
     
     public StructureManager(){
         structureList = new ArrayList<>();
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 20; i++)
             structureIDs.add("s" + i);
     }
 

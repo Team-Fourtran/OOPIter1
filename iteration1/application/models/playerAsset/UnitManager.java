@@ -13,13 +13,13 @@ public class UnitManager {
     int colonistCount;
     final int maxUnits = 25;
     final int maxUnitType = 10;
-    ArrayList<String> unitIDs = new ArrayList<String>();
+    static ArrayList<String> unitIDs = new ArrayList<String>();
 
     public UnitManager(){
         unitList = new ArrayList<>();
         unitCount = 0;
         factory = new UnitFactory();
-        for (int i = 1; i <= 25; i++)
+        for (int i = 1; i <= 50; i++)
             unitIDs.add("u" + i);
     }
 

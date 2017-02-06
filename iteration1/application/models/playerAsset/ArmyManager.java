@@ -8,11 +8,11 @@ public class ArmyManager {
 
     ArrayList<Army> armyList;
     final int maxArmies = 10;
-    ArrayList<String> armyIDs = new ArrayList<>();
+    static ArrayList<String> armyIDs = new ArrayList<>();
     
     public ArmyManager(){
         armyList = new ArrayList<>();
-        for (int i = 1; i <= 10; i++)
+        for (int i = 1; i <= 20; i++)
             armyIDs.add("a" + i);
         }
 
