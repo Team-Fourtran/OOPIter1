@@ -3,7 +3,9 @@ package application.models.commands;
 import application.models.playerAsset.Player;
 import application.models.tileState.Directions;
 import application.models.tileState.Map;
-
+/*
+ * The discrete movement for an asset to move from one tile to an adjacent one
+ */
 public class MoveDirectionCommand extends ConcreteCommand{
     private Directions direction;
     private String degreesDirection;
@@ -13,6 +15,10 @@ public class MoveDirectionCommand extends ConcreteCommand{
         super(_p, _m);
     }
 
+    /*
+     * Specify the assetID to move and the direction (in degrees) to move.
+     * Notify the player that this assetID has this command
+     */
     @Override
     public void doInitialize(String... strings) {
         assetID = strings[1];
@@ -26,6 +32,7 @@ public class MoveDirectionCommand extends ConcreteCommand{
         getPlayer().notify(assetID, this);
     }
 
+    // Move the occupance from the start tile to the tile in the proper direction
     @Override
     public void execute() {
         Map map = getMap();

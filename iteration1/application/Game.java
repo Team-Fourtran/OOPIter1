@@ -1,5 +1,7 @@
 package application;
 
+import java.util.ListIterator;
+
 import application.models.commands.CommandGenerator;
 import application.models.playerAsset.*;
 import application.models.tileState.*;
@@ -50,8 +52,8 @@ public class Game {
 		ListIterator structureIterator = currentPlayer.getStructureIterator();
 
 		// Startup main screen
-		mainScreen = new MainScreen(map);
-		mainScreen.prepareMainScreen();
+		mainScreen = new MainScreen(map, unitIterator, structureIterator);
+		mainScreen.generateMainScreen();
 		mainScreen.showMainScreen();
 
 		try {

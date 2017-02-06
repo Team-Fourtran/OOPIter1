@@ -5,7 +5,9 @@ import application.models.tileState.Map;
 import application.models.tileState.Occupance;
 
 import java.util.ArrayList;
-
+/*
+ * This command allows one to move an army's rally point i.e. get the army to move
+ */
 public class MoveRallyPointCommand extends ConcreteCommand{
     private String armyID;
     private String destinationTileID;
@@ -16,6 +18,9 @@ public class MoveRallyPointCommand extends ConcreteCommand{
         super(_p, _m);
     }
 
+    /*
+     * Specify the armyID, destination tile, the current army position, and the list of this army's units
+     */
     @Override
     public void doInitialize(String ... strings){
         Player p = getPlayer();
@@ -25,6 +30,7 @@ public class MoveRallyPointCommand extends ConcreteCommand{
         currentArmyPosition = p.getPosition(armyID);
         unitIDList = getPlayer().getUnitIDs(armyID);
 
+        // Add the occupance containing the armyID to the destination tile (the rally point)
         Occupance o = m.getTileState(currentArmyPosition).getOccupance(armyID);
         m.getTileState(currentArmyPosition).removeOccupance(armyID);
         m.getTileState(destinationTileID).addOccupance(o);
@@ -36,6 +42,8 @@ public class MoveRallyPointCommand extends ConcreteCommand{
     protected void setPacking(){
         needsUnpacked = true;
     }
+    
+    // Discrete commands. Tell each unit in the army to start moving towards the destination tile
     @Override
     public void unpack(){
         for(String assetID : unitIDList){

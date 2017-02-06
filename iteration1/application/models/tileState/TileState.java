@@ -6,7 +6,11 @@ import java.util.Iterator;
 
 import application.models.tileInfo.*;
 import java.util.List;
-
+/*
+ * This class contains TileInfo (items, terrain, resources, AoE)
+ * 	Occupances (assets on the tile)
+ * 	neighbors (the tiles in the other directions)
+ */
 public class TileState {
     private String id;
     private TileInfo tile;
@@ -46,7 +50,7 @@ public class TileState {
         return this.id;
     }
     
-    // Returns Map from property type (terrain, item, etc.) to the class names
+    // Returns Map from property type (terrain, item, etc.) to the class names, intended for View
     public HashMap<String, ArrayList<String>> getProperties() {
     	HashMap<String, ArrayList<String>> properties = new HashMap<String, ArrayList<String>>();
     	

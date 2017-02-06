@@ -4,7 +4,9 @@ import application.models.playerAsset.Player;
 import application.models.tileState.AssetOccupance;
 import application.models.tileState.Map;
 import application.models.tileState.Occupance;
-
+/*
+ * Create a new unit through a structure
+ */
 public class NewUnitCommand extends ConcreteCommand{
     private String assetID;
     private String unitType;
@@ -13,6 +15,7 @@ public class NewUnitCommand extends ConcreteCommand{
         super(_p, _m);
     }
 
+    // Specify the assetID (structure creating it) and the unitType to create. Notify player of this command
     public void doInitialize(String ... strings){
         assetID = strings[1];
         unitType = strings[2];
