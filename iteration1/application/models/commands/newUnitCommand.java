@@ -26,7 +26,7 @@ public class newUnitCommand extends ConcreteCommand{
             System.out.println("Creating Occupance...\n");
             Occupance _o = new AssetOccupance(player.createUnit(unitType, assetID));
             System.out.println("new asset occupance with id = " + assetID + "\n");
-            map.getTileState(_o.getTileID()).addOccupance(_o).removeOccupance(assetID);
+            map.getTileState(_o.getTileID()).addOccupance(_o);
         }
     }
 

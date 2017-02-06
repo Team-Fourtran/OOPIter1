@@ -32,6 +32,8 @@ public class CommandGenerator {
             			break;
             case "NS":  cmd.add(new NewStructureCommand(player, map));
             			break;
+            case "NU":  cmd.add(new newUnitCommand(player, map));
+                        break;
             default:    cmd.add(new NullCommand(player, map));
         }
         cmd.get(0).initialize(commandArray);

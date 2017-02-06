@@ -57,7 +57,7 @@ public class Player {
     //and consume the colonist
     public Structure createStructure(String armyID){
         if (canCreateStructure(armyID)) {
-            String location = armies.findArmy(armyID).getLocation();
+            String location = armies.findArmy(armyID).getLocation(); //Can be removed, added to params if controller can send it!
             armies.findArmy(armyID).removeColonist();
             Structure s = structures.createStructure(location);
             return s;

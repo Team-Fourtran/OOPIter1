@@ -14,6 +14,7 @@ public class MoveAssetCommand extends ConcreteCommand{
     MoveAssetCommand(Player _p, Map _m){
         super(_p, _m);
     }
+
     @Override
     public void doInitialize(String... strings) {
         if(strings.length != 4){
