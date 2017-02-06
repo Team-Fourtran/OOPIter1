@@ -75,9 +75,8 @@ public class Player {
     	if (armies.findArmy(armyID).hasColonist() != null) {
     		return armies.findArmy(armyID).hasColonist();
     	} else {
-    		return "";
+    		return null;
     	}
-//        return (armies.findArmy(armyID).hasColonist() && structures.getStructureCount() < 10);
     }
 
     public ArrayList<String> getUnitIDs(String armyID){
