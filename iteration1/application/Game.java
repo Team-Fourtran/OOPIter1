@@ -47,8 +47,38 @@ public class Game {
 		HashMap<String, ListIterator> iterators = new HashMap<>();
 		iterators.put("unit",currentPlayer.getUnitIterator());
 		iterators.put("army",currentPlayer.getArmyIterator());
-		iterators.put("structure",currentPlayer.getUnitIterator());
-		controller = new Controller(mainScreen,iterators);
+		iterators.put("structure",currentPlayer.getStructureIterator());
+
+/* DEBUG: Prints all PlayerAssets the game is starting with
+		System.out.println("\nUnits:");
+        while(iterators.get("unit").hasPrevious()){
+            iterators.get("unit").previous();
+        }
+        while(iterators.get("unit").hasNext()){
+            Unit u = (Unit) iterators.get("unit").next();
+            System.out.println("\t" + u.getID() + ": " + u.getType());
+        }
+
+        System.out.println("\nArmies:");
+        while(iterators.get("army").hasPrevious()){
+            iterators.get("army").previous();
+        }
+        while(iterators.get("army").hasNext()){
+            Army u = (Army) iterators.get("army").next();
+            System.out.println("\t" + u.getID() + ": " + u.getType());
+        }
+
+        System.out.println("\nStructures:");
+        while(iterators.get("structure").hasPrevious()){
+            iterators.get("structure").previous();
+        }
+        while(iterators.get("structure").hasNext()){
+            Structure u = (Structure) iterators.get("structure").next();
+            System.out.println("\t" + u.getID() + ": " + u.getType());
+        }
+*/
+
+		controller = new Controller(mainScreen,iterators,cGen);
 	}
 	
 	public void switchPlayers(){
