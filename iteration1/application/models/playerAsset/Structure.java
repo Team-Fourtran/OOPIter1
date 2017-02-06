@@ -1,8 +1,5 @@
 package application.models.playerAsset;
 
-import application.models.commands.Command;
-import java.util.*;
-
 public class Structure extends PlayerAsset{
 
     int productionRate;
@@ -17,10 +14,4 @@ public class Structure extends PlayerAsset{
         upkeep = 1;
         
     }
-
-    //heal unit on same tile as structure
-    public void healUnit(Unit u){
-        u.heal(50);
-    }
-
 }

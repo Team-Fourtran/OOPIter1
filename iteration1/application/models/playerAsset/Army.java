@@ -27,7 +27,7 @@ public class Army extends PlayerAsset{
     public void setRallyPoint(String location){
         rallyPoint = location;
         for (Unit u: reinforcements)
-            if (u.getLocation() == rallyPoint){
+            if (u.getLocation().equals(rallyPoint)){
                 battleGroup.add(u);
                 reinforcements.remove(u);
             }
@@ -62,7 +62,7 @@ public class Army extends PlayerAsset{
     //to be called each turn
     public void updateArmyTypes(){
         for (Unit u: reinforcements)
-            if (u.getLocation() == rallyPoint){
+            if (u.getLocation().equals(rallyPoint)){
                 battleGroup.add(u);
                 reinforcements.remove(u);
             }
@@ -71,7 +71,7 @@ public class Army extends PlayerAsset{
     public Unit getUnit(String unitID){
         ArrayList<Unit> units = getUnits();
         for (Unit u: units)
-            if (u.getID() == unitID)
+            if (u.getID().equals(unitID))
                 return u;
         return null;
     }

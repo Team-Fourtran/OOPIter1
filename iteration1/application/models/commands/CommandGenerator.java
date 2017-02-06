@@ -36,6 +36,10 @@ public class CommandGenerator {
                         break;
             case "NA":  cmd = new NewArmyCommand(player, map);
                         break;
+            case "H":   cmd = new HealCommand(player, map);
+                        break;
+            case "MRP": cmd = new MoveRallyPointCommand(player, map);
+                        break;
             default:    cmd = new NullCommand(player, map);
         }
         cmd.initialize(commandArray);

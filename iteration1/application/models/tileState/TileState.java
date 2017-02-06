@@ -105,7 +105,7 @@ public class TileState {
 
     public Occupance getOccupance(String id){
         for (Occupance _o : occupances){
-            if (_o.getAssetID() == id){
+            if (_o.getAssetID().equals(id)){
                 return _o;
             }
         }
@@ -123,13 +123,15 @@ public class TileState {
     }
 
     public void removeOccupance(String ID){
+        Occupance oldOccupance = null;
     	Iterator<Occupance> i = occupances.iterator();
         while(i.hasNext()){
         	Occupance _o = i.next();
             if (_o.getAssetID().equals(ID)){
-                removeOccupance(_o);
+                oldOccupance = _o;
             }
         }
+        removeOccupance(oldOccupance);
     }
 
     public void moveOccupance(String id, Directions direction){

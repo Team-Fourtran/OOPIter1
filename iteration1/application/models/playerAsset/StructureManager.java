@@ -32,17 +32,11 @@ public class StructureManager {
 
     public void decommission(String structureID){
         for (Structure s: structureList){
-            if (s.getID() == structureID){
+            if (s.getID().equals(structureID)){
                 structureIDs.add(s.getID());
                 structureList.remove(s);
             }
         }
-    }
-
-    public void heal(String structureID, Unit u){
-        for (Structure s: structureList)
-            if (s.getID().equals(structureID))
-                s.healUnit(u);
     }
 
     //calculate upkeep from all the Player's structures
@@ -83,7 +77,7 @@ public class StructureManager {
     //add command into specific structure's queue
     public void addCommand(Command c, String structureID){
         for (Structure s: structureList)
-            if (s.getID() == structureID)
+            if (s.getID().equals(structureID))
                 s.addCommand(c);
     }
 

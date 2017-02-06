@@ -25,7 +25,7 @@ public class AssetOccupance extends Occupance{
 
     @Override
     public void healPlayerAssets(){
-        //asset.heal();
+        asset.heal();
     }
 
 }

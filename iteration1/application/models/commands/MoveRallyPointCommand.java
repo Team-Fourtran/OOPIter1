@@ -1,7 +1,6 @@
 package application.models.commands;
 
 import application.models.playerAsset.Player;
-import application.models.tileState.AssetOccupance;
 import application.models.tileState.Map;
 import application.models.tileState.Occupance;
 
@@ -21,9 +20,9 @@ public class MoveRallyPointCommand extends ConcreteCommand{
     public void doInitialize(String ... strings){
         Player p = getPlayer();
         Map m = getMap();
-        currentTileID = p.getPosition(armyID);
         armyID = strings[1];
         destinationTileID = strings[2];
+        currentTileID = p.getPosition(armyID);
         unitIDList = getPlayer().getUnitIDs(armyID);
 
         Occupance o = m.getTileState(currentTileID).getOccupance(armyID);
