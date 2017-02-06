@@ -3,8 +3,6 @@ package application.models.commands;
 import application.models.playerAsset.Player;
 import application.models.tileState.Map;
 
-import java.util.ArrayList;
-
 public class MoveAssetCommand extends ConcreteCommand{
     private String startTileID;
     private String destinationTileID;
@@ -34,6 +32,9 @@ public class MoveAssetCommand extends ConcreteCommand{
     public void unpack(){
         String path = getMap().generatePath(startTileID, destinationTileID);
         //e.g., 90_90_180
+        if (path.equals("")){
+            return; //No movement necessary!
+        }
         String[] directionsArray = path.split("[_]");
         for(int i = 0; i < directionsArray.length; i++){
             Command cmd = new MoveDirectionCommand(getPlayer(), getMap());

@@ -72,13 +72,13 @@ public class ArmyManager {
 
     public void setRallyPoint(String armyID, String rallyPoint){
         for (Army a: armyList)
-            if (a.getID() == armyID)
+            if (a.getID().equals(armyID))
                 a.setRallyPoint(rallyPoint);
     }
 
     public String getPosition(String assetID){
         for (Army a: armyList)
-            if (a.getID() == assetID)
+            if (a.getID().equals(assetID))
                 return a.getLocation();
         return null;
     }
@@ -86,7 +86,7 @@ public class ArmyManager {
     //add command into specific structure's queue
     public void addCommand(Command c, String armyID){
         for (Army a: armyList)
-            if (a.getID() == armyID)
+            if (a.getID().equals(armyID))
                 a.addCommand(c);
     }
 

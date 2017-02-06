@@ -39,13 +39,6 @@ public class StructureManager {
         }
     }
 
-    public void healUnits(String structureID) {
-        for (Structure s: structureList) {
-            if (s.getID().equals(structureID))
-                s.healUnits();
-        }
-    }
-
     //calculate upkeep from all the Player's structures
     public int calculateTotalUpkeep(){
         int totalUpkeep = 0;
@@ -95,7 +88,6 @@ public class StructureManager {
 
     //used at beginning of player's turn
     public void executeCommands(){
-    	System.out.println("begin turn");
         for (Structure s: structureList) {
             if (!s.emptyQueue()) {
                 s.executeCommand();

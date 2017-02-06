@@ -23,4 +23,9 @@ public class AssetOccupance extends Occupance{
         return asset.getLocation();
     }
 
+    @Override
+    public void healPlayerAssets(){
+        asset.heal();
+    }
+
 }

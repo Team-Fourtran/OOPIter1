@@ -45,13 +45,6 @@ abstract class ConcreteCommand implements Command {
         doInitialize(strings);
     }
 
-    //Some commands will need to be "unpacked", thus generating a number of smaller
-    //commands, which are then passed on to their respective command queues
-    @Override
-    public boolean needsUnpacked(){
-        return needsUnpacked;   // Value set by subclasses, defaults to false
-    }
-
     private void setCommandType(String type){
         this.commandType = type;
     }
