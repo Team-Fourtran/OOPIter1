@@ -9,10 +9,9 @@ public class AssetOccupance extends Occupance{
         this.asset = _asset;
     }
 
-//    @Override
-//    void updateLocationIDofAsset() {
-//        asset.setLocation(tileID);
-//    }
+    public void updateAssetLocation(String tileID) {
+        asset.setLocation(tileID);
+    }
 
     @Override
     public String getAssetID() {

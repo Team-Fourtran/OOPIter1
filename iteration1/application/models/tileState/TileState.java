@@ -105,32 +105,25 @@ public class TileState {
 
     public TileState addOccupance(Occupance _o){
         occupances.add(_o);
+        _o.updateAssetLocation(this.id);
         return this;
     }
 
-    private void removeOccupance(Occupance _o){
+    private void removeOccupance(Occupance _o) {
         occupances.remove(_o);
     }
 
     public void removeOccupance(String ID){
     	Iterator<Occupance> i = occupances.iterator();
+    	Occupance removeMe = null;
         while(i.hasNext()){
         	Occupance _o = i.next();
             if (_o.getAssetID().equals(ID)){
-                removeOccupance(_o);
+            	removeMe = _o;
+            	break;
             }
         }
-    }
-
-    public Occupance getOccupance(String assetID){
-    	Iterator<Occupance> i = occupances.iterator();
-        while(i.hasNext()){
-        	Occupance _o = i.next();
-            if (_o.getAssetID().equals(assetID)){
-                return _o;
-            }
-        }
-        return null;
+        removeOccupance(removeMe);
     }
 
     public void moveOccupance(String id, Directions direction){

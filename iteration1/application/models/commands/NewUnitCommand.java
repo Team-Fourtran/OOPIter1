@@ -16,6 +16,7 @@ public class NewUnitCommand extends ConcreteCommand{
     public void doInitialize(String ... strings){
         assetID = strings[1];
         unitType = strings[2];
+        getPlayer().notify(assetID, this);
     }
 
     @Override

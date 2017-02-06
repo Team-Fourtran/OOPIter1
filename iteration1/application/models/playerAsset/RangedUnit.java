@@ -15,8 +15,9 @@ public class RangedUnit extends Unit{
         range = 2;
     }
 
-    @Override
-    public String getType() {
+
+    public String getType(){
         return "Ranged";
     }
+            
 }

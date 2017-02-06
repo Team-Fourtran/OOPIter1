@@ -1,7 +1,9 @@
 package application.models.playerAsset;
 
-import java.util.*;
+import application.models.commands.Command;
 
+import java.util.*;
+import application.*;
 public class Player {
     
     private final ArmyManager armies;
@@ -9,7 +11,7 @@ public class Player {
     private final StructureManager structures;
     private int food;
     private int wood;
-    
+    private Game game;
     
     public Player(){
         armies = new ArmyManager();
@@ -20,16 +22,34 @@ public class Player {
 
     }
 
+    public void notify(Command command){
+        System.out.println("Received command");
+        command.execute();
+    }
+    public void notify(String assetID, Command command){
+    	command.execute();
+    }
+
+    public void setGame(Game game){
+    	this.game = game;
+    }
+
     //method to do maintenence tasks on player's assets
     public void beginTurn(){
         int totalFoodCost = units.calculateTotalUpkeep() + armies.calculateTotalUpkeep();
         int totalWoodCost = structures.calculateTotalUpkeep();
         food -= totalFoodCost;
         wood -= totalWoodCost;
-        //TO-DO: enforce some punishment for not having enough
-        //Traverse all queues and execute
+        armies.executeCommands();
+        structures.executeCommands();
+        units.executeCommands();
     }
-
+    public void endTurn(){
+        armies.resetCommands();
+        structures.resetCommands();
+        units.resetCommands();
+        game.switchPlayers();
+    }
     //pass list of units to army manager to form army
     public Army formArmy(ArrayList<String> unitIDs, String rallyPoint){
     	ArrayList<Unit> u = new ArrayList<Unit>();
@@ -48,17 +68,35 @@ public class Player {
         units.addUnits(releasedUnits);
     }
 
+    public void setRallyPoint(String armyID, String rallyPoint){
+        armies.setRallyPoint(armyID, rallyPoint);
+    }
+
     //check to see if the structure creation is valid
-    public boolean canCreateStructure(String armyID){
-        return (armies.findArmy(armyID).hasColonist() && structures.getStructureCount() < 10);
+    public String canCreateStructure(String armyID){
+    	if (armies.findArmy(armyID).hasColonist() != null) {
+    		return armies.findArmy(armyID).hasColonist();
+    	} else {
+    		return null;
+    	}
+    }
+
+    public ArrayList<String> getUnitIDs(String armyID){
+        ArrayList<Unit> units = armies.findArmy(armyID).getUnits();
+        ArrayList<String> unitIDs = new ArrayList<String>();
+        for (Unit u: units)
+            unitIDs.add(u.getID());
+        return unitIDs;
     }
 
     //check a specific army for a colonist, create a structure on that tile,
     //and consume the colonist
     public Structure createStructure(String armyID){
-        if (canCreateStructure(armyID)) {
+        if (canCreateStructure(armyID) != null) {
             String location = armies.findArmy(armyID).getLocation(); //Can be removed, added to params if controller can send it!
             armies.findArmy(armyID).removeColonist();
+            if (getUnitIDs(armyID).isEmpty())
+                armies.decommission(armyID);
             Structure s = structures.createStructure(location);
             return s;
         }
@@ -69,15 +107,14 @@ public class Player {
         structures.decommission(structureID);
     }
 
-    public void healUnit(String structureID, String unitID){
-        if (units.getPosition(unitID) == structures.getPosition(structureID))
-            structures.heal(structureID, units.getUnit(unitID));
+    public void healUnits(String structureID){
+        structures.healUnits(structureID);
     }
 
     public boolean canCreateUnit(String structureID, String type){
         return (structures.structureExists(structureID) && units.checkIfValid(type));
     }
-
+    
     //method to place a new unit on the map through an existing structure
     public Unit createUnit(String type, String structureID){
         if (units.checkIfValid(type)) {
@@ -119,6 +156,10 @@ public class Player {
              armies.freeID(assetID);
         else if (assetID.charAt(0) == 's')
             structures.freeID(assetID);
+    }
+
+    public void resetArmyUnitQueue(String armyID){
+        armies.resetArmyUnitQueue(armyID);
     }
 
     public ListIterator getUnitIterator(){

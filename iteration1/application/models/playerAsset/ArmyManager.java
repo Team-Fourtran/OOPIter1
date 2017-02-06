@@ -1,5 +1,7 @@
 package application.models.playerAsset;
 
+import application.models.commands.Command;
+
 import java.util.*;
 
 public class ArmyManager {
@@ -68,6 +70,12 @@ public class ArmyManager {
     	}
     }
 
+    public void setRallyPoint(String armyID, String rallyPoint){
+        for (Army a: armyList)
+            if (a.getID() == armyID)
+                a.setRallyPoint(rallyPoint);
+    }
+
     public String getPosition(String assetID){
         for (Army a: armyList)
             if (a.getID() == assetID)
@@ -75,7 +83,41 @@ public class ArmyManager {
         return null;
     }
 
-    //public void executeCommands(){}
+    //add command into specific structure's queue
+    public void addCommand(Command c, String armyID){
+        for (Army a: armyList)
+            if (a.getID() == armyID)
+                a.addCommand(c);
+    }
+
+    public void addMoveCommand(Command c, String unitID){
+        for (Army a: armyList)
+            if (a.getUnit(unitID) != null)
+                a.getUnit(unitID).addCommand(c);
+    }
+
+    public void executeCommands(){
+        for (Army a: armyList) {
+        	a.updateArmyTypes();
+        	
+            if (!a.emptyQueue()) {
+                a.executeCommand();
+            }
+        }
+    }
+
+    public void resetCommands(){
+        for (Army a: armyList) {
+            a.resetCommands();
+        }
+    }
+
+    public void resetArmyUnitQueue(String armyID){
+        ArrayList<Unit> units = findArmy(armyID).getUnits();
+        for (Unit u: units)
+            u.clearQueue();
+
+    }
 
     public ListIterator makeIterator(){
         return armyList.listIterator();

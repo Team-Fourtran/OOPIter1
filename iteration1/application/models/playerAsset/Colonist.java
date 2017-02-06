@@ -12,8 +12,8 @@ public class Colonist extends Unit{
         upkeep = 1;
     }
 
-    @Override
-    public String getType() {
+
+    public String getType(){
         return "Colonist";
     }
 }

@@ -14,34 +14,33 @@ public class CommandGenerator {
         this.player = _p;
         this.map = _m;
     }
-    public ArrayList<Command> generateCommand(String stringCommand){
+    public void generateCommand(String stringCommand){
         String[] commandArray = stringCommand.split("[_]");
         //Decide which command to create based on first string argument
         //Could be replaced by creational pattern???
         //      --Builder
         //      --Abstract Factory
         //      --Factory Method
-        ArrayList<Command> cmd = new ArrayList<>(1);
+        Command cmd;
 
         switch (commandArray[0]){
-        	case "IU":	cmd.add(new InitialUnitsCommand(player, map));
+        	case "IU":	cmd = new InitialUnitsCommand(player, map);
         				break;
-            case "MV":  cmd.add(new MoveAssetCommand(player, map));
+        	case "HU":	cmd = new HealUnitCommand(player, map);
+        				break;
+            case "MV":  cmd = new MoveAssetCommand(player, map);
             			break;
-            case "MD": 	cmd.add(new MoveDirectionCommand(player, map));
+            case "MD": 	cmd = new MoveDirectionCommand(player, map);
             			break;
-            case "NS":  cmd.add(new NewStructureCommand(player, map));
+            case "NS":  cmd = new NewStructureCommand(player, map);
             			break;
-            case "NU":	cmd.add(new NewUnitCommand(player, map));
-            			break;
-            default:    cmd.add(new NullCommand(player, map));
+            case "NU":  cmd = new NewUnitCommand(player, map);
+                        break;
+            case "NA":  cmd = new NewArmyCommand(player, map);
+                        break;
+            default:    cmd = new NullCommand(player, map);
         }
-        cmd.get(0).initialize(commandArray);
-
-        if(cmd.get(0).needsUnpacked()){
-            return new ArrayList<>(((ConcreteCommand)cmd.get(0)).unpack());
-        }
-        return cmd;
+        cmd.initialize(commandArray);
     }
 
 }

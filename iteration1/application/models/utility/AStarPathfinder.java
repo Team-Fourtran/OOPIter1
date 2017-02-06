@@ -57,9 +57,10 @@ public class AStarPathfinder {
     private String buildStringPath(node n){
         String path = "";
         while(n != startNode){
-            path = ("_" + n.direction) + path;
+            path = ("_" + n.direction.getValue()) + path;
             n = n.parent;
         }
+        path = path.replaceFirst("_", "");
         return path;
     }
 

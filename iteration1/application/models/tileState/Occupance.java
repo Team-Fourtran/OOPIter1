@@ -8,5 +8,6 @@ public abstract class Occupance {
     //abstract void updateLocationIDofAsset();
     public abstract String getAssetID();
     public abstract String getTileID();
+    public abstract void updateAssetLocation(String tileID);
 }
 

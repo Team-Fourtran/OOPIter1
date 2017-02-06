@@ -26,6 +26,7 @@ public class TestMessageGenerator {
     public static void main(String[] args){
         Player p = new Player();
 
+
         int length = 4 , width = 4;
         TileGen T = new TileGen(length, width);
         Map m = new Map(T.execute(), length, width);
@@ -154,6 +155,7 @@ public class TestMessageGenerator {
         mainView.showMainScreen();
 
         gameController = new Controller(mainView,iters);
+
 
         while(unitIterator.hasPrevious()){
             unitIterator.previous();

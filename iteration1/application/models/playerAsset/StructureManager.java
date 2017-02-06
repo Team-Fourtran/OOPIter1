@@ -1,5 +1,7 @@
 package application.models.playerAsset;
 
+import application.models.commands.Command;
+
 import java.util.*;
 
 public class StructureManager {
@@ -14,7 +16,7 @@ public class StructureManager {
             structureIDs.add("s" + i);
     }
 
-    public int getStructureCount(){
+        public int getStructureCount(){
         return structureList.size();
     }
 
@@ -30,17 +32,18 @@ public class StructureManager {
 
     public void decommission(String structureID){
         for (Structure s: structureList){
-            if (s.getID() == structureID){
+            if (s.getID().equals(structureID)){
                 structureIDs.add(s.getID());
                 structureList.remove(s);
             }
         }
     }
 
-    public void heal(String structureID, Unit u){
-        for (Structure s: structureList)
+    public void healUnits(String structureID) {
+        for (Structure s: structureList) {
             if (s.getID().equals(structureID))
-                s.healUnit(u);
+                s.healUnits();
+        }
     }
 
     //calculate upkeep from all the Player's structures
@@ -78,7 +81,27 @@ public class StructureManager {
         return false;
     }
 
-    //public void executeCommands(){}
+    //add command into specific structure's queue
+    public void addCommand(Command c, String structureID){
+        for (Structure s: structureList)
+            if (s.getID().equals(structureID))
+                s.addCommand(c);
+    }
+
+    public void resetCommands(){
+        for (Structure s: structureList)
+            s.resetCommands();
+    }
+
+    //used at beginning of player's turn
+    public void executeCommands(){
+    	System.out.println("begin turn");
+        for (Structure s: structureList) {
+            if (!s.emptyQueue()) {
+                s.executeCommand();
+            }
+        }
+    }
 
     public ListIterator makeIterator(){
         return structureList.listIterator();
