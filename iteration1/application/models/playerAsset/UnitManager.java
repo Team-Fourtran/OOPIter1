@@ -79,9 +79,7 @@ public class UnitManager {
     
     //find position of unit on the map
     public String getPosition(String assetID){
-    	System.out.println("as " + assetID);
         for (Unit u: unitList) {
-        	System.out.println("uid : " + u.getID());
             if (u.getID().equals(assetID)) {
             	
                 return u.getLocation();

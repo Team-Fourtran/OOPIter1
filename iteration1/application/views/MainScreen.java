@@ -36,9 +36,9 @@ public class MainScreen implements ActionListener{
 
     private JLabel[][] Grid;
     private Map map;
-    private final ImageIcon NORMAL = new ImageIcon("TileImages/Normal/Normal.png");
-    private final ImageIcon SLOW = new ImageIcon("TileImages/Slow/Slow.png");
-    private final ImageIcon IMPASSABLE = new ImageIcon("TileImages/Impassable/Impassable.png");
+    private final ImageIcon NORMAL = new ImageIcon("iteration1/TileImages/Normal/Normal.png");
+    private final ImageIcon SLOW = new ImageIcon("iteration1/TileImages/Slow/Slow.png");
+    private final ImageIcon IMPASSABLE = new ImageIcon("iteration1/TileImages/Impassable/Impassable.png");
     private final ImageIcon[] TERRAIN = {
             NORMAL,
             SLOW,
@@ -165,9 +165,7 @@ public class MainScreen implements ActionListener{
         buttonPanel.add(structureOVButton);
 
         //Initializing Status Table
-        Object[][] unitData = {{new Integer(2000), new Integer(25), new Integer(25),
-                new Integer(10), new Integer(2), new Integer(50),
-                new Integer(50)}};
+        Object[][] unitData = {{2000, 25, 25, 10, 2, 50, 50}};
 
         NonEditableTable table = new NonEditableTable(unitData, unitColumnStats);
         statusTable = new JTable(table);
@@ -191,15 +189,12 @@ public class MainScreen implements ActionListener{
         String[] unitColumnStats = {"Units", "Offensive Damage",
                 "Defensive Damage", "Armor", "Movement",
                 "Health", "Upkeep", "Missions"};
-        Object[][] unitData = {{new Integer(2000), new Integer(25), new Integer(25),
-                new Integer(10), new Integer(2), new Integer(50),
-                new Integer(50), new String("Move, Gather")}, {new Integer(2000), new Integer(25), new Integer(25),
-                new Integer(10), new Integer(2), new Integer(50),
-                new Integer(50)}, {new Integer(2000), new Integer(25), new Integer(25),
-                new Integer(10), new Integer(2), new Integer(50),
-                new Integer(50)}, {new Integer(2000), new Integer(25), new Integer(25),
-                new Integer(10), new Integer(2), new Integer(50),
-                new Integer(50)}};
+        Object[][] unitData = {
+                {2000, 25, 25, 10, 2, 50, 50, "Move, Gather"},
+                {2000, 25, 25, 10, 2, 50, 50},
+                {2000, 25, 25, 10, 2, 50, 50},
+                {2000, 25, 25, 10, 2, 50, 50}
+        };
         NonEditableTable table = new NonEditableTable(unitData, unitColumnStats);
         JTable unitOVTable = new JTable(table);
 
@@ -253,15 +248,12 @@ public class MainScreen implements ActionListener{
                     String[] unitColumnStats = {"Structures", "Offensive Damage",
                             "Defensive Damage", "Armor", "Movement",
                             "Health", "Upkeep", "Missions"};
-                    Object[][] unitData = {{new Integer(2000), new Integer(25), new Integer(25),
-                            new Integer(10), new Integer(2), new Integer(50),
-                            new Integer(50), new String("Move, Gather")}, {new Integer(2000), new Integer(25), new Integer(25),
-                            new Integer(10), new Integer(2), new Integer(50),
-                            new Integer(50)}, {new Integer(2000), new Integer(25), new Integer(25),
-                            new Integer(10), new Integer(2), new Integer(50),
-                            new Integer(50)}, {new Integer(2000), new Integer(25), new Integer(25),
-                            new Integer(10), new Integer(2), new Integer(50),
-                            new Integer(50)}};
+                    Object[][] unitData = {
+                            {2000, 25, 25, 10, 2, 50, 50, "Move, Gather"},
+                            {2000, 25, 25, 10, 2, 50, 50},
+                            {2000, 25, 25, 10, 2, 50, 50},
+                            {2000, 25, 25, 10, 2, 50, 50}
+                    };
 
                     NonEditableTable table = new NonEditableTable(unitData, unitColumnStats);
                     JTable structureOVTable = new JTable(table);

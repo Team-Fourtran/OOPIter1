@@ -1,5 +1,6 @@
 package application;
 
+import application.models.commands.CommandGenerator;
 import application.models.playerAsset.*;
 import application.models.tileState.*;
 import application.models.utility.*;
@@ -22,6 +23,13 @@ public class Game {
 		currentPlayer = players[0];
 		T = new TileGen(ROW, COL);
 		map = new Map(T.execute(), ROW, COL);
+
+		CommandGenerator cGen = new CommandGenerator(players[0], map);
+		cGen.generateCommand("IU_T4_colonist");
+		cGen.generateCommand("IU_T5_explorer");
+		cGen.generateCommand("IU_T6_melee");
+        cGen.generateCommand("IU_T6_ranged");
+
 		for(int i = 0; i < 15; i++){
             for(int j = 0; j < 15; j++){
                 System.out.println(i + " " + j);

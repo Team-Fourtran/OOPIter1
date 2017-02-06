@@ -19,7 +19,7 @@ public class NewStructureTest {
 	public static void main(String[] args) {
 
 		// Create a colonist unit
-    	int length = 4 , width = 4;
+    	int length = 5 , width = 5;
         TileGen T = new TileGen(length, width);
         Map m = new Map(T.execute(), length, width);
         m.printOut();
@@ -27,14 +27,18 @@ public class NewStructureTest {
         
         CommandGenerator cGen = new CommandGenerator(p, m);
 
-//        cGen.generateCommand("IU_T0_colonist");
-//        cGen.generateCommand("MV_U1_T3_T4");
-//        cGen.generateCommand("NS_U2");
-//        cGen.generateCommand("NU_S8_Explorer");
-        cGen.generateCommand("IU_T4_colonist");
-        cGen.generateCommand("IU_T5_colonist");
-        cGen.generateCommand("IU_T6_colonist");
-        cGen.generateCommand("NA_T9_u1_u2_u3");
+        cGen.generateCommand("IU_T0_colonist");
+        cGen.generateCommand("IU_T1_colonist");
+        cGen.generateCommand("IU_T2_colonist");
+        System.out.println("-----BEFORE-----");
+        System.out.println("u1: " + p.getPosition("u1"));
+        System.out.println("u2: " + p.getPosition("u2"));
+        System.out.println("u3: " + p.getPosition("u3"));
+        cGen.generateCommand("NA_T24_u1_u2_u3");
+        System.out.println("-----AFTER-----");
+        System.out.println("u1: " + p.getPosition("u1"));
+        System.out.println("u2: " + p.getPosition("u2"));
+        System.out.println("u3: " + p.getPosition("u3"));
         
         // Adding unit to tile T0
 //        Command c = cGen.generateCommand("IU_0_T0_colonist").get(0);

@@ -11,7 +11,6 @@ abstract class ConcreteCommand implements Command {
     boolean needsUnpacked = false;
 
     ConcreteCommand(Player _p, Map _m){
-        System.out.println("Creating " + this.getClass().toString() + "...\n");
         setPacking();
         this.map = _m;
         this.player = _p;

@@ -105,6 +105,7 @@ public class TileState {
 
     public TileState addOccupance(Occupance _o){
         occupances.add(_o);
+        _o.updateAssetLocation(this.id);
         return this;
     }
 
@@ -120,17 +121,6 @@ public class TileState {
                 removeOccupance(_o);
             }
         }
-    }
-
-    public Occupance getOccupance(String assetID){
-    	Iterator<Occupance> i = occupances.iterator();
-        while(i.hasNext()){
-        	Occupance _o = i.next();
-            if (_o.getAssetID().equals(assetID)){
-                return _o;
-            }
-        }
-        return null;
     }
 
     public void moveOccupance(String id, Directions direction){
