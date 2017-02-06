@@ -34,14 +34,14 @@ public class Game {
 
 		// Generate a colonist and 2 explorer units for the two players
 		CommandGenerator cGen0 = new CommandGenerator(players[0], map);
-		cGen0.generateCommand("IU_T1_colonist");
-		cGen0.generateCommand("IU_T5_explorer");
-		cGen0.generateCommand("IU_T14_explorer");
+		cGen0.generateCommand("IU_T65_colonist");
+		cGen0.generateCommand("IU_T19_explorer");
+		cGen0.generateCommand("IU_T24_explorer");
         
-		CommandGenerator cGen1 = new CommandGenerator(players[1], map);
-		cGen1.generateCommand("IU_T10_colonist");
-		cGen1.generateCommand("IU_T11_explorer");
-		cGen1.generateCommand("IU_T12_explorer");
+		CommandGenerator cGen1 = new CommandGenerator(players[0], map);
+		cGen1.generateCommand("IU_T100_colonist");
+		cGen1.generateCommand("IU_T115_explorer");
+		cGen1.generateCommand("IU_T130_explorer");
 
 
 		for(int i = 0; i < 15; i++){
@@ -64,14 +64,22 @@ public class Game {
 		        mainScreen.renderMainScreen();
             }
         }, 0, 250);
-//		cGen.generateCommand("MVD_u1_S");
-//		cGen.generateCommand("MVD_u3_S");
-//		cGen.generateCommand("MVD_u2_S");
-		cGen0.generateCommand("NA_T100_u1_u2_u3");
+
+		cGen0.generateCommand("NA_T36_u1_u2_u3");
 		currentPlayer.endTurn();
 		currentPlayer.beginTurn();
 		currentPlayer.endTurn();
 		currentPlayer.beginTurn();
+//		cGen0.generateCommand("NS_a1");
+		currentPlayer.endTurn();
+		currentPlayer.beginTurn();
+		currentPlayer.endTurn();
+		currentPlayer.beginTurn();
+		currentPlayer.endTurn();
+		currentPlayer.beginTurn();
+		currentPlayer.endTurn();
+		currentPlayer.beginTurn();
+		cGen0.generateCommand("MRP_a1_T3");
 		currentPlayer.endTurn();
 		currentPlayer.beginTurn();
 		currentPlayer.endTurn();
