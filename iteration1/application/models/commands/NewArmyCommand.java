@@ -32,5 +32,12 @@ public class NewArmyCommand extends ConcreteCommand{
     }
 
     @Override
-    public void unpack(){ }
+    public void unpack(){
+        //Creates a moveAssetCommand for each unit that has to move...
+        for(String assetID : unitIDList){
+            Command cmd = new MoveAssetCommand(getPlayer(), getMap());
+            String startTileID = getPlayer().getPosition(assetID);
+            cmd.initialize("MV", assetID, startTileID, destinationTileID);
+        }
+    }
 }
