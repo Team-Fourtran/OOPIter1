@@ -11,7 +11,6 @@ public abstract class PlayerAsset {
     protected boolean poweredUp;
     protected String locationID;
     protected String assetID;
-    protected boolean hasExecutedCommand;
 
 
     public void setID(String id){
@@ -25,7 +24,24 @@ public abstract class PlayerAsset {
     public String getLocation(){
         return locationID;
     }
-
+    public int getOffDamage(){
+        return offDamage;
+    }
+    public int getDefDamage(){
+        return defDamage;
+    }
+    public int getArmor(){
+        return armor;
+    }
+    public int getMaxHealth(){
+        return maxHealth;
+    }
+    public int getCurrentHealth(){
+        return currentHealth;
+    }
+    public boolean getPoweredUp(){
+        return poweredUp;
+    }
     public void setLocation(String location){
         locationID = location;
     }

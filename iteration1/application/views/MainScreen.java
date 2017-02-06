@@ -14,7 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.*;
 
-public class MainScreen implements ActionListener{
+public class MainScreen{
     private JFrame mainScreen;
     private JPanel areaViewPort;
     private JPanel statusViewPort;
@@ -23,22 +23,24 @@ public class MainScreen implements ActionListener{
     private JButton unitOVButton;
     private JButton structureOVButton;
     private JTable statusTable;
-
+    
     private final int ROW = 15;
     private final int COL = 15;
     private final int PIXELS = 45;
     private final int prefWidth = COL * PIXELS;
     private final int prefHeight = ROW * PIXELS;
 
+    //Iterator
+    public ListIterator unitIterator;
     //KeyPressInformer for Controller
     private KeyPressInformer keyInformer;
     private HashMap<String, Boolean> keyList;
 
     private JLabel[][] Grid;
     private Map map;
-    private final ImageIcon NORMAL = new ImageIcon("iteration1/TileImages/Normal/Normal.png");
-    private final ImageIcon SLOW = new ImageIcon("iteration1/TileImages/Slow/Slow.png");
-    private final ImageIcon IMPASSABLE = new ImageIcon("iteration1/TileImages/Impassable/Impassable.png");
+    private final ImageIcon NORMAL = new ImageIcon("TileImages/Normal/Normal.png");
+    private final ImageIcon SLOW = new ImageIcon("TileImages/Slow/Slow.png");
+    private final ImageIcon IMPASSABLE = new ImageIcon("TileImages/Impassable/Impassable.png");
     private final ImageIcon[] TERRAIN = {
             NORMAL,
             SLOW,
@@ -49,8 +51,9 @@ public class MainScreen implements ActionListener{
             "Defensive Damage", "Armor", "Movement",
             "Health", "Upkeep"};
     
-    public MainScreen(Map map){
-    	this.map = map;
+    public MainScreen(Map map, ListIterator unitIterator){
+        this.map = map;
+        this.unitIterator = unitIterator;
     }
     public void showMainScreen(){
         mainScreen.setVisible(true);
@@ -159,13 +162,15 @@ public class MainScreen implements ActionListener{
         structureOVButton = new JButton("Structure Overview");
         unitOVButton.setActionCommand("openUnitOV");
         structureOVButton.setActionCommand("openStructOV");
-        unitOVButton.addActionListener(new MainScreenAction());
+        unitOVButton.addActionListener(new MainScreenAction(unitIterator));
         structureOVButton.addActionListener(new MainScreenAction());
         buttonPanel.add(unitOVButton);
         buttonPanel.add(structureOVButton);
 
         //Initializing Status Table
-        Object[][] unitData = {{2000, 25, 25, 10, 2, 50, 50}};
+        Object[][] unitData = {{new Integer(2000), new Integer(25), new Integer(25),
+                new Integer(10), new Integer(2), new Integer(50),
+                new Integer(50)}};
 
         NonEditableTable table = new NonEditableTable(unitData, unitColumnStats);
         statusTable = new JTable(table);
@@ -180,113 +185,6 @@ public class MainScreen implements ActionListener{
         mainScreen.setSize(500, 500);
         mainScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainScreen.pack();
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e){
-        JFrame unitOVFrame = new JFrame("Unit Overview");
-
-        String[] unitColumnStats = {"Units", "Offensive Damage",
-                "Defensive Damage", "Armor", "Movement",
-                "Health", "Upkeep", "Missions"};
-        Object[][] unitData = {
-                {2000, 25, 25, 10, 2, 50, 50, "Move, Gather"},
-                {2000, 25, 25, 10, 2, 50, 50},
-                {2000, 25, 25, 10, 2, 50, 50},
-                {2000, 25, 25, 10, 2, 50, 50}
-        };
-        NonEditableTable table = new NonEditableTable(unitData, unitColumnStats);
-        JTable unitOVTable = new JTable(table);
-
-        //Creating Panels for Unit OV Table
-        JPanel unitOVTablePanel = new JPanel();
-        JPanel armyButtonPanel = new JPanel();
-        JButton armyAssembleButton = new JButton("Assemble Selected Units");
-
-        unitOVTablePanel.add(new JScrollPane(unitOVTable));
-        armyButtonPanel.add(armyAssembleButton);
-        //armyButtonPanel.add(armyDisband);
-
-        armyAssembleButton.setActionCommand("assembleArmy");
-        armyAssembleButton.addActionListener(new MainScreenAction());
-
-        JPanel mainUnitOVPanel = new JPanel(new BorderLayout());
-        mainUnitOVPanel.add(armyButtonPanel, BorderLayout.SOUTH);
-        mainUnitOVPanel.add(unitOVTablePanel, BorderLayout.NORTH);
-
-        //Army List Frame
-        JFrame armyListFrame = new JFrame("Army List");
-        //String[] armyColNames = {"Army ID", "Unit ID", "Unit Type"};
-        JTable armyListTable = new JTable(table);
-        armyListFrame.add(new JScrollPane(armyListTable));
-
-        //Row Selection ActionListener
-		/*ListSelectionModel rowSelectModel;
-		rowSelectModel = unitOVTable.getSelectionModel();
-		rowSelectModel.addListSelectionListener(new ListSelectionListener(){
-			public void valueChanged(ListSelectionEvent event){
-				System.out.println(unitOVTable.getValueAt(unitOVTable.getSelectedRow(), 0).toString());
-			}
-		});*/
-        //JButton armyDisbandButton = new JButton("Disband Selected Army");
-
-        //Initialize Unit OV Frame
-        unitOVFrame.add(mainUnitOVPanel);
-        unitOVFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-        unitOVFrame.pack();
-
-        if("openUnitOV".equals(e.getActionCommand())){
-            SwingUtilities.invokeLater(new Runnable(){
-                public void run(){
-                    unitOVFrame.setVisible(true);
-                }
-            });
-        } else if("openStructOV".equals(e.getActionCommand())){
-            SwingUtilities.invokeLater(new Runnable(){
-                public void run(){
-                    JFrame structOVFrame = new JFrame();
-                    String[] unitColumnStats = {"Structures", "Offensive Damage",
-                            "Defensive Damage", "Armor", "Movement",
-                            "Health", "Upkeep", "Missions"};
-                    Object[][] unitData = {
-                            {2000, 25, 25, 10, 2, 50, 50, "Move, Gather"},
-                            {2000, 25, 25, 10, 2, 50, 50},
-                            {2000, 25, 25, 10, 2, 50, 50},
-                            {2000, 25, 25, 10, 2, 50, 50}
-                    };
-
-                    NonEditableTable table = new NonEditableTable(unitData, unitColumnStats);
-                    JTable structureOVTable = new JTable(table);
-
-                    ListSelectionModel rowSelectModel;
-                    rowSelectModel = structureOVTable.getSelectionModel();
-
-                    //Row Selection ActionListener
-                    rowSelectModel.addListSelectionListener(new ListSelectionListener(){
-                        public void valueChanged(ListSelectionEvent event){
-                            System.out.println(structureOVTable.getValueAt(structureOVTable.getSelectedRow(), 0).toString());
-                        }
-                    });
-
-                    structOVFrame.add(new JScrollPane(structureOVTable));
-                    structOVFrame.setSize(500, 500);
-                    structOVFrame.setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-                    structOVFrame.pack();
-                    structOVFrame.setVisible(true);
-
-                }
-            });
-        } else if("assembleArmy".equals(e.getActionCommand())){
-            ListSelectionModel rowSelectModel;
-            rowSelectModel = unitOVTable.getSelectionModel();
-            rowSelectModel.addListSelectionListener(new ListSelectionListener(){
-                public void valueChanged(ListSelectionEvent event){
-                    System.out.println(unitOVTable.getSelectedRow());
-                    //armyListTable.insertRow(unitOVTable.getSelectedRow());
-                    //System.out.println(unitOVTable.getValueAt(unitOVTable.getSelectedRow(), 0).toString());
-                    System.out.println(unitOVTable.getValueAt(unitOVTable.getSelectedRow(), 0).toString());
-                }
-            });
-        }
+    
     }
 }

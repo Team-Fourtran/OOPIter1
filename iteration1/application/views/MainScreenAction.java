@@ -3,8 +3,14 @@ package application.views;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.SwingUtilities;
+import java.util.*;
 
 public class MainScreenAction implements ActionListener{
+	public ListIterator unitIterator;
+	public MainScreenAction(){}
+	public MainScreenAction(ListIterator unitIterator){
+		this.unitIterator = unitIterator;
+	}
 	@Override
 	public void actionPerformed(ActionEvent e){
 		//armyButtonPanel.add(armyDisband);
@@ -18,7 +24,7 @@ public class MainScreenAction implements ActionListener{
 			}
 		});*/
 		//JButton armyDisbandButton = new JButton("Disband Selected Army");
-		UnitOverViewScreen unitOVScreen = new UnitOverViewScreen();
+		UnitOverViewScreen unitOVScreen = new UnitOverViewScreen(unitIterator);
 		StructureOverViewScreen structureOVScreen = new StructureOverViewScreen();
 		if("openUnitOV".equals(e.getActionCommand())){
 			SwingUtilities.invokeLater(new Runnable(){
