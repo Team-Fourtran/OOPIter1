@@ -351,7 +351,11 @@ class StructureMode implements Mode{
     public void leftKey(){
         ListIterator structureIterator = owner.assetIterators.get("structure");
         if(structureIterator.hasPrevious()){
-            structureId = ((Structure) owner.assetIterators.get("structure").previous()).getID();
+            structureId = ((Structure) structureIterator.previous()).getID();
+        } else {
+            while(structureIterator.hasNext()){
+                structureId = ((Structure) structureIterator.next()).getID();
+            }
         }
     }
 
@@ -359,50 +363,12 @@ class StructureMode implements Mode{
     public void rightKey() {
         ListIterator structureIterator = owner.assetIterators.get("structure");
         if(structureIterator.hasNext()){
-            structureId = ((Structure) owner.assetIterators.get("structure").next()).getID();
+            structureId = ((Structure) structureIterator.next()).getID();
+        } else {
+            while(structureIterator.hasPrevious()){
+                structureId = ((Structure) structureIterator.previous()).getID();
+            }
         }
-    }
-}
-
-class RallyPointMode implements Mode{
-    MessageGenerator owner;
-
-    RallyPointMode(MessageGenerator owner){
-        this.owner = owner;
-    }
-
-    public String toString(){
-        return "Mode: RALLY POINT";
-    }
-
-    public String generateMessage(){
-        return "Generated message: " + this.toString();
-    }
-
-    @Override // Nothing happens
-    public void controlLeft() { }
-
-    @Override // Nothing happens
-    public void controlRight() { }
-
-    @Override
-    public void upKey() {
-
-    }
-
-    @Override
-    public void downKey() {
-
-    }
-
-    @Override
-    public void leftKey() {
-
-    }
-
-    @Override
-    public void rightKey() {
-
     }
 }
 
@@ -423,7 +389,7 @@ class ArmyMode implements Mode{
     }
 
     public String toString(){
-        return "Mode: ARMY\tSubmode: " + this.currentSubMode.toString();
+        return "Mode: ARMY | Submode: " + this.currentSubMode.toString();
     }
 
     public String generateMessage(){
@@ -444,22 +410,22 @@ class ArmyMode implements Mode{
 
     @Override
     public void upKey() {
-
+        currentSubMode.upKey(); //Forward to submode
     }
 
     @Override
     public void downKey() {
-
+        currentSubMode.downKey(); //Forward to submode
     }
 
     @Override
     public void leftKey() {
-
+        currentSubMode.leftKey(); //Forward to submode
     }
 
     @Override
     public void rightKey() {
-
+        currentSubMode.rightKey(); //Forward to submode
     }
 }
 
@@ -579,6 +545,48 @@ class ReinforcementMode implements Mode{
     }
 
     ReinforcementMode(){
+
+    }
+}
+
+class RallyPointMode implements Mode{
+    MessageGenerator owner;
+
+    RallyPointMode(MessageGenerator owner){
+        this.owner = owner;
+    }
+
+    public String toString(){
+        return "Mode: RALLY POINT | Command: Move";
+    }
+
+    public String generateMessage(){
+        return "MV";
+    }
+
+    @Override // Nothing happens
+    public void controlLeft() { }
+
+    @Override // Nothing happens
+    public void controlRight() { }
+
+    @Override
+    public void upKey() {
+
+    }
+
+    @Override
+    public void downKey() {
+
+    }
+
+    @Override
+    public void leftKey() {
+
+    }
+
+    @Override
+    public void rightKey() {
 
     }
 }
