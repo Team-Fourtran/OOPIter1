@@ -47,6 +47,11 @@ public class ArmyManager {
         return units;
     }
 
+    public void heal(String location){
+        for (Army a: armyList)
+            a.heal(location);
+    }
+
     //calculate total upkeep from each army, unit by unit
     public int calculateTotalUpkeep(){
         int totalUpkeep = 0;

@@ -68,20 +68,16 @@ public class Army extends PlayerAsset{
             }
     }
 
-    public boolean unitFound(String unitID){
-        for (Unit u: battleGroup)
-            if (u.getID() == unitID)
-                return true;
-        for (Unit u: reinforcements)
-            if (u.getID() == unitID)
-                return true;
-        return false;
+    public void heal(String location){
+        ArrayList<Unit> units = getUnits();
+        for (Unit u: units)
+            if (u.getLocation() == location)
+                u.heal(50);
     }
+
     public Unit getUnit(String unitID){
-        for (Unit u: battleGroup)
-            if (u.getID() == unitID)
-                return u;
-        for (Unit u: reinforcements)
+        ArrayList<Unit> units = getUnits();
+        for (Unit u: units)
             if (u.getID() == unitID)
                 return u;
         return null;

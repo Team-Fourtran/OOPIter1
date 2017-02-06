@@ -118,6 +118,12 @@ public class UnitManager {
         return true;
     }
 
+    public void heal(String location){
+        for (Unit u: unitList)
+            if (u.getLocation() == location)
+                u.heal(50);
+    }
+
     public Unit getUnit(String unitID){
         for (Unit u: unitList)
             if (u.getID().equals(unitID))
