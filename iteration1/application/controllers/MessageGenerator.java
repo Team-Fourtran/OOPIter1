@@ -4,8 +4,7 @@ package application.controllers;
 
 import java.util.*;
 
-import application.models.playerAsset.Player;
-import application.models.playerAsset.PlayerAsset;
+import application.models.playerAsset.*;
 
 
 class MessageGenerator implements KeyPressListener{
@@ -23,6 +22,7 @@ class MessageGenerator implements KeyPressListener{
         this.receiver = receiver;
         //System.out.println(this.modes);
         keyInformer.registerClient(this);
+        updateIterators(assetIterators);
     }
     //Gets called when player turn switches. Changes the iterators on hand.
     protected void updateIterators(HashMap<String, ListIterator> assetIterators){
@@ -127,9 +127,9 @@ class UnitMode implements Mode{
     private int currentTypeIndex;
     MessageGenerator owner;
 
-    boolean iteratingUnitsForward = true;  //To deal with ListIterator's funkiness
-
-    String message = "";    //the ID of the unit in focus
+    String[] commands = {"REINF","DECOM","PWDOWN","PWUP"};
+    int command_index = 0;  //Will determine which command is currently selected
+    String unitId = ""; //will hold the unit ID of the selected unit
 
     UnitMode(MessageGenerator owner){
         this.owner = owner;
@@ -147,7 +147,7 @@ class UnitMode implements Mode{
     }
 
     public String generateMessage(){
-        return "Generated message: " + this.toString();
+        return commands[command_index] + "_" + unitId;
     }
 
     @Override //Cycle to previous type
@@ -166,40 +166,68 @@ class UnitMode implements Mode{
 
     @Override
     public void upKey() {
-
+        command_index = Utils.mod((command_index+1), commands.length);
     }
 
     @Override
     public void downKey() {
-
+        command_index = Utils.mod((command_index-1), commands.length);
     }
 
     @Override
     public void leftKey() {
-        if(this.owner.assetIterators.get("unit").hasPrevious()){
-            //Deal with ListIterator's iteration mechanics
-            if(iteratingUnitsForward)
-                this.owner.assetIterators.get("unit").previous();
-            iteratingUnitsForward = false;
-
-            PlayerAsset p = (PlayerAsset) this.owner.assetIterators.get("unit").previous();
-            this.message = p.getID();
-            System.out.println("Message state: " + message);
+        Unit p;
+        if(!this.owner.assetIterators.get("unit").hasPrevious()){
+            while(this.owner.assetIterators.get("unit").hasNext()){
+                p = (Unit) this.owner.assetIterators.get("unit").next();
+            }
+        } else {
+            p = (Unit) this.owner.assetIterators.get("unit").previous();
         }
+
+        while(!p.getUnitType().equals(currentType)){
+
+        }
+
+
+
+        //If there's no previous, return to the end of the list circularly
+        if(!this.owner.assetIterators.get("unit").hasPrevious()){
+            while(this.owner.assetIterators.get("unit").hasNext()){
+                this.owner.assetIterators.get("unit").next();
+            }
+
+        }
+
+        Unit p = (Unit) this.owner.assetIterators.get("unit").previous();
+        while(!p.getUnitType().equals(currentType)){
+            p = (Unit) this.owner.assetIterators.get("unit").previous();
+        }
+
+
+        //Deal with ListIterator's quirks
+        if(p.getID().equals(unitId)) {
+            p = (PlayerAsset) this.owner.assetIterators.get("unit").previous();
+        }
+        this.unitId = p.getID();
     }
 
     @Override
     public void rightKey() {
-        if(this.owner.assetIterators.get("unit").hasNext()){
-            //Deal with ListIterator's iteration mechanics
-            if(!iteratingUnitsForward)
-                this.owner.assetIterators.get("unit").next();
-            iteratingUnitsForward = true;
+        //If there's no next, return to the beginning of the list circularly
+        if(!this.owner.assetIterators.get("unit").hasNext()){
+            while(this.owner.assetIterators.get("unit").hasPrevious()){
+                this.owner.assetIterators.get("unit").previous();
+            }
 
-            PlayerAsset p = (PlayerAsset) this.owner.assetIterators.get("unit").next();
-            this.message = p.getID();
-            System.out.println("Message state: " + message);
         }
+
+        PlayerAsset p = (PlayerAsset) this.owner.assetIterators.get("unit").next();
+        //Deal with ListIterator's quirks
+        if(p.getID().equals(unitId)) {
+            p = (PlayerAsset) this.owner.assetIterators.get("unit").next();
+        }
+        this.unitId = p.getID();
     }
 }
 

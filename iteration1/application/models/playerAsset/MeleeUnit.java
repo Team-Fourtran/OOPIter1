@@ -11,4 +11,9 @@ public class MeleeUnit extends Unit{
         maxHealth = currentHealth = 150;
         upkeep = 1;
     }
+
+    @Override
+    public String getUnitType() {
+        return "Melee";
+    }
 }
