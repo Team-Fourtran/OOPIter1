@@ -38,7 +38,7 @@ public class ArmyManager {
         for (Army army: armyList){
             if (army.getID().equals(ArmyID)){
                 units = army.getUnits();
-                armyIDs.add(army.getID());
+                this.freeID(army.getID());
                 armyList.remove(army);
             }    
         }
@@ -70,7 +70,7 @@ public class ArmyManager {
 
     public String getPosition(String assetID){
         for (Army a: armyList)
-            if (a.getID() == assetID)
+            if (a.getID().equals(assetID))
                 return a.getLocation();
         return null;
     }

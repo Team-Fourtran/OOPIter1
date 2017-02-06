@@ -30,8 +30,8 @@ public class StructureManager {
 
     public void decommission(String structureID){
         for (Structure s: structureList){
-            if (s.getID() == structureID){
-                structureIDs.add(s.getID());
+            if (s.getID().equals(structureID)){
+                this.freeID(s.getID());
                 structureList.remove(s);
             }
         }

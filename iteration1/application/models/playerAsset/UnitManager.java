@@ -43,7 +43,7 @@ public class UnitManager {
     public void decommissionUnit(String unitID){
         for (Unit u: unitList)
             if (u.getID() == unitID){
-                unitIDs.add(u.getID());
+                this.freeID(u.getID());
                 if (u instanceof MeleeUnit)
                     decrementUnit("melee");
                 else if (u instanceof RangedUnit)

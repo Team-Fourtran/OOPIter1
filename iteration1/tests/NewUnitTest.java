@@ -37,7 +37,6 @@ public class NewUnitTest {
         ArrayList<String> units = new ArrayList<String>();
         units.add("u1");
         Army a = p.formArmy(units, "T0");
-        p.freeFromSuffering("u1");
 
         ArrayList<Occupance> o = m.getTileState("T0").getOccupance();
         

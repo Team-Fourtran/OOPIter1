@@ -108,18 +108,6 @@ public class Player {
         else
             return ("No asset with that ID found");
     }
-    
-    /*
-     * Recycle asset id
-     */
-    public void freeFromSuffering(String assetID) {
-        if (assetID.charAt(0) == 'u')
-            units.freeID(assetID);
-        else if (assetID.charAt(0) == 'a')
-             armies.freeID(assetID);
-        else if (assetID.charAt(0) == 's')
-            structures.freeID(assetID);
-    }
 
     public Iterator getUnitIterator(){
         return units.makeIterator();
