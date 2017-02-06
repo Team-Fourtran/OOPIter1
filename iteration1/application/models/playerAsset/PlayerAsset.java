@@ -117,6 +117,8 @@ public abstract class PlayerAsset {
         return false;
     }
 
+    public void heal(){}
+
     public void resetCommands(){
         hasExecutedCommand = false;
     }
