@@ -76,7 +76,7 @@ public class Army extends PlayerAsset{
     //if multi-turn command, stall until turn count is reached
     public void executeCommand(){
 
-        int turns = commandQueue.peek().getTurns();
+        int turns = (int) commandQueue.peek().getTurns();
 
         if (turns != 0) {
             commandCount++;
