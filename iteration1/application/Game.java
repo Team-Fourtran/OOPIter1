@@ -84,11 +84,6 @@ public class Game {
 		currentPlayer.beginTurn();
 		currentPlayer.endTurn();
 		currentPlayer.beginTurn();
-//        System.out.println(map.getTileState("T4").getProperties());
-        //cGen.generateCommand("IU_T8_ranged");
-//        cGen.generateCommand("NA_T24_u1_u2_u3");
-
-//        System.out.println(map.getTileState("T4").getProperties());
     }
 
 	
