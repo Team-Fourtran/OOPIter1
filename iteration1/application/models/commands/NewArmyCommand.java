@@ -4,7 +4,6 @@ import application.models.playerAsset.Player;
 import application.models.tileState.AssetOccupance;
 import application.models.tileState.Map;
 import application.models.tileState.Occupance;
-
 import java.util.ArrayList;
 
 public class NewArmyCommand extends ConcreteCommand{

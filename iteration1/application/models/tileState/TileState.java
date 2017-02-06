@@ -103,6 +103,15 @@ public class TileState {
     	return occupances;
     }
 
+    public Occupance getOccupance(String id){
+        for (Occupance _o : occupances){
+            if (_o.getAssetID() == id){
+                return _o;
+            }
+        }
+        return null;
+    }
+
     public TileState addOccupance(Occupance _o){
         occupances.add(_o);
         _o.updateAssetLocation(this.id);
