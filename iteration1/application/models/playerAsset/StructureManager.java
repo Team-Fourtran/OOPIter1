@@ -16,7 +16,7 @@ public class StructureManager {
             structureIDs.add("s" + i);
     }
 
-    public int getStructureCount(){
+        public int getStructureCount(){
         return structureList.size();
     }
 
@@ -87,10 +87,16 @@ public class StructureManager {
                 s.addCommand(c);
     }
 
+    public void resetCommands(){
+        for (Structure s: structureList)
+            s.resetCommands();
+    }
+
     //used at beginning of player's turn
     public void executeCommands(){
         for (Structure s: structureList)
-            s.executeCommand();
+            if (!s.emptyQueue())
+                s.executeCommand();
     }
 
     public Iterator makeIterator(){

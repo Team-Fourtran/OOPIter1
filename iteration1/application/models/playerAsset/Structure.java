@@ -30,8 +30,10 @@ public class Structure extends PlayerAsset{
 
     public void addCommand(Command c){
         commandQueue.add(c);
-        if (!hasExecutedCommand)
+        if (!hasExecutedCommand) {
             executeCommand();
+            hasExecutedCommand = true;
+        }
     }
 
     //execute next command in queue
@@ -57,5 +59,17 @@ public class Structure extends PlayerAsset{
             return true;
         return false;
     }
+
+    public boolean emptyQueue(){
+        if (commandQueue.size() == 0)
+            return true;
+        return false;
+    }
+
+    public void resetCommands(){
+        hasExecutedCommand = false;
+    }
+
+
 
 }
