@@ -13,7 +13,7 @@ class MessageGenerator implements KeyPressListener{
     private Mode currentMode;
     private int modeIndex;	//Originally used ListIterator, but the Java List interface iterators are garbage
 
-    private HashMap<String, Iterator> assetIterators;
+    protected HashMap<String, Iterator> assetIterators;
 
     private Controller receiver;
 
@@ -172,7 +172,8 @@ class UnitMode implements Mode{
 
     @Override
     public void leftKey() {
-
+        String tempUnit = this.owner.assetIterators.get("army").next().toString();
+        System.out.println(tempUnit);
     }
 
     @Override
