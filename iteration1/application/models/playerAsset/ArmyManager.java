@@ -90,6 +90,12 @@ public class ArmyManager {
                 a.addCommand(c);
     }
 
+    public void addMoveCommand(Command c, String unitID){
+        for (Army a: armyList)
+            if (a.getUnit(unitID) != null)
+                a.getUnit(unitID).addCommand(c);
+    }
+
     public void executeCommands(){
         for (Army a: armyList)
             if (!a.emptyQueue())

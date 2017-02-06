@@ -67,4 +67,23 @@ public class Army extends PlayerAsset{
                 reinforcements.remove(u);
             }
     }
+
+    public boolean unitFound(String unitID){
+        for (Unit u: battleGroup)
+            if (u.getID() == unitID)
+                return true;
+        for (Unit u: reinforcements)
+            if (u.getID() == unitID)
+                return true;
+        return false;
+    }
+    public Unit getUnit(String unitID){
+        for (Unit u: battleGroup)
+            if (u.getID() == unitID)
+                return u;
+        for (Unit u: reinforcements)
+            if (u.getID() == unitID)
+                return u;
+        return null;
+    }
 }

@@ -121,4 +121,8 @@ public abstract class PlayerAsset {
         hasExecutedCommand = false;
     }
 
+    public String getType(){
+       return "basic asset type";
+    }
+
 }

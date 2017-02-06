@@ -33,6 +33,8 @@ public class Player {
             structures.addCommand(command, assetID);
         else if (assetID.charAt(0) == 'a')
             armies.addCommand(command, assetID);
+        else if (assetID.charAt(0) == 'u')
+            armies.addMoveCommand(command, assetID);
         else
             System.out.println("Invalid assetID");
     }
@@ -40,6 +42,7 @@ public class Player {
     public void setGame(Game game){
     	this.game = game;
     }
+
     //method to do maintenence tasks on player's assets
     public void beginTurn(){
         int totalFoodCost = units.calculateTotalUpkeep() + armies.calculateTotalUpkeep();
