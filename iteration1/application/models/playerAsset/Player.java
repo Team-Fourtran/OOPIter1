@@ -108,12 +108,6 @@ public class Player {
         structures.decommission(structureID);
     }
 
-    public void healUnits(String structureID){
-        String location = structures.getPosition(structureID);
-        armies.heal(location);
-        units.heal(location);
-    }
-
     public boolean canCreateUnit(String structureID, String type){
         return (structures.structureExists(structureID) && units.checkIfValid(type));
     }
