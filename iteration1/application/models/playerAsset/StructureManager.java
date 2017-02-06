@@ -3,6 +3,9 @@ package application.models.playerAsset;
 import application.models.commands.Command;
 
 import java.util.*;
+/* Management class for a Player's structures
+   Passes commands to specific structures
+ */
 
 public class StructureManager {
     public ArrayList<Structure> structureList;
@@ -16,7 +19,8 @@ public class StructureManager {
             structureIDs.add("s" + i);
     }
 
-        public int getStructureCount(){
+    //return amount of structures a Player has
+    public int getStructureCount(){
         return structureList.size();
     }
 
@@ -30,6 +34,7 @@ public class StructureManager {
         return s;
     }
 
+    //destroy a structure
     public void decommission(String structureID){
         for (Structure s: structureList){
             if (s.getID().equals(structureID)){
@@ -47,7 +52,8 @@ public class StructureManager {
         }
         return totalUpkeep;
     }
-    
+
+    //recycle a structure's ID after it is done using it
     public void freeID(String assetID) {
     	int escapee = Integer.parseInt(assetID.substring(assetID.lastIndexOf("u") + 1).trim());
     	for (int i = 0; i < structureIDs.size(); i++) {
@@ -60,6 +66,7 @@ public class StructureManager {
     	}
     }
 
+    //get the location of a specific structure
     public String getPosition(String assetID){
         for (Structure s: structureList)
             if (s.getID().equals(assetID))
@@ -67,6 +74,7 @@ public class StructureManager {
         return null;
     }
 
+    //check to see if a certain structure exists
     public boolean structureExists(String structureID){
         for (Structure s: structureList)
             if (s.getID().equals(structureID))
@@ -81,11 +89,13 @@ public class StructureManager {
                 s.addCommand(c);
     }
 
+    //reset all structures ability to execute  commands
     public void resetCommands(){
         for (Structure s: structureList)
             s.resetCommands();
     }
 
+    //go through the structures and, if possible, execute a command
     //used at beginning of player's turn
     public void executeCommands(){
         for (Structure s: structureList) {

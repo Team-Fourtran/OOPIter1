@@ -1,8 +1,11 @@
 package application.models.playerAsset;
 
+/* Class representing the PlayerAsset Structure
+   At this time, only represents a base
+ */
 public class Structure extends PlayerAsset{
 
-    int productionRate;
+    int productionRate;     //turns it takes to create a unit
 
     public Structure(){
 
@@ -17,6 +20,7 @@ public class Structure extends PlayerAsset{
 
     //execute next command in queue
     //if multi-turn command, wait appropriate amount of turns
+    //trimmed version of PlayerAsset implementation
     public void executeCommand(){
 
             if (!hasExecutedCommand) {
