@@ -1,0 +1,10 @@
+/Command.class
+/CommandGenerator.class
+/ConcreteCommand.class
+/InitialUnitsCommand.class
+/MoveAssetCommand.class
+/MoveDirectionCommand.class
+/NewArmyCommand.class
+/NewStructureCommand.class
+/NewUnitCommand.class
+/NullCommand.class
