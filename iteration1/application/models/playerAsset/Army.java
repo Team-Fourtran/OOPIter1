@@ -11,18 +11,18 @@ public class Army extends PlayerAsset {
     String rallyPoint;
 
     public Army(ArrayList<Unit> units, String rallyPoint) {
-    	System.out.println("us: " + units);
+    	//System.out.println("us: " + units);
         this.rallyPoint = rallyPoint;
         for (Unit u: units){
             if (u.getLocation().equals(rallyPoint)) {
                 battleGroup.add(u);
-                System.out.println("bg: " + battleGroup);
+//                System.out.println("bg: " + battleGroup);
             }
             else {
                 reinforcements.add(u);
             }
-            System.out.println("BG: " + battleGroup);
-            System.out.println("RI: " + reinforcements);
+//            System.out.println("BG: " + battleGroup);
+//            System.out.println("RI: " + reinforcements);
         }
     }
 

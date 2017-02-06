@@ -54,7 +54,7 @@ public class Player {
         armies.resetCommands();
         structures.resetCommands();
         units.resetCommands();
-        game.switchPlayers();
+//        game.switchPlayers();
     }
     //pass list of units to army manager to form army
     public Army formArmy(ArrayList<String> unitIDs, String rallyPoint){
@@ -109,10 +109,6 @@ public class Player {
 
     public void decommissionStructure(String structureID){
         structures.decommission(structureID);
-    }
-
-    public void healUnits(String structureID){
-        structures.healUnits(structureID);
     }
 
     public boolean canCreateUnit(String structureID, String type){

@@ -88,7 +88,6 @@ public class StructureManager {
 
     //used at beginning of player's turn
     public void executeCommands(){
-    	System.out.println("begin turn");
         for (Structure s: structureList) {
             if (!s.emptyQueue()) {
                 s.executeCommand();

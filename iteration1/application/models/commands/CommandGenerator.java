@@ -4,8 +4,6 @@ package application.models.commands;
 import application.models.playerAsset.Player;
 import application.models.tileState.Map;
 
-import java.util.ArrayList;
-
 public class CommandGenerator {
     private Player player;
     private Map map;
@@ -25,8 +23,6 @@ public class CommandGenerator {
 
         switch (commandArray[0]){
         	case "IU":	cmd = new InitialUnitsCommand(player, map);
-        				break;
-        	case "HU":	cmd = new HealUnitCommand(player, map);
         				break;
             case "MV":  cmd = new MoveAssetCommand(player, map);
             			break;
