@@ -69,7 +69,6 @@ public abstract class PlayerAsset {
         commandQueue.add(c);
         if (!hasExecutedCommand) {
             executeCommand();
-            hasExecutedCommand = true;
         }
     }
 
@@ -84,6 +83,7 @@ public abstract class PlayerAsset {
                     commandQueue.peek().execute();
                     commandQueue.remove();
                     commandCount = 0;
+                    hasExecutedCommand = true;
                 }
             } else {
                 int numCommands = 0;
@@ -99,6 +99,8 @@ public abstract class PlayerAsset {
                     commandQueue.peek().execute();
                     commandQueue.remove();
                 }
+
+                hasExecutedCommand = true;
 
             }
         }

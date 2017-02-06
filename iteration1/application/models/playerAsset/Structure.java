@@ -14,4 +14,20 @@ public class Structure extends PlayerAsset{
         upkeep = 1;
         
     }
+
+    //execute next command in queue
+    //if multi-turn command, wait appropriate amount of turns
+    public void executeCommand(){
+
+            if (!hasExecutedCommand) {
+                commandCount++;
+                if (equal(commandQueue.peek().getTurns(), commandCount)) {
+                    commandQueue.peek().execute();
+                    commandQueue.remove();
+                    hasExecutedCommand = true;
+                    commandCount = 0;
+                }
+            }
+
+    }
 }

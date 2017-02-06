@@ -53,6 +53,7 @@ public class Player {
     public void endTurn(){
         armies.resetCommands();
         structures.resetCommands();
+        units.resetCommands();
         game.switchPlayers();
     }
     //pass list of units to army manager to form army
@@ -78,8 +79,12 @@ public class Player {
     }
 
     //check to see if the structure creation is valid
-    public boolean canCreateStructure(String armyID){
-        return (armies.findArmy(armyID).hasColonist() && structures.getStructureCount() < 10);
+    public String canCreateStructure(String armyID){
+    	if (armies.findArmy(armyID).hasColonist() != null) {
+    		return armies.findArmy(armyID).hasColonist();
+    	} else {
+    		return null;
+    	}
     }
 
     public ArrayList<String> getUnitIDs(String armyID){
@@ -93,7 +98,7 @@ public class Player {
     //check a specific army for a colonist, create a structure on that tile,
     //and consume the colonist
     public Structure createStructure(String armyID){
-        if (canCreateStructure(armyID)) {
+        if (canCreateStructure(armyID) != null) {
             String location = armies.findArmy(armyID).getLocation(); //Can be removed, added to params if controller can send it!
             armies.findArmy(armyID).removeColonist();
             Structure s = structures.createStructure(location);
@@ -106,10 +111,14 @@ public class Player {
         structures.decommission(structureID);
     }
 
+    public void healUnits(String structureID){
+        structures.healUnits(structureID);
+    }
+
     public boolean canCreateUnit(String structureID, String type){
         return (structures.structureExists(structureID) && units.checkIfValid(type));
     }
-
+    
     //method to place a new unit on the map through an existing structure
     public Unit createUnit(String type, String structureID){
         if (units.checkIfValid(type)) {

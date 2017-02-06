@@ -4,21 +4,25 @@ import application.models.commands.Command;
 
 import java.util.*;
 
-public class Army extends PlayerAsset{
+public class Army extends PlayerAsset {
     
     ArrayList<Unit> battleGroup = new ArrayList<Unit>();
     ArrayList<Unit> reinforcements = new ArrayList<Unit>();
     String rallyPoint;
 
-    public Army(ArrayList<Unit> units, String rallyPoint){
+    public Army(ArrayList<Unit> units, String rallyPoint) {
+    	System.out.println("us: " + units);
         this.rallyPoint = rallyPoint;
         for (Unit u: units){
             if (u.getLocation().equals(rallyPoint)) {
                 battleGroup.add(u);
+                System.out.println("bg: " + battleGroup);
             }
             else {
                 reinforcements.add(u);
             }
+            System.out.println("BG: " + battleGroup);
+            System.out.println("RI: " + reinforcements);
         }
     }
 
@@ -35,17 +39,18 @@ public class Army extends PlayerAsset{
 
     //return all units in the army
     public ArrayList<Unit> getUnits(){
-        ArrayList<Unit> newList = battleGroup;
+        ArrayList<Unit> newList = new ArrayList<>();
+        newList.addAll(battleGroup);
         newList.addAll(reinforcements);
         return newList;
     }
 
     //method to check if an army has a colonist to make a structure
-    public boolean hasColonist(){
+    public String hasColonist() {
         for (Unit i: battleGroup)
             if (i instanceof Colonist)
-                return true;
-        return false;
+                return i.getID();
+        return "";
     }
 
     //after a structure is made, remove the colonist from the army
@@ -61,11 +66,15 @@ public class Army extends PlayerAsset{
     //see if any reinforcements arrived at the rally point
     //to be called each turn
     public void updateArmyTypes(){
-        for (Unit u: reinforcements)
+    	Unit removeMe = null;
+        for (Unit u: reinforcements) {
             if (u.getLocation().equals(rallyPoint)){
                 battleGroup.add(u);
-                reinforcements.remove(u);
+                removeMe = u;
             }
+        }
+        
+        reinforcements.remove(removeMe);
     }
 
     public Unit getUnit(String unitID){

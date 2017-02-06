@@ -40,5 +40,7 @@ public class MoveAssetCommand extends ConcreteCommand{
             Command cmd = new MoveDirectionCommand(getPlayer(), getMap());
             cmd.initialize("MVD", assetID, directionsArray[i]);
         }
+        // asset is unit of army? add it to army's battlegroup
+        
     }
 }

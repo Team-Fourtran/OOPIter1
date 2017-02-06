@@ -118,20 +118,22 @@ public class TileState {
         return this;
     }
 
-    private void removeOccupance(Occupance _o){
+    private void removeOccupance(Occupance _o) {
         occupances.remove(_o);
     }
 
     public void removeOccupance(String ID){
         Occupance oldOccupance = null;
     	Iterator<Occupance> i = occupances.iterator();
+    	Occupance removeMe = null;
         while(i.hasNext()){
         	Occupance _o = i.next();
             if (_o.getAssetID().equals(ID)){
-                oldOccupance = _o;
+            	removeMe = _o;
+            	break;
             }
         }
-        removeOccupance(oldOccupance);
+        removeOccupance(removeMe);
     }
 
     public void moveOccupance(String id, Directions direction){

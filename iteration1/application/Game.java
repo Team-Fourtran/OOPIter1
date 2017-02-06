@@ -36,9 +36,9 @@ public class Game {
                 System.out.println(map.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties());
             }
         }
-		//mainScreen = new MainScreen(map, currentPlayer.getUnitIterator());
-		mainScreen.prepareMainScreen();
-		mainScreen.showMainScreen();
+//		mainScreen = new MainScreen(map);
+//		mainScreen.prepareMainScreen();
+//		mainScreen.showMainScreen();
 	}
 	
 	public void switchPlayers(){

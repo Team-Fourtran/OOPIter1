@@ -97,14 +97,22 @@ public class ArmyManager {
     }
 
     public void executeCommands(){
-        for (Army a: armyList)
-            if (!a.emptyQueue())
+        for (Army a: armyList) {
+        	a.updateArmyTypes();
+        	
+            if (!a.emptyQueue()) {
                 a.executeCommand();
+            }
+        }
     }
 
     public void resetCommands(){
-        for (Army a: armyList)
+        for (Army a: armyList) {
+        	if (a.getUnits().size() == 0) {
+        		this.decommission(a.assetID);
+        	}
             a.resetCommands();
+        }
     }
 
     public Iterator makeIterator(){
