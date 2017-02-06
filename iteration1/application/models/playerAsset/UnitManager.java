@@ -13,7 +13,7 @@ public class UnitManager {
     int colonistCount;
     final int maxUnits = 25;
     final int maxUnitType = 10;
-    ArrayList<String> unitIDs = new ArrayList<>();
+    ArrayList<String> unitIDs = new ArrayList<String>();
 
     public UnitManager(){
         unitList = new ArrayList<>();

@@ -77,6 +77,7 @@ public class Army extends PlayerAsset{
     public void executeCommand(){
         int turns = (int) commandQueue.peek().getTurns();
 
+
         if (turns != 0) {
             commandCount++;
             if (equal(commandQueue.peek().getTurns(), commandCount)) {
