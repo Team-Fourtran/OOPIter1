@@ -1,5 +1,6 @@
 package application.models.playerAsset;
 
+//Unit type
 //Responsibilities: Attacker, can attack over multiple tiles
 public class RangedUnit extends Unit{
     
