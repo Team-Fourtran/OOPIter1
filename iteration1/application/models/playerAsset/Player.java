@@ -42,6 +42,7 @@ public class Player {
         wood -= totalWoodCost;
         armies.executeCommands();
         structures.executeCommands();
+        units.executeCommands();
     }
     public void endTurn(){
         armies.resetCommands();
@@ -94,6 +95,8 @@ public class Player {
         if (canCreateStructure(armyID) != null) {
             String location = armies.findArmy(armyID).getLocation(); //Can be removed, added to params if controller can send it!
             armies.findArmy(armyID).removeColonist();
+            if (getUnitIDs(armyID).isEmpty())
+                armies.decommission(armyID);
             Structure s = structures.createStructure(location);
             return s;
         }
@@ -153,6 +156,10 @@ public class Player {
              armies.freeID(assetID);
         else if (assetID.charAt(0) == 's')
             structures.freeID(assetID);
+    }
+
+    public void resetArmyUnitQueue(String armyID){
+        armies.resetArmyUnitQueue(armyID);
     }
 
     public Iterator getUnitIterator(){
