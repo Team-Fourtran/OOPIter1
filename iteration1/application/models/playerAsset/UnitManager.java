@@ -27,7 +27,7 @@ public class UnitManager {
     public Unit addNewUnit(String unitLocation, String type){
         Unit newUnit = factory.makeUnit(type);
         newUnit.setLocation(unitLocation);
-        newUnit.setID(unitIDs.get(0));
+        newUnit.setID(unitIDs.get(unitCount));
         unitList.add(newUnit);
         unitCount++;
         incrementUnit(type);

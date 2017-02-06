@@ -33,7 +33,7 @@ public class MoveAssetCommand extends ConcreteCommand{
     @Override
     public void unpack(){
         String path = getMap().generatePath(startTileID, destinationTileID);
-        //e.g., N_N_NW_NW_W
+        //e.g., 90_90_180
         String[] directionsArray = path.split("[_]");
         for(int i = 0; i < directionsArray.length; i++){
             Command cmd = new MoveDirectionCommand(getPlayer(), getMap());

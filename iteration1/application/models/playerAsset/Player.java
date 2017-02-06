@@ -23,9 +23,11 @@ public class Player {
     }
 
     public void notify(Command command){
+        System.out.println("Recieved command");
         command.execute();
     }
     public void notify(String assetID, Command command){
+        System.out.println(command.toString());
         //Pass c to corresponding asset queue
     }
 

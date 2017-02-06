@@ -25,7 +25,16 @@ public class NewStructureTest {
         m.printOut();
         Player p = new Player();
         
-        CommandGenerator cGen = new CommandGenerator(p, m);   
+        CommandGenerator cGen = new CommandGenerator(p, m);
+
+//        cGen.generateCommand("IU_T0_colonist");
+//        cGen.generateCommand("MV_U1_T3_T4");
+//        cGen.generateCommand("NS_U2");
+//        cGen.generateCommand("NU_S8_Explorer");
+        cGen.generateCommand("IU_T4_colonist");
+        cGen.generateCommand("IU_T5_colonist");
+        cGen.generateCommand("IU_T6_colonist");
+        cGen.generateCommand("NA_T9_u1_u2_u3");
         
         // Adding unit to tile T0
 //        Command c = cGen.generateCommand("IU_0_T0_colonist").get(0);
