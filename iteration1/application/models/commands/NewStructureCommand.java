@@ -16,6 +16,7 @@ public class NewStructureCommand extends ConcreteCommand{
     public void doInitialize(String ... strings){
         assetID = strings[1];
         //tileID = strings[2]; //PENDING CONTROLLER IMPLEMENTATION
+        getPlayer().notify(assetID, this);
     }
 
     @Override

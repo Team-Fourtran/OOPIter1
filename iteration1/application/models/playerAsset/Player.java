@@ -1,5 +1,7 @@
 package application.models.playerAsset;
 
+import application.models.commands.Command;
+
 import java.util.*;
 
 public class Player {
@@ -18,6 +20,13 @@ public class Player {
         food = 0;
         wood = 0;
 
+    }
+
+    public void notify(Command command){
+        command.execute();
+    }
+    public void notify(String assetID, Command command){
+        //Pass c to corresponding asset queue
     }
 
     //method to do maintenence tasks on player's assets

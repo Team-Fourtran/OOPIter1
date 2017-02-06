@@ -23,6 +23,7 @@ public class MoveDirectionCommand extends ConcreteCommand{
         		direction = d;
         	}
         }
+        getPlayer().notify(assetID, this);
     }
 
     @Override

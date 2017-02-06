@@ -28,38 +28,38 @@ public class NewStructureTest {
         CommandGenerator cGen = new CommandGenerator(p, m);   
         
         // Adding unit to tile T0
-        Command c = cGen.generateCommand("IU_0_T0_colonist").get(0);
-        c.execute();
-        
-        System.out.println(m.getTileState("T0").getProperties());
-        
-        // Create an army containing that colonist unit
-        System.out.println("\nCreate army");
-        ArrayList<String> units = new ArrayList<String>();
-        units.add("u1");
-        Army a = p.formArmy(units, "T0");
-
-        ArrayList<Occupance> o = m.getTileState("T0").getOccupance();
-        
-        Iterator<Occupance> i = o.iterator();
-        while(i.hasNext()) {
-        	Occupance oc = i.next();
-        	if (oc.getAssetID().equals("u1"));
-        	i.remove();
-        }
-        
-    	Occupance arm = new AssetOccupance(a);
-    	m.getTileState("T0").addOccupance(arm);
-
-       
-        System.out.println(m.getTileState("T0").getProperties() + "\n");
-        
-        // New Structure command
-
-        c = cGen.generateCommand("NS_a1").get(0);
-        c.execute();
-        
-        System.out.println(m.getTileState("T0").getProperties());
+//        Command c = cGen.generateCommand("IU_0_T0_colonist").get(0);
+//        c.execute();
+//
+//        System.out.println(m.getTileState("T0").getProperties());
+//
+//        // Create an army containing that colonist unit
+//        System.out.println("\nCreate army");
+//        ArrayList<String> units = new ArrayList<String>();
+//        units.add("u1");
+//        Army a = p.formArmy(units, "T0");
+//
+//        ArrayList<Occupance> o = m.getTileState("T0").getOccupance();
+//
+//        Iterator<Occupance> i = o.iterator();
+//        while(i.hasNext()) {
+//        	Occupance oc = i.next();
+//        	if (oc.getAssetID().equals("u1"));
+//        	i.remove();
+//        }
+//
+//    	Occupance arm = new AssetOccupance(a);
+//    	m.getTileState("T0").addOccupance(arm);
+//
+//
+//        System.out.println(m.getTileState("T0").getProperties() + "\n");
+//
+//        // New Structure command
+//
+//        c = cGen.generateCommand("NS_a1").get(0);
+//        c.execute();
+//
+//        System.out.println(m.getTileState("T0").getProperties());
 	}
 
 }

@@ -26,7 +26,7 @@ public class TestMessageGenerator {
         playerList.add(new Player());   //Player 1
         for(int i = 0; i < 2; i++){
             playerList.get(i).createInitialUnit("Tile0","Colonist");
-            playerList.get(i).createStructure()
+            playerList.get(i).createStructure("");
 
         }
 

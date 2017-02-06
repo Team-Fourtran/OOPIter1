@@ -23,7 +23,7 @@ public class MoveAssetCommand extends ConcreteCommand{
         assetID = strings[1];
         startTileID = strings[2];
         destinationTileID = strings[3];
-
+        this.unpack();
     }
     @Override
     protected void setPacking(){
@@ -31,15 +31,13 @@ public class MoveAssetCommand extends ConcreteCommand{
     }
 
     @Override
-    public ArrayList<Command> unpack(){
+    public void unpack(){
         String path = getMap().generatePath(startTileID, destinationTileID);
         //e.g., N_N_NW_NW_W
         String[] directionsArray = path.split("[_]");
-        ArrayList<Command> cmdList = new ArrayList<>(directionsArray.length);
         for(int i = 0; i < directionsArray.length; i++){
-            cmdList.add(new MoveDirectionCommand(getPlayer(), getMap()));
-            cmdList.get(i).initialize("MVD", assetID, directionsArray[i]);
+            Command cmd = new MoveDirectionCommand(getPlayer(), getMap());
+            cmd.initialize("MVD", assetID, directionsArray[i]);
         }
-        return cmdList;
     }
 }

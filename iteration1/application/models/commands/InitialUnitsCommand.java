@@ -19,6 +19,7 @@ public class InitialUnitsCommand extends ConcreteCommand {
 	public void doInitialize(String... strings) {
 		destinationTileID = strings[2];
 		unitType = strings[3];
+		getPlayer().notify(this);
 	}
 
 	@Override

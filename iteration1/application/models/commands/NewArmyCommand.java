@@ -3,8 +3,6 @@ package application.models.commands;
 import application.models.playerAsset.Player;
 import application.models.tileState.Map;
 
-import java.util.ArrayList;
-
 public class NewArmyCommand extends ConcreteCommand{
     private String destinationTileID;
     private String[] unitIDList;
@@ -25,6 +23,7 @@ public class NewArmyCommand extends ConcreteCommand{
         for (int i = 2; i < strings.length; i++){
             unitIDList[i-2] = strings[i];
         }
+        this.unpack();
     }
 
     @Override
@@ -33,7 +32,5 @@ public class NewArmyCommand extends ConcreteCommand{
     }
 
     @Override
-    public ArrayList<Command> unpack(){
-        return null;
-    }
+    public void unpack(){ }
 }

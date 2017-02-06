@@ -65,9 +65,8 @@ abstract class ConcreteCommand implements Command {
         needsUnpacked = false;
     }
 
-    public ArrayList<Command> unpack() {
+    public void unpack() {
         System.out.println("You shouldn't be executing me");
-        return null;
     }
 }
 
