@@ -32,7 +32,7 @@ public class CommandGenerator {
             			break;
             case "NS":  cmd = new NewStructureCommand(player, map);
             			break;
-            case "NU":  cmd = new newUnitCommand(player, map);
+            case "NU":  cmd = new NewUnitCommand(player, map);
                         break;
             case "NA":  cmd = new NewArmyCommand(player, map);
                         break;
