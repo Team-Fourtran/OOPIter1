@@ -1,73 +1,73 @@
 package application.controllers;
 
+import sun.plugin2.message.Message;
+
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
 
 
-class MessageGenerator {
+class MessageGenerator implements KeyPressListener{
     private ArrayList<Mode> modes = new ArrayList<Mode>();
-
     private Mode currentMode;
     private int modeIndex;	//Originally used ListIterator, but the Java List interface iterators are garbage
 
+    private HashMap<String, Iterator> assetIterators;
+
     private Controller receiver;
 
-    MessageGenerator(Controller receiver){
+    MessageGenerator(Controller receiver, KeyPressInformer keyInformer, HashMap<String, Iterator> assetIterators){
         initializeModes();
+        this.assetIterators = assetIterators;
         this.receiver = receiver;
-        System.out.println(this.modes);
-        listenToKeyboard();
+        //System.out.println(this.modes);
+        keyInformer.registerClient(this);
+    }
+    //Gets called when player turn switches. Changes the iterators on hand.
+    protected void updateIterators(HashMap<String, Iterator> assetIterators){
+        this.assetIterators = assetIterators;
     }
 
-    private void listenToKeyboard(){
-        //Runs perpetually
-        System.out.println("Syntax:\n\t'UP','DOWN','LEFT','RIGHT','CONTROL','ENTER'\n\t(Space-separated)");
-        Scanner s = new Scanner(System.in);
+    @Override //Listen to notifications from a KeyPressInformer
+    public void updateKeysPressed(HashMap<String, Boolean> kp) {
+        interpretKeystrokes(kp);
+    }
 
-        while(true){
-			/*TODO: Get actual keyboard input. For now just prompts for keystrokes */
-            System.out.println("\n\nEnter simulated keystrokes: ");
-            ArrayList<String> keystrokes = new ArrayList<String>();
-            String[] tempS = s.nextLine().split(" ");
-            for(int i = 0; i < tempS.length; i++)
-                keystrokes.add(tempS[i]);
+    private void interpretKeystrokes(HashMap<String, Boolean> keystrokes){
+        //System.out.println(keystrokes);
+        if(keystrokes.get("ENTER")){
+            generateMessage();
+        }
 
-            //Enter key and nothing else == "Submit"
-            if(keystrokes.contains("ENTER") && keystrokes.size() == 1){
-                generateMessage();
+        if(keystrokes.get("CONTROL")){
+            //Cycle MODE
+            if(keystrokes.get("UP")){
+                nextMode();
+            } else if(keystrokes.get("DOWN")){
+                previousMode();
             }
 
-            if(keystrokes.contains("CONTROL")){
-                //Cycle MODE
-                if(keystrokes.contains("UP")){
-                    nextMode();
-                } else if(keystrokes.contains("DOWN")){
-                    previousMode();
-                }
-
-                //Cycle TYPE
-                else if(keystrokes.contains("LEFT")){
-                    this.currentMode.controlLeft();			//Forward to Mode
-                } else if(keystrokes.contains("RIGHT")){
-                    this.currentMode.controlRight();		//Forward to Mode
-                }
-
-            } else {
-                if(keystrokes.contains("UP")){
-                    this.currentMode.upKey();
-                } else if(keystrokes.contains("DOWN")){
-                    this.currentMode.downKey();
-                }
-
-                //Cycle TYPE
-                else if(keystrokes.contains("LEFT")){
-                    this.currentMode.leftKey();
-                } else if(keystrokes.contains("RIGHT")){
-                    this.currentMode.rightKey();
-                }
+            //Cycle TYPE
+            else if(keystrokes.get("LEFT")){
+                this.currentMode.controlLeft();			//Forward to Mode
+            } else if(keystrokes.get("RIGHT")){
+                this.currentMode.controlRight();		//Forward to Mode
             }
 
+        } else {
+            if(keystrokes.get("UP")){
+                this.currentMode.upKey();          		//Forward to Mode
+            } else if(keystrokes.get("DOWN")){
+                this.currentMode.downKey();		    	//Forward to Mode
+            }
 
+            //Cycle TYPE
+            else if(keystrokes.get("LEFT")){
+                this.currentMode.leftKey(); 			//Forward to Mode
+            } else if(keystrokes.get("RIGHT")){
+                this.currentMode.rightKey();    		//Forward to Mode
+            }
         }
     }
 
@@ -78,10 +78,10 @@ class MessageGenerator {
 
     private void initializeModes(){
         //Fill this.modes with the 4 modes
-        this.modes.add((Mode) new RallyPointMode());
-        this.modes.add((Mode) new StructureMode());
-        this.modes.add((Mode) new UnitMode());
-        this.modes.add((Mode) new ArmyMode());
+        this.modes.add((Mode) new RallyPointMode(this));
+        this.modes.add((Mode) new StructureMode(this));
+        this.modes.add((Mode) new UnitMode(this));
+        this.modes.add((Mode) new ArmyMode(this));
 
         //Initialize currentMode
         this.modeIndex = 0;
@@ -92,12 +92,15 @@ class MessageGenerator {
     private void nextMode(){
         this.modeIndex = Utils.mod(this.modeIndex + 1,this.modes.size());
         this.currentMode = (Mode) modes.get(modeIndex);
+        System.out.println(currentMode);
     }
 
     //Switches the mode to the previous mode on the list, looping back around when the beginning is reached.
     private void previousMode(){
         this.modeIndex = Utils.mod(this.modeIndex - 1,this.modes.size());
         this.currentMode = (Mode) modes.get(modeIndex);
+        System.out.println(currentMode);
+
     }
 }
 
@@ -109,11 +112,11 @@ interface Mode{
     void controlRight();
 
 
-	void upKey();
-	void downKey();
+    void upKey();
+    void downKey();
 
-	void leftKey();
-	void rightKey();
+    void leftKey();
+    void rightKey();
 
     String toString();
 }
@@ -122,8 +125,10 @@ class UnitMode implements Mode{
     private ArrayList<String> unitTypes = new ArrayList<String>();
     private String currentType;
     private int currentTypeIndex;
+    MessageGenerator owner;
 
-    UnitMode(){
+    UnitMode(MessageGenerator owner){
+        this.owner = owner;
         this.unitTypes.add("Explorer");
         this.unitTypes.add("Colonist");
         this.unitTypes.add("Melee Unit");
@@ -145,12 +150,14 @@ class UnitMode implements Mode{
     public void controlLeft() {
         this.currentTypeIndex = Utils.mod(currentTypeIndex - 1, this.unitTypes.size());
         this.currentType = this.unitTypes.get(this.currentTypeIndex);
+        System.out.println("Mode: Unit\tSubmode:" + currentType);
     }
 
     @Override //Cycle to next type
     public void controlRight() {
         this.currentTypeIndex = Utils.mod(currentTypeIndex + 1, this.unitTypes.size());
         this.currentType = this.unitTypes.get(this.currentTypeIndex);
+        System.out.println("Mode: Unit\tSubmode:" + currentType);
     }
 
     @Override
@@ -178,6 +185,11 @@ class StructureMode implements Mode{
     private ArrayList<String> baseTypes = new ArrayList<String>();
     private String currentType;
     private int currentTypeIndex;
+    MessageGenerator owner;
+
+    StructureMode(MessageGenerator owner){
+        this.owner = owner;
+    }
 
     public String toString(){
         return "I am in Structure Mode";
@@ -221,6 +233,12 @@ class StructureMode implements Mode{
 }
 
 class RallyPointMode implements Mode{
+    MessageGenerator owner;
+
+    RallyPointMode(MessageGenerator owner){
+        this.owner = owner;
+    }
+
     public String toString(){
         return "I am in RallyPoint Mode";
     }
@@ -260,8 +278,10 @@ class ArmyMode implements Mode{
     private ArrayList<Mode> subModes = new ArrayList<Mode>();
     private Mode currentSubMode = new EntireArmyMode();
     private int subModeIndex;
+    MessageGenerator owner;
 
-    ArmyMode() {
+    ArmyMode(MessageGenerator owner) {
+        this.owner = owner;
         subModes.add(new EntireArmyMode());
         subModes.add(new BattleGroupMode());
         subModes.add(new ReinforcementMode());
@@ -282,12 +302,15 @@ class ArmyMode implements Mode{
     public void controlLeft() {
         this.subModeIndex = Utils.mod(subModeIndex - 1, this.subModes.size());
         this.currentSubMode = this.subModes.get(this.subModeIndex);
+        System.out.println("Mode: Army\tSubmode:" + currentSubMode);
     }
 
     @Override //Cycle to next submode
     public void controlRight() {
         this.subModeIndex = Utils.mod(subModeIndex + 1, this.subModes.size());
         this.currentSubMode = this.subModes.get(this.subModeIndex);
+        System.out.println("Mode: Army\tSubmode:" + currentSubMode);
+
     }
 
     @Override
