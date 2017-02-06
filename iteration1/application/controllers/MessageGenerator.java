@@ -43,9 +43,6 @@ class MessageGenerator implements KeyPressListener{
         receiver.updatePanelWithStatus(getStatus());
     }
     private void interpretKeystrokes(HashMap<String, Boolean> keystrokes){
-
-
-
         if(keystrokes.get("ENTER")){
             generateMessage();          //Submit the message
         }
