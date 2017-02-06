@@ -107,8 +107,12 @@ public class ArmyManager {
     }
 
     public void resetCommands(){
-        for (Army a: armyList)
+        for (Army a: armyList) {
+        	if (a.getUnits().size() == 0) {
+        		this.decommission(a.assetID);
+        	}
             a.resetCommands();
+        }
     }
 
     public Iterator makeIterator(){

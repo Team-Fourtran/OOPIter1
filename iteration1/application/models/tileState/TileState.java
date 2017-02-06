@@ -115,12 +115,15 @@ public class TileState {
 
     public void removeOccupance(String ID){
     	Iterator<Occupance> i = occupances.iterator();
+    	Occupance removeMe = null;
         while(i.hasNext()){
         	Occupance _o = i.next();
             if (_o.getAssetID().equals(ID)){
-                removeOccupance(_o);
+            	removeMe = _o;
+            	break;
             }
         }
+        removeOccupance(removeMe);
     }
 
     public void moveOccupance(String id, Directions direction){

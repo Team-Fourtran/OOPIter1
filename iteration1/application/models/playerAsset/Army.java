@@ -15,7 +15,7 @@ public class Army extends PlayerAsset {
         this.rallyPoint = rallyPoint;
         for (Unit u: units){
             if (u.getLocation().equals(rallyPoint)) {
-//                battleGroup.add(u);
+                battleGroup.add(u);
                 System.out.println("bg: " + battleGroup);
             }
             else {
@@ -32,7 +32,7 @@ public class Army extends PlayerAsset {
         rallyPoint = location;
         for (Unit u: reinforcements)
             if (u.getLocation().equals(rallyPoint)){
-//                battleGroup.add(u);
+                battleGroup.add(u);
                 reinforcements.remove(u);
             }
     }
@@ -46,11 +46,11 @@ public class Army extends PlayerAsset {
     }
 
     //method to check if an army has a colonist to make a structure
-    public boolean hasColonist() {
+    public String hasColonist() {
         for (Unit i: battleGroup)
             if (i instanceof Colonist)
-                return true;
-        return false;
+                return i.getID();
+        return "";
     }
 
     //after a structure is made, remove the colonist from the army
@@ -69,13 +69,14 @@ public class Army extends PlayerAsset {
     	Unit removeMe = null;
         for (Unit u: reinforcements) {
             if (u.getLocation().equals(rallyPoint)){
-//                battleGroup.add(u);
+                battleGroup.add(u);
                 removeMe = u;
             }
         }
+        
+        reinforcements.remove(removeMe);
         System.out.println("BG2: " + battleGroup);
         System.out.println("RI2: " + reinforcements);
-        reinforcements.remove(removeMe);
     }
 
     public Unit getUnit(String unitID){

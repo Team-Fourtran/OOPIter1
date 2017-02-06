@@ -23,11 +23,15 @@ public class NewStructureCommand extends ConcreteCommand{
     public void execute() {
         Map map = getMap();
         Player player = getPlayer();
-        if(player.canCreateStructure(assetID)){
+        String colonistID = player.canCreateStructure(assetID);
+        if(colonistID != null){
             System.out.println("Creating Occupance...\n");
             Occupance _o = new AssetOccupance(player.createStructure(assetID));
             System.out.println("new asset occupance with id = " + assetID + "\n");
-            map.getTileState(_o.getTileID()/*maybe can use tileID*/).addOccupance(_o).removeOccupance(assetID);
+            map.getTileState(_o.getTileID()/*maybe can use tileID*/).addOccupance(_o).removeOccupance(colonistID);
+            if (player.getUnitIDs(assetID).isEmpty()) {
+            	  map.getTileState(_o.getTileID()).removeOccupance(assetID);
+            }
         }
     }
 
