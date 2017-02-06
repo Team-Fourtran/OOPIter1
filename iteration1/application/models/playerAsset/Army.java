@@ -39,7 +39,8 @@ public class Army extends PlayerAsset {
 
     //return all units in the army
     public ArrayList<Unit> getUnits(){
-        ArrayList<Unit> newList = battleGroup;
+        ArrayList<Unit> newList = new ArrayList<>();
+        newList.addAll(battleGroup);
         newList.addAll(reinforcements);
         return newList;
     }
@@ -75,5 +76,13 @@ public class Army extends PlayerAsset {
         System.out.println("BG2: " + battleGroup);
         System.out.println("RI2: " + reinforcements);
         reinforcements.remove(removeMe);
+    }
+
+    public Unit getUnit(String unitID){
+        ArrayList<Unit> units = getUnits();
+        for (Unit u: units)
+            if (u.getID() == unitID)
+                return u;
+        return null;
     }
 }

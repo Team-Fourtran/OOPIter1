@@ -33,6 +33,7 @@ public class Player {
     public void setGame(Game game){
     	this.game = game;
     }
+
     //method to do maintenence tasks on player's assets
     public void beginTurn(){
         int totalFoodCost = units.calculateTotalUpkeep() + armies.calculateTotalUpkeep();
@@ -72,6 +73,14 @@ public class Player {
     //check to see if the structure creation is valid
     public boolean canCreateStructure(String armyID){
         return (armies.findArmy(armyID).hasColonist() && structures.getStructureCount() < 10);
+    }
+
+    public ArrayList<String> getUnitIDs(String armyID){
+        ArrayList<Unit> units = armies.findArmy(armyID).getUnits();
+        ArrayList<String> unitIDs = new ArrayList<String>();
+        for (Unit u: units)
+            unitIDs.add(u.getID());
+        return unitIDs;
     }
 
     //check a specific army for a colonist, create a structure on that tile,
