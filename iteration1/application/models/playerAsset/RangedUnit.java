@@ -11,7 +11,7 @@ public class RangedUnit extends Unit{
         armor = 25;
         movesPerTurn = 2;
         maxHealth = currentHealth = 150;
-        upkeep = 1;
+        upkeep = 20;
         range = 2;
     }
 

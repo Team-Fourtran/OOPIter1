@@ -57,13 +57,13 @@ public abstract class PlayerAsset {
     }
 
     public void powerUp(){
-        if (!poweredUp)         //incorrect logic, will be fixed
+        if (!poweredUp)         //need to add logic for powerUp delay
             upkeep *= 4;
     }
 
     public void powerDown(){
         if (poweredUp)
-            upkeep = (int)Math.ceil(.25*upkeep);
+            upkeep /= 4;
     }
 
     public void addCommand(Command c){

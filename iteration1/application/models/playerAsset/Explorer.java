@@ -9,7 +9,7 @@ public class Explorer extends Unit{
         armor = 25;
         movesPerTurn = 2;
         maxHealth = currentHealth = 100;
-        upkeep = 1;
+        upkeep = 12;
     }
 
     public String getType(){
