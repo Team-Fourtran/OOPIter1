@@ -32,17 +32,18 @@ public class StructureManager {
 
     public void decommission(String structureID){
         for (Structure s: structureList){
-            if (s.getID() == structureID){
+            if (s.getID().equals(structureID)){
                 structureIDs.add(s.getID());
                 structureList.remove(s);
             }
         }
     }
 
-    public void heal(String structureID, Unit u){
-        for (Structure s: structureList)
+    public void healUnits(String structureID) {
+        for (Structure s: structureList) {
             if (s.getID().equals(structureID))
-                s.healUnit(u);
+                s.healUnits();
+        }
     }
 
     //calculate upkeep from all the Player's structures

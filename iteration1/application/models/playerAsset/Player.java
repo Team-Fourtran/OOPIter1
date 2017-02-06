@@ -97,9 +97,8 @@ public class Player {
         structures.decommission(structureID);
     }
 
-    public void healUnit(String structureID, String unitID){
-        if (units.getPosition(unitID) == structures.getPosition(structureID))
-            structures.heal(structureID, units.getUnit(unitID));
+    public void healUnits(String structureID){
+        structures.healUnits(structureID);
     }
 
     public boolean canCreateUnit(String structureID, String type){
