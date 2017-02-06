@@ -1,7 +1,7 @@
 package application.models.playerAsset;
 
 import java.util.*;
-
+import application.*;
 public class Player {
     
     private final ArmyManager armies;
@@ -9,7 +9,7 @@ public class Player {
     private final StructureManager structures;
     private int food;
     private int wood;
-    
+    private Game game;
     
     public Player(){
         armies = new ArmyManager();
@@ -19,7 +19,9 @@ public class Player {
         wood = 0;
 
     }
-
+    public void setGame(Game game){
+    	this.game = game;
+    }
     //method to do maintenence tasks on player's assets
     public void beginTurn(){
         int totalFoodCost = units.calculateTotalUpkeep() + armies.calculateTotalUpkeep();
@@ -29,7 +31,9 @@ public class Player {
         //TO-DO: enforce some punishment for not having enough
         //Traverse all queues and execute
     }
-
+    public void endTurn(){
+    	 game.switchPlayers();
+    }
     //pass list of units to army manager to form army
     public Army formArmy(ArrayList<String> unitIDs, String rallyPoint){
     	ArrayList<Unit> u = new ArrayList<Unit>();
