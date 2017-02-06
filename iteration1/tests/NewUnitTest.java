@@ -29,7 +29,7 @@ public class NewUnitTest {
         CommandGenerator cGen = new CommandGenerator(p, m);   
         
         // Adding unit to tile T0
-        Command c = cGen.generateCommand("IU_0_T0_colonist").get(0);
+        Command c = cGen.generateCommand("IU_T0_colonist").get(0);
         c.execute();
         
         // Create an army containing that colonist unit

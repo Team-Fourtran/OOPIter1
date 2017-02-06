@@ -45,9 +45,11 @@ public class Army extends PlayerAsset{
 
     //method to check if an army has a colonist to make a structure
     public boolean hasColonist(){
-        for (Unit i: battleGroup)
-            if (i instanceof Colonist)
+        for (Unit i: battleGroup) {
+            if (i instanceof Colonist) {
                 return true;
+            }
+        }
         return false;
     }
 
