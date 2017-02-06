@@ -19,6 +19,7 @@ public class Structure extends PlayerAsset{
         productionRate = 2;
         maxHealth = currentHealth = 200;
         upkeep = 1;
+        hasExecutedCommand = false;
         
     }
 
@@ -27,14 +28,24 @@ public class Structure extends PlayerAsset{
         u.heal(50);
     }
 
+    public void addCommand(Command c){
+        commandQueue.add(c);
+        if (!hasExecutedCommand)
+            executeCommand();
+    }
+
     //execute next command in queue
     //if multi-turn command, wait appropriate amount of turns
     public void executeCommand(){
-            commandCount++;
-            if (equal(commandQueue.peek().getTurns(), commandCount)){
-                commandQueue.peek().execute();
-                commandQueue.remove();
-                commandCount = 0;
+
+            if (!hasExecutedCommand) {
+                commandCount++;
+                if (equal(commandQueue.peek().getTurns(), commandCount)) {
+                    commandQueue.peek().execute();
+                    commandQueue.remove();
+                    hasExecutedCommand = true;
+                    commandCount = 0;
+                }
             }
 
     }

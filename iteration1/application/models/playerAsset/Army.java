@@ -67,6 +67,11 @@ public class Army extends PlayerAsset{
             }
     }
 
+    public void addCommand(Command c){
+        commandQueue.add(c);
+    }
+
+
     //execute appropriate number of commands for this turn
     //if movement, could be many commands
     //if multi-turn command, stall until turn count is reached

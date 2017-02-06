@@ -1,5 +1,7 @@
 package application.models.playerAsset;
 
+import application.models.commands.Command;
+
 import java.util.*;
 
 public class ArmyManager {
@@ -62,7 +64,17 @@ public class ArmyManager {
         return null;
     }
 
-    //public void executeCommands(){}
+    //add command into specific structure's queue
+    public void addCommand(Command c, String armyID){
+        for (Army a: armyList)
+            if (a.getID() == armyID)
+                a.addCommand(c);
+    }
+
+    public void executeCommands(){
+        for (Army a: armyList)
+            a.executeCommand();
+    }
 
     public Iterator makeIterator(){
         return armyList.iterator();
