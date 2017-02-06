@@ -46,10 +46,25 @@ public class Game {
             }
         }
 		
+		ListIterator unitIterator = currentPlayer.getUnitIterator();
+		ListIterator structureIterator = currentPlayer.getStructureIterator();
+
 		// Startup main screen
-//		mainScreen = new MainScreen(map);
-//		mainScreen.prepareMainScreen();
-//		mainScreen.showMainScreen();
+		mainScreen = new MainScreen(map);
+		mainScreen.prepareMainScreen();
+		mainScreen.showMainScreen();
+
+		try {
+		    Thread.sleep(1000);
+		} catch(InterruptedException ex) {
+		    Thread.currentThread().interrupt();
+		}
+		cGen0.generateCommand("IU_T8_colonist");
+		cGen0.generateCommand("IU_T65_explorer");
+
+		unitIterator = currentPlayer.getUnitIterator();
+		structureIterator = currentPlayer.getStructureIterator();
+		mainScreen.updateMainScreen(unitIterator, structureIterator);
 	}
 
 	// Retrieve the current player
