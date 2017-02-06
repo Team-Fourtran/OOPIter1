@@ -4,21 +4,25 @@ import application.models.commands.Command;
 
 import java.util.*;
 
-public class Army extends PlayerAsset{
+public class Army extends PlayerAsset {
     
     ArrayList<Unit> battleGroup = new ArrayList<Unit>();
     ArrayList<Unit> reinforcements = new ArrayList<Unit>();
     String rallyPoint;
 
-    public Army(ArrayList<Unit> units, String rallyPoint){
+    public Army(ArrayList<Unit> units, String rallyPoint) {
+    	System.out.println("us: " + units);
         this.rallyPoint = rallyPoint;
         for (Unit u: units){
             if (u.getLocation().equals(rallyPoint)) {
-                battleGroup.add(u);
+//                battleGroup.add(u);
+                System.out.println("bg: " + battleGroup);
             }
             else {
                 reinforcements.add(u);
             }
+            System.out.println("BG: " + battleGroup);
+            System.out.println("RI: " + reinforcements);
         }
     }
 
@@ -27,8 +31,8 @@ public class Army extends PlayerAsset{
     public void setRallyPoint(String location){
         rallyPoint = location;
         for (Unit u: reinforcements)
-            if (u.getLocation() == rallyPoint){
-                battleGroup.add(u);
+            if (u.getLocation().equals(rallyPoint)){
+//                battleGroup.add(u);
                 reinforcements.remove(u);
             }
     }
@@ -41,7 +45,7 @@ public class Army extends PlayerAsset{
     }
 
     //method to check if an army has a colonist to make a structure
-    public boolean hasColonist(){
+    public boolean hasColonist() {
         for (Unit i: battleGroup)
             if (i instanceof Colonist)
                 return true;
@@ -61,10 +65,15 @@ public class Army extends PlayerAsset{
     //see if any reinforcements arrived at the rally point
     //to be called each turn
     public void updateArmyTypes(){
-        for (Unit u: reinforcements)
-            if (u.getLocation() == rallyPoint){
-                battleGroup.add(u);
-                reinforcements.remove(u);
+    	Unit removeMe = null;
+        for (Unit u: reinforcements) {
+            if (u.getLocation().equals(rallyPoint)){
+//                battleGroup.add(u);
+                removeMe = u;
             }
+        }
+        System.out.println("BG2: " + battleGroup);
+        System.out.println("RI2: " + reinforcements);
+        reinforcements.remove(removeMe);
     }
 }

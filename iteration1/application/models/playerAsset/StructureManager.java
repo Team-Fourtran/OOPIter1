@@ -84,7 +84,7 @@ public class StructureManager {
     //add command into specific structure's queue
     public void addCommand(Command c, String structureID){
         for (Structure s: structureList)
-            if (s.getID() == structureID)
+            if (s.getID().equals(structureID))
                 s.addCommand(c);
     }
 
@@ -95,9 +95,12 @@ public class StructureManager {
 
     //used at beginning of player's turn
     public void executeCommands(){
-        for (Structure s: structureList)
-            if (!s.emptyQueue())
+    	System.out.println("begin turn");
+        for (Structure s: structureList) {
+            if (!s.emptyQueue()) {
                 s.executeCommand();
+            }
+        }
     }
 
     public Iterator makeIterator(){

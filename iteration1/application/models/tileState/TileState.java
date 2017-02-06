@@ -109,7 +109,7 @@ public class TileState {
         return this;
     }
 
-    private void removeOccupance(Occupance _o){
+    private void removeOccupance(Occupance _o) {
         occupances.remove(_o);
     }
 

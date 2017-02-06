@@ -97,7 +97,7 @@ public class Player {
     public boolean canCreateUnit(String structureID, String type){
         return (structures.structureExists(structureID) && units.checkIfValid(type));
     }
-
+    
     //method to place a new unit on the map through an existing structure
     public Unit createUnit(String type, String structureID){
         if (units.checkIfValid(type)) {
