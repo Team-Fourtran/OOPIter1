@@ -38,10 +38,10 @@ public class Game {
 		cGen0.generateCommand("IU_T19_explorer");
 		cGen0.generateCommand("IU_T24_explorer");
         
-		CommandGenerator cGen1 = new CommandGenerator(players[0], map);
-		cGen1.generateCommand("IU_T100_colonist");
-		cGen1.generateCommand("IU_T115_explorer");
-		cGen1.generateCommand("IU_T130_explorer");
+//		CommandGenerator cGen1 = new CommandGenerator(players[0], map);
+//		cGen1.generateCommand("IU_T100_colonist");
+//		cGen1.generateCommand("IU_T115_explorer");
+//		cGen1.generateCommand("IU_T130_explorer");
 
 
 		for(int i = 0; i < 15; i++){
@@ -61,7 +61,7 @@ public class Game {
 
 		new Timer().schedule(new TimerTask(){
 		    public void run(){
-		        mainScreen.renderMainScreen();
+		        mainScreen.renderMainScreen(currentPlayer.getUnitIterator(), currentPlayer.getStructureIterator());
             }
         }, 0, 250);
 
@@ -70,7 +70,7 @@ public class Game {
 		currentPlayer.beginTurn();
 		currentPlayer.endTurn();
 		currentPlayer.beginTurn();
-//		cGen0.generateCommand("NS_a1");
+		cGen0.generateCommand("NS_a1");
 		currentPlayer.endTurn();
 		currentPlayer.beginTurn();
 		currentPlayer.endTurn();

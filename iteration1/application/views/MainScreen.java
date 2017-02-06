@@ -2,6 +2,7 @@ package application.views;
 
 import javax.swing.*;
 import application.controllers.KeyPressInformer;
+import application.models.playerAsset.Player;
 import application.models.playerAsset.PlayerAsset;
 import application.models.tileState.Map;
 import java.awt.*;
@@ -351,12 +352,16 @@ public class MainScreen{
     
     }
 
-    public void renderMainScreen(){
+    public void renderMainScreen(ListIterator ui, ListIterator si){
         int z = 0;
         String[] unitTypeArr = new String[ROW * COL];
         String[] structTypeArr = new String[ROW * COL];
         Arrays.fill(unitTypeArr, "");
         Arrays.fill(structTypeArr, "");
+
+        unitIterator = ui;
+        structureIterator = si;
+
         while(unitIterator.hasNext()){
             PlayerAsset asset = (PlayerAsset) unitIterator.next();
             unitData[z][0] = asset.getID();
@@ -464,6 +469,8 @@ public class MainScreen{
             for(int j = 0; j < COL; j++){
                 if(terrains2d[i][j].toUpperCase().equals("NORMAL")){
                     Grid[i][j].setIcon(TERRAIN[0]);
+                } else if(terrains2d[i][j].equals("NORMALSTRUCTURE")){
+                    Grid[i][j].setIcon(NORMAL_STRUCTURE);
                 } else if(terrains2d[i][j].equals("NORMALARMY")) {
                     Grid[i][j].setIcon(NORMAL_ARMY);
                 } else if(terrains2d[i][j].equals("SLOWARMY")) {
@@ -488,8 +495,6 @@ public class MainScreen{
                     Grid[i][j].setIcon(SLOW_MELEE);
                 } else if(terrains2d[i][j].equals("SLOWRANGED")){
                     Grid[i][j].setIcon(SLOW_RANGED);
-                } else if(terrains2d[i][j].equals("NORMALSTRUCTURE")){
-                    Grid[i][j].setIcon(NORMAL_STRUCTURE);
                 } else if(terrains2d[i][j].equals("SLOWSTRUCTURE")){
                     Grid[i][j].setIcon(SLOW_STRUCTURE);
                 } else{

@@ -100,27 +100,25 @@ public abstract class PlayerAsset {
                 boolean endMovement = false;
                 for (Command c : commandQueue) {
                     turnCount += c.getTurns();
-                    if (turnCount >= .99) {
+                    if (turnCount >= 1) {
                         endMovement = true;
                         break;
                     }
-                        numCommands++;
-
-                    }
-
-                    for (int i = 0; i < numCommands; i++) {
-                        commandQueue.peek().execute();
-                        commandQueue.remove();
-                        moveCounter++;
-                    }
-
-                    if (moveCounter == 3 || endMovement)
-                        hasExecutedCommand = true;
-
+                    numCommands++;
                 }
 
-            moveCounter = 0;
+                for (int i = 0; i < numCommands; i++) {
+                    commandQueue.remove().execute();
+                    moveCounter++;
+                }
 
+                if (moveCounter == 3 || endMovement)
+                    hasExecutedCommand = true;
+
+            }
+            if(hasExecutedCommand){
+                moveCounter = 0;
+            }
             }
 
         }
