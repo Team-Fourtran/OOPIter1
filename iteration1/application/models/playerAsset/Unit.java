@@ -7,11 +7,11 @@ public abstract class Unit extends PlayerAsset{
 	
     protected int movesPerTurn;
 
-    public void heal(int healAmount){
-    	if (currentHealth + healAmount > maxHealth)
+    public void heal(){
+    	if (currentHealth + 50 > maxHealth)
     		currentHealth = maxHealth;
     	else
-    		currentHealth += healAmount;
+    		currentHealth += 50;
 	}
 
 	public String getType(){
