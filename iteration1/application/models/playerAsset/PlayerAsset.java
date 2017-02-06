@@ -89,8 +89,7 @@ public abstract class PlayerAsset {
             if (turns != 0) {
                 commandCount++;
                 if (equal(commandQueue.peek().getTurns(), commandCount)) {
-                    commandQueue.peek().execute();
-                    commandQueue.remove();
+                    commandQueue.remove().execute();
                     commandCount = 0;
                     hasExecutedCommand = true;
                 }
