@@ -125,6 +125,12 @@ public class UnitManager {
         return null;
     }
 
+    public void executeCommands(){
+        for (Unit u: unitList)
+            if (!u.emptyQueue())
+                u.executeCommand();
+    }
+
     public void resetCommands(){
         for (Unit u: unitList)
             u.resetCommands();

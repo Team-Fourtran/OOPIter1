@@ -112,6 +112,13 @@ public class ArmyManager {
         }
     }
 
+    public void resetArmyUnitQueue(String armyID){
+        ArrayList<Unit> units = findArmy(armyID).getUnits();
+        for (Unit u: units)
+            u.clearQueue();
+
+    }
+
     public Iterator makeIterator(){
         return armyList.iterator();
     }
