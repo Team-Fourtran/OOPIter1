@@ -1,5 +1,6 @@
 package application.models.playerAsset;
 
+//Unit type
 //Responsibilities: Weak attacker, uncovers resources on map
 public class Explorer extends Unit{
     

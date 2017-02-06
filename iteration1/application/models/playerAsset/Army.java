@@ -4,6 +4,10 @@ import application.models.commands.Command;
 
 import java.util.*;
 
+/*Defines an Army, consisting of two groups of Units and a Rally Point
+  Battle group units have met at the Rally Point and are able to move together and fight
+  Reinforcements are units on the way to a Rally Point
+ */
 public class Army extends PlayerAsset {
     
     ArrayList<Unit> battleGroup = new ArrayList<Unit>();
@@ -11,18 +15,14 @@ public class Army extends PlayerAsset {
     String rallyPoint;
 
     public Army(ArrayList<Unit> units, String rallyPoint) {
-    	//System.out.println("us: " + units);
         this.rallyPoint = rallyPoint;
         for (Unit u: units){
             if (u.getLocation().equals(rallyPoint)) {
                 battleGroup.add(u);
-//                System.out.println("bg: " + battleGroup);
             }
             else {
                 reinforcements.add(u);
             }
-//            System.out.println("BG: " + battleGroup);
-//            System.out.println("RI: " + reinforcements);
         }
     }
 
@@ -37,7 +37,7 @@ public class Army extends PlayerAsset {
             }
     }
 
-    //return all units in the army
+    //return all units in the army from both lists
     public ArrayList<Unit> getUnits(){
         ArrayList<Unit> newList = new ArrayList<>();
         newList.addAll(battleGroup);
@@ -77,6 +77,7 @@ public class Army extends PlayerAsset {
         reinforcements.remove(removeMe);
     }
 
+    //given a UnitID, return the unit if exists in this army
     public Unit getUnit(String unitID){
         ArrayList<Unit> units = getUnits();
         for (Unit u: units)

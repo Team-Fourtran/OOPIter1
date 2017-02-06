@@ -4,6 +4,9 @@ import application.models.commands.Command;
 
 import java.util.*;
 
+/* Management class for a Player's armies. Keeps references to
+   all armies and passes commands to specific ones.
+ */
 public class ArmyManager {
 
     ArrayList<Army> armyList;
@@ -26,6 +29,8 @@ public class ArmyManager {
         return newArmy;
 
     }
+
+    //Given an armyID, return the army if it exists
     public Army findArmy(String armyID){
         for (Army a: armyList){
             if (a.getID().equals(armyID))
@@ -57,7 +62,8 @@ public class ArmyManager {
         }
         return totalUpkeep;
     }
-    
+
+    //free an army's ID when they are done using it for recycling
     public void freeID(String assetID) {
     	int escapee = Integer.parseInt(assetID.substring(assetID.lastIndexOf("u") + 1).trim());
     	for (int i = 0; i < armyIDs.size(); i++) {
@@ -70,12 +76,14 @@ public class ArmyManager {
     	}
     }
 
+    //set a specific army's rally point
     public void setRallyPoint(String armyID, String rallyPoint){
         for (Army a: armyList)
             if (a.getID().equals(armyID))
                 a.setRallyPoint(rallyPoint);
     }
 
+    //get the position of an army by armyID
     public String getPosition(String assetID){
         for (Army a: armyList)
             if (a.getID().equals(assetID))
@@ -90,12 +98,14 @@ public class ArmyManager {
                 a.addCommand(c);
     }
 
+    //assign an individual unit in an army a command to move
     public void addMoveCommand(Command c, String unitID){
         for (Army a: armyList)
             if (a.getUnit(unitID) != null)
                 a.getUnit(unitID).addCommand(c);
     }
 
+    //Go through all of the armies and, if possible, execute a command
     public void executeCommands(){
         for (Army a: armyList) {
         	a.updateArmyTypes();
@@ -106,12 +116,14 @@ public class ArmyManager {
         }
     }
 
+    //reset all of the armies' abilities to execute commands
     public void resetCommands(){
         for (Army a: armyList) {
             a.resetCommands();
         }
     }
 
+    //reset an army's units' movement queues
     public void resetArmyUnitQueue(String armyID){
         ArrayList<Unit> units = findArmy(armyID).getUnits();
         for (Unit u: units)
@@ -119,6 +131,7 @@ public class ArmyManager {
 
     }
 
+    //return an iterator over a Player's armies
     public Iterator makeIterator(){
         return armyList.iterator();
     }
