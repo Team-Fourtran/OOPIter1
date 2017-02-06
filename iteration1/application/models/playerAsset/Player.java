@@ -23,6 +23,7 @@ public class Player {
     }
 
     public void notify(Command command){
+        System.out.println("Received command");
         command.execute();
     }
     public void notify(String assetID, Command command){
@@ -69,6 +70,10 @@ public class Player {
     public void decommissionArmy(String armyID){
         ArrayList<Unit> releasedUnits = armies.decommission(armyID);
         units.addUnits(releasedUnits);
+    }
+
+    public void setRallyPoint(String armyID, String rallyPoint){
+        armies.setRallyPoint(armyID, rallyPoint);
     }
 
     //check to see if the structure creation is valid
