@@ -26,8 +26,6 @@ public class CommandGenerator {
         switch (commandArray[0]){
         	case "IU":	cmd = new InitialUnitsCommand(player, map);
         				break;
-        	case "HU":	cmd = new HealUnitCommand(player, map);
-        				break;
             case "MV":  cmd = new MoveAssetCommand(player, map);
             			break;
             case "MD": 	cmd = new MoveDirectionCommand(player, map);
