@@ -44,6 +44,10 @@ public class Game {
 //		mainScreen.prepareMainScreen();
 //		mainScreen.showMainScreen();
 	}
+
+	public Player getCurrentPlayer(){
+		return currentPlayer;
+	}
 	
 	public void switchPlayers(){
 		currentPlayer = (currentPlayer == players[0]) ? players[1] : players[0];
