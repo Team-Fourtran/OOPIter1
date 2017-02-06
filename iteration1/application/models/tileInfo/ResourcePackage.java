@@ -7,7 +7,9 @@ package application.models.tileInfo;
 public class ResourcePackage {
 	private int foodCount, buildingMaterialsCount, researchMaterialsCount;
 	
-	// Initialize the count of each resource type
+	/*
+	 *  Initialize the count of each resource type
+	 */
 	
 	public ResourcePackage() {
 		this.foodCount = 0;
@@ -34,7 +36,9 @@ public class ResourcePackage {
 		this.researchMaterialsCount = researchMaterialsCount;
 	}
 	
-	// Get the count of food, building materials, or research materials
+	/*
+	 *  Get the count of food, building materials, or research materials
+	 */
 	public int getFoodCount() {
 		return foodCount;
 	}
@@ -47,7 +51,9 @@ public class ResourcePackage {
 		return researchMaterialsCount;
 	}
 	
-	// Allow the harvest of all of the units of one resource type at a time
+	/*
+	 *  Allow the harvest of all of the units of one resource type at a time
+	 */
 	public int harvestFood() {
 		int harvest = foodCount;
 		foodCount = 0;

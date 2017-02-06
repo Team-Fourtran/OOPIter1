@@ -22,19 +22,30 @@ public class Player {
 
     }
 
+    //recieve command from command generator
     public void notify(Command command){
         System.out.println("Received command");
         command.execute();
     }
+
+    //recieve command from command generator and add it to asset queue
     public void notify(String assetID, Command command){
-    	command.execute();
+        if (assetID.charAt(0) == 's')
+            structures.addCommand(command, assetID);
+        else if (assetID.charAt(0) == 'a')
+            armies.addCommand(command, assetID);
+        else if (assetID.charAt(0) == 'u')
+            armies.addMoveCommand(command, assetID);
+        else
+            System.out.println("Invalid assetID");
     }
 
+    //set Game variable to current Game
     public void setGame(Game game){
     	this.game = game;
     }
 
-    //method to do maintenence tasks on player's assets
+    //method to do maintenance tasks on player's assets
     public void beginTurn(){
         int totalFoodCost = units.calculateTotalUpkeep() + armies.calculateTotalUpkeep();
         int totalWoodCost = structures.calculateTotalUpkeep();
@@ -44,11 +55,13 @@ public class Player {
         structures.executeCommands();
         units.executeCommands();
     }
+
+    //do end of turn housekeeping like resetting commands
     public void endTurn(){
         armies.resetCommands();
         structures.resetCommands();
         units.resetCommands();
-        game.switchPlayers();
+//        game.switchPlayers();
     }
     //pass list of units to army manager to form army
     public Army formArmy(ArrayList<String> unitIDs, String rallyPoint){
@@ -68,6 +81,7 @@ public class Player {
         units.addUnits(releasedUnits);
     }
 
+    //set the rally point of a specific army
     public void setRallyPoint(String armyID, String rallyPoint){
         armies.setRallyPoint(armyID, rallyPoint);
     }
@@ -81,6 +95,7 @@ public class Player {
     	}
     }
 
+    //command to return all of the unit ids in a specific army
     public ArrayList<String> getUnitIDs(String armyID){
         ArrayList<Unit> units = armies.findArmy(armyID).getUnits();
         ArrayList<String> unitIDs = new ArrayList<String>();
@@ -103,14 +118,12 @@ public class Player {
         return null;
     }
 
+    //destroy a specific structure
     public void decommissionStructure(String structureID){
         structures.decommission(structureID);
     }
 
-    public void healUnits(String structureID){
-        structures.healUnits(structureID);
-    }
-
+    //see if a unit creation is valid
     public boolean canCreateUnit(String structureID, String type){
         return (structures.structureExists(structureID) && units.checkIfValid(type));
     }
@@ -130,6 +143,7 @@ public class Player {
         return units.addNewUnit(tileID, type);
     }
 
+    //destroy a specific unit
     public void decommissionUnit(String unitID){
         units.decommissionUnit(unitID);
     }
@@ -158,6 +172,7 @@ public class Player {
             structures.freeID(assetID);
     }
 
+    //reset the movement queues of an army's units
     public void resetArmyUnitQueue(String armyID){
         armies.resetArmyUnitQueue(armyID);
     }
@@ -171,6 +186,7 @@ public class Player {
     }
 
     public ListIterator getStructureIterator(){
+
         return structures.makeIterator();
     }
     

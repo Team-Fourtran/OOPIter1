@@ -1,11 +1,11 @@
 package application.models.playerAsset;
 
-import application.models.commands.Command;
-import java.util.*;
-
+/* Class representing the PlayerAsset Structure
+   At this time, only represents a base
+ */
 public class Structure extends PlayerAsset{
 
-    int productionRate;
+    int productionRate;     //turns it takes to create a unit
 
     public Structure(){
 
@@ -18,21 +18,9 @@ public class Structure extends PlayerAsset{
         
     }
 
-    //heal unit on same tile as structure
-    public void healUnits(){
-    	
-//        u.heal(50);
-
-    }
-
-    public void addCommand(Command c){
-        commandQueue.add(c);
-        if (!hasExecutedCommand)
-            executeCommand();
-    }
-
     //execute next command in queue
     //if multi-turn command, wait appropriate amount of turns
+    //trimmed version of PlayerAsset implementation
     public void executeCommand(){
 
             if (!hasExecutedCommand) {
@@ -46,13 +34,4 @@ public class Structure extends PlayerAsset{
             }
 
     }
-
-    //helper function for execute
-    public boolean equal(double d, int i){
-        double n = d-i;
-        if (n < 0.000001)
-            return true;
-        return false;
-    }
-
 }

@@ -21,6 +21,7 @@ public class Decal implements Item {
 		return 0;
 	}
 	
+	// Returns String representing decal type, i.e., crossBones, redCross
 	public String getDecalType() {
 		return decalType;
 	}
