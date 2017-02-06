@@ -11,5 +11,5 @@ public abstract class Unit extends PlayerAsset{
     		currentHealth += healAmount;
 	}
 
-	public abstract String getUnitType();
+	public abstract String getType();
 }

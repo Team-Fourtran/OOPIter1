@@ -7,11 +7,8 @@ import application.controllers.KeyPressInformer;
 import application.models.tileState.Map;
 import application.models.utility.TileGen;
 import java.awt.*;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 import javax.swing.event.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.util.*;
 
 public class MainScreen implements ActionListener{
@@ -23,6 +20,8 @@ public class MainScreen implements ActionListener{
     private JButton unitOVButton;
     private JButton structureOVButton;
     private JTable statusTable;
+    private JPanel modeCyclePanel;
+    private JTextField modeCycle;// = new JTextField()
 
     private final int ROW = 15;
     private final int COL = 15;
@@ -109,6 +108,35 @@ public class MainScreen implements ActionListener{
 
         keyInformer = new KeyPressInformer(keyList);
 
+        areaViewPort.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                areaViewPort.setFocusable(true);
+                areaViewPort.requestFocusInWindow();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                areaViewPort.setFocusable(true);
+                areaViewPort.requestFocusInWindow();
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                areaViewPort.setFocusable(true);
+                areaViewPort.requestFocusInWindow();
+            }
+        });
         areaViewPort.addKeyListener(new KeyListener(){
             @Override
             public void keyTyped(KeyEvent e){}
@@ -174,12 +202,23 @@ public class MainScreen implements ActionListener{
         statusViewPort.add(buttonPanel, BorderLayout.NORTH);
         statusViewPort.add(statusTablePanel);
 
+        modeCycle = new JTextField("HELLO");
+        modeCyclePanel = new JPanel();
+        modeCyclePanel.add(modeCycle);
+        statusViewPort.add(modeCyclePanel, BorderLayout.SOUTH);
+
         //Finalizing Main Screen
         mainScreen.add(areaViewPort);
         mainScreen.add(statusViewPort, BorderLayout.EAST);
         mainScreen.setSize(500, 500);
         mainScreen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainScreen.pack();
+    }
+
+    public void updateModeCycle(String s){
+        //System.out.println("Updating to " + s);
+        modeCycle.setText(s);
+        modeCyclePanel.updateUI();
     }
 
     @Override

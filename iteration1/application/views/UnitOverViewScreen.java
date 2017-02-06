@@ -29,6 +29,7 @@ public class UnitOverViewScreen {
 	
 	private void generateUnitOverViewScreen(){
 		unitOVFrame = new JFrame("Unit Overview");
+
 		
 		Object[][] unitData = {{new Integer(2000), new Integer(25), new Integer(25),
 			   new Integer(10), new Integer(2), new Integer(50),

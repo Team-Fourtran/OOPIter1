@@ -4,6 +4,7 @@ import application.controllers.*;
 import application.models.commands.Command;
 import application.models.commands.CommandGenerator;
 import application.models.playerAsset.Army;
+import application.models.playerAsset.Unit;
 import application.models.tileState.AssetOccupance;
 import application.models.tileState.Map;
 import application.models.tileState.Occupance;
@@ -43,9 +44,9 @@ public class TestMessageGenerator {
         c.execute();
         
         // Adding two more melee create two armies
-        c = cGen.generateCommand("IU_T0_colonist").get(0);
+        c = cGen.generateCommand("IU_T0_melee").get(0);
         c.execute();
-        c = cGen.generateCommand("IU_T1_colonist").get(0);
+        c = cGen.generateCommand("IU_T1_ranged").get(0);
         c.execute();
         
         ArrayList<String> units1 = new ArrayList<String>();
@@ -85,9 +86,11 @@ public class TestMessageGenerator {
     	m.getTileState("T1").addOccupance(arm2);
     	
         // Adding two colonist units to T0, T1 => armies => structures
-        c = cGen.generateCommand("IU_T2_colonist").get(0);
+        c = cGen.generateCommand("IU_T2_melee").get(0);
         c.execute();
-        c = cGen.generateCommand("IU_T3_colonist").get(0);
+        c = cGen.generateCommand("IU_T3_ranged").get(0);
+        c.execute();
+        c = cGen.generateCommand("IU_T3_explorer").get(0);
         c.execute();
         
         ArrayList<String> units3 = new ArrayList<String>();
@@ -107,7 +110,7 @@ public class TestMessageGenerator {
         
     	Occupance arm3 = new AssetOccupance(a3);
     	m.getTileState("T2").addOccupance(arm3);
-        
+
         c = cGen.generateCommand("NS_a3").get(0);
         c.execute();
         
@@ -150,7 +153,25 @@ public class TestMessageGenerator {
         mainView.prepareMainScreen();
         mainView.showMainScreen();
 
-        gameController = new Controller(mainView.getKeyInformer(),iters);
+        gameController = new Controller(mainView,iters);
+
+        while(unitIterator.hasPrevious()){
+            unitIterator.previous();
+        }
+        System.out.println("Unit List:");
+        while(unitIterator.hasNext()){
+            Unit u = (Unit) unitIterator.next();
+            System.out.print("\t" + u.toString() + "\t" + u.getID() + "\n");
+        }
+
+        while(structureIterator.hasPrevious()){
+            structureIterator.previous();
+        }
+        System.out.println("Structure List:");
+        while(structureIterator.hasNext()){
+            Unit u = (Unit) structureIterator.next();
+            System.out.print("\t" + u.toString() + "\t" + u.getID() + "\n");
+        }
 
 
         //
