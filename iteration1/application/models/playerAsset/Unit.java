@@ -14,9 +14,5 @@ public abstract class Unit extends PlayerAsset{
     		currentHealth += 50;
 	}
 
-	public String getType(){
-    	return "this is a unit";
-	}
-
 	public abstract String getType();
 }

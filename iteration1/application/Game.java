@@ -1,13 +1,17 @@
 package application;
 
+import application.controllers.Controller;
 import application.models.commands.CommandGenerator;
 import application.models.playerAsset.*;
 import application.models.tileState.*;
 import application.models.utility.*;
 import application.views.*;
 
-public class Game {
+import java.util.HashMap;
+import java.util.ListIterator;
 
+public class Game {
+	private Controller controller;
 	private Player[] players;
 	private Map map;
 	private Player currentPlayer;
@@ -36,9 +40,15 @@ public class Game {
                 System.out.println(map.getTiles().get(("T"+ String.valueOf((j*15) + i))).getProperties());
             }
         }
-//		mainScreen = new MainScreen(map);
-//		mainScreen.prepareMainScreen();
-//		mainScreen.showMainScreen();
+		mainScreen = new MainScreen(map,currentPlayer.getUnitIterator());
+		mainScreen.prepareMainScreen();
+		mainScreen.showMainScreen();
+
+		HashMap<String, ListIterator> iterators = new HashMap<>();
+		iterators.put("unit",currentPlayer.getUnitIterator());
+		iterators.put("army",currentPlayer.getArmyIterator());
+		iterators.put("structure",currentPlayer.getUnitIterator());
+		controller = new Controller(mainScreen,iterators);
 	}
 	
 	public void switchPlayers(){
