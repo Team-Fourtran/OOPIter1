@@ -3,6 +3,7 @@ package application.models.utility;
 import application.models.tileInfo.*;
 import application.models.tileState.Directions;
 import application.models.tileState.TileState;
+import java.util.*;
 
 public class TileGen {
     private int length;
@@ -17,13 +18,17 @@ public class TileGen {
 
     public TileState[] execute(){
         TileState[] states = new TileState[total];
+        Random rand = new Random();
         for (int i = 0; i < total; i++){
         	Terrain t;
-            if (i == 5 || i == 6 || i == 9 || i == 10){
-        	    t = new Slowing();
+        	int randomNum = rand.nextInt(101);
+            if (randomNum < 10){
+        	    t = new Impassable();
             }
-            else{
-        	    t = new Normal();
+            else if(randomNum < 30){
+        	    t = new Slowing();
+            } else {
+            	t = new Normal();
             }
             states[i] = new TileState("T" + i, new TileInfo(t));
         }
