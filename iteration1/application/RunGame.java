@@ -12,11 +12,6 @@ import application.views.MainScreen;
 /* Named as per Dave's specifications */
 public class RunGame {
     public static void main(String[] args){
-        MainScreen mainView = new MainScreen();
-        //Controller gameController = new Controller(mainView.getKeyPressListener());
 
-        ArrayList<Player> players = new ArrayList<Player>();
-        Player currentPlayer;
-        //Map gameMap = new Map();
     }
 }
