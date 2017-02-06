@@ -22,7 +22,7 @@ public class HealUnitTest {
         
         cGen.generateCommand("NA_T1_u1");
         System.out.println(m.getTileState("T1").getProperties());
-        
+
         // Get the army, once updated
         // With the armyID, create a structure from that
         // Then create another unit on the same tile T1
