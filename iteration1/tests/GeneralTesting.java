@@ -14,7 +14,7 @@ import application.models.tileState.Map;
 import application.models.tileState.Occupance;
 import application.models.utility.TileGen;
 
-public class NewStructureTest {
+public class GeneralTesting {
 
 	public static void main(String[] args) {
 
