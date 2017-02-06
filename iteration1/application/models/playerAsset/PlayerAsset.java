@@ -17,6 +17,7 @@ public abstract class PlayerAsset {
     protected boolean hasExecutedCommand = false;
     protected Queue<Command> commandQueue = new LinkedList<Command>();
     protected int commandCount = 0;
+    protected int moveCounter = 0;
 
     public void setID(String id){
         assetID = id;
@@ -72,39 +73,46 @@ public abstract class PlayerAsset {
         }
     }
 
-    public void executeCommand(){
+    public void executeCommand() {
         if (!hasExecutedCommand) {
 
-            int turns = (int)commandQueue.peek().getTurns();
+            int turns = (int) commandQueue.peek().getTurns();
 
             if (turns != 0) {
                 commandCount++;
                 if (equal(commandQueue.peek().getTurns(), commandCount)) {
-                    commandQueue.peek().execute();
-                    commandQueue.remove();
+                    commandQueue.remove().execute();
                     commandCount = 0;
                     hasExecutedCommand = true;
                 }
             } else {
                 int numCommands = 0;
                 double turnCount = 0;
+                boolean endMovement = false;
                 for (Command c : commandQueue) {
                     turnCount += c.getTurns();
-                    numCommands++;
-                    if (turnCount >= .99)
+                    if (turnCount >= 1) {
+                        endMovement = true;
                         break;
+                    }
+                        numCommands++;
+                    }
+
+                    for (int i = 0; i < numCommands; i++) {
+                        commandQueue.remove().execute();
+                        moveCounter++;
+                    }
+
+                    if (moveCounter == 3 || endMovement)
+                        hasExecutedCommand = true;
+
                 }
-
-                for (int i = 0; i < numCommands; i++) {
-                    commandQueue.peek().execute();
-                    commandQueue.remove();
-                }
-
-                hasExecutedCommand = true;
-
+            if(hasExecutedCommand){
+                moveCounter = 0;
             }
         }
-    }
+
+        }
 
     public boolean equal(double d, int i){
         double n = d-i;
@@ -117,6 +125,10 @@ public abstract class PlayerAsset {
         if (commandQueue.size() == 0)
             return true;
         return false;
+    }
+
+    public void clearQueue(){
+        commandQueue.clear();
     }
 
     public void heal(){}

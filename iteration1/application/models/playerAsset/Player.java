@@ -27,7 +27,14 @@ public class Player {
         command.execute();
     }
     public void notify(String assetID, Command command){
-    	command.execute();
+        if (assetID.charAt(0) == 's')
+            structures.addCommand(command, assetID);
+        else if (assetID.charAt(0) == 'a')
+            armies.addCommand(command, assetID);
+        else if (assetID.charAt(0) == 'u')
+            armies.addMoveCommand(command, assetID);
+        else
+            System.out.println("Invalid assetID");
     }
 
     public void setGame(Game game){
@@ -42,12 +49,13 @@ public class Player {
         wood -= totalWoodCost;
         armies.executeCommands();
         structures.executeCommands();
+        units.executeCommands();
     }
     public void endTurn(){
         armies.resetCommands();
         structures.resetCommands();
         units.resetCommands();
-        game.switchPlayers();
+//        game.switchPlayers();
     }
     //pass list of units to army manager to form army
     public Army formArmy(ArrayList<String> unitIDs, String rallyPoint){
@@ -94,6 +102,8 @@ public class Player {
         if (canCreateStructure(armyID) != null) {
             String location = armies.findArmy(armyID).getLocation(); //Can be removed, added to params if controller can send it!
             armies.findArmy(armyID).removeColonist();
+            if (getUnitIDs(armyID).isEmpty())
+                armies.decommission(armyID);
             Structure s = structures.createStructure(location);
             return s;
         }
@@ -102,10 +112,6 @@ public class Player {
 
     public void decommissionStructure(String structureID){
         structures.decommission(structureID);
-    }
-
-    public void healUnits(String structureID){
-        structures.healUnits(structureID);
     }
 
     public boolean canCreateUnit(String structureID, String type){
@@ -153,6 +159,10 @@ public class Player {
              armies.freeID(assetID);
         else if (assetID.charAt(0) == 's')
             structures.freeID(assetID);
+    }
+
+    public void resetArmyUnitQueue(String armyID){
+        armies.resetArmyUnitQueue(armyID);
     }
 
     public Iterator getUnitIterator(){

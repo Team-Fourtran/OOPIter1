@@ -6,10 +6,13 @@ import javax.swing.SwingUtilities;
 import java.util.*;
 
 public class MainScreenAction implements ActionListener{
-	public ListIterator unitIterator;
+	public Object[][] unitData;
+	public Object[][] structData;
+	
 	public MainScreenAction(){}
-	public MainScreenAction(ListIterator unitIterator){
-		this.unitIterator = unitIterator;
+	public MainScreenAction(Object[][] unitData, Object[][] structData){
+		this.unitData = unitData;
+		this.structData = structData;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e){
@@ -24,8 +27,8 @@ public class MainScreenAction implements ActionListener{
 			}
 		});*/
 		//JButton armyDisbandButton = new JButton("Disband Selected Army");
-		UnitOverViewScreen unitOVScreen = new UnitOverViewScreen(unitIterator);
-		StructureOverViewScreen structureOVScreen = new StructureOverViewScreen();
+		UnitOverViewScreen unitOVScreen = new UnitOverViewScreen(unitData);
+		StructureOverViewScreen structureOVScreen = new StructureOverViewScreen(unitData);
 		if("openUnitOV".equals(e.getActionCommand())){
 			SwingUtilities.invokeLater(new Runnable(){
 				public void run(){

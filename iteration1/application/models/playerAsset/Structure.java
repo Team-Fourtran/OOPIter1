@@ -1,8 +1,5 @@
 package application.models.playerAsset;
 
-import application.models.commands.Command;
-import java.util.*;
-
 public class Structure extends PlayerAsset{
 
     int productionRate;
@@ -16,19 +13,6 @@ public class Structure extends PlayerAsset{
         maxHealth = currentHealth = 200;
         upkeep = 1;
         
-    }
-
-    //heal unit on same tile as structure
-    public void healUnits(){
-    	
-//        u.heal(50);
-
-    }
-
-    public void addCommand(Command c){
-        commandQueue.add(c);
-        if (!hasExecutedCommand)
-            executeCommand();
     }
 
     //execute next command in queue
@@ -46,13 +30,4 @@ public class Structure extends PlayerAsset{
             }
 
     }
-
-    //helper function for execute
-    public boolean equal(double d, int i){
-        double n = d-i;
-        if (n < 0.000001)
-            return true;
-        return false;
-    }
-
 }
