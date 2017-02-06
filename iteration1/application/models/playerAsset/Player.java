@@ -46,6 +46,7 @@ public class Player {
     public void endTurn(){
         armies.resetCommands();
         structures.resetCommands();
+        units.resetCommands();
         game.switchPlayers();
     }
     //pass list of units to army manager to form army
